@@ -1,0 +1,13 @@
+services:
+  app:
+#    image: docker/welcome-to-docker
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: my/image:latest
+    pull_policy: never
+    ports:
+      - 8080:80
+    # Installed apk packages (also added to Dockerfile):
+    # apk add --no-cache bash curl texlive texmf-dist-latexrecommended
+
