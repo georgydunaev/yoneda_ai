@@ -1,0 +1,9 @@
+Ticket 041 (AGY-000 [P0]): Baseline Compile and Issue Ledger
+Type: Build / Quality Assurance
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_041.tex
+
+Issues Identified & Resolved:
+1. Executed baseline build `latexmk -pdf -interaction=nonstopmode -halt-on-error yoneda_agy.tex` after saving pre-audit backup `backups/yoneda_agy_041.tex`.
+2. Audited `yoneda_agy.log`, `gdmath.sty`, and `yoneda_agy.tex` for hidden typographical issues (global `\sloppy`, missing macro definitions in `gdmath.sty`, hardcoded section numbers) and mathematical/foundational issues across Sections 1 and 2.
+3. Created `/w/issues.md` with priority/severity labels (`[P0]`, `[P1]`, `[P2]`) tracking AGY-000 through AGY-025.

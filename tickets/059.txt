@@ -1,0 +1,7 @@
+TICKET 059 (AGY-018 [P1] — Expand the adjunction proofs)
+STATUS: RESOLVED
+BACKUP: /w/backups/yoneda_agy_059.tex
+
+CHANGES:
+1. In Theorem `thm:adj_yoneda(2)`, wrote out the explicit algebraic verifications of `\widetilde{L}(1_X) = 1_{L(X)}`, `\widetilde{L}(f \circ_C f') = \widetilde{L}(f) \circ_D \widetilde{L}(f')`, naturality of `\eta`, and naturality of `\theta_{X,Y}` in both `X \in C^\op` and `Y \in D`.
+2. In Theorem `thm:triangle_id(1)`, wrote out the explicit verification that a pair `(\eta, \varepsilon)` satisfying the triangle identities induces mutually inverse natural bijections `\theta_{X,Y}(h) = \widetilde{R}(h) \circ_C \eta_X` and `\phi_{X,Y}(k) = \varepsilon_Y \circ_D \widetilde{L}(k)`.

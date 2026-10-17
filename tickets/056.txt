@@ -1,0 +1,8 @@
+TICKET 056 (AGY-015 [P1] — Check the category of elements and Grothendieck's criterion)
+STATUS: RESOLVED
+BACKUP: /w/backups/yoneda_agy_056.tex
+
+CHANGES:
+1. Replaced hardcoded "Section 1.4" with `Subsection \ref{sec:sigma_pi}` at the beginning of Subsection 2.3 (`\label{sec:cat_elements}`).
+2. Expanded Lemma `lem:cat_of_elements` to prove both local smallness of `\int_C G` when `C` is locally small (by Separation) and smallness of `\int_C G` when `C` is small (by Lemma `lem:sigma_pi(1)`), together with explicit verification of unit/associativity laws and faithfulness of `\pi_G`.
+3. Wrote out both directions (`\Longrightarrow` and `\Longleftarrow`) of Grothendieck's criterion (`thm:grothendieck_rep(2)`), and expanded the proof of functoriality and isomorphism equivalence for `\int_C \alpha` in `thm:slice_el(2)`.

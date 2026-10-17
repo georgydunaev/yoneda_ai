@@ -1,0 +1,9 @@
+Ticket 004: Define Transitive Sets/Successor and Fix False Counterexample in Theorem 1.2 (Section 1.6)
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_004.tex
+
+Issues Identified:
+1. Section 1.6 uses `$\Tr(A)$` and `$\mysucc(A)$` without first stating their definitions (`$\Tr(A) \propdef \forall x\in A.\ x\subseteq A$` and `$\mysucc(A) \eqdef A \cup \{A\}$`).
+2. Theorem 1.2 claims `$A \coloneqq \{1\}$` satisfies `$\Tr(A) \land \neg \forall a\in A.\ \Tr(a)$`. However, for $1 = \{0\} = \{\emptyset\}$, $A = \{1\}$ is NOT transitive (since $0 \in 1 \in A$ but $0 \notin A$), while its sole element $1$ IS transitive.
+3. Resolution: Replace with the valid counterexample $A = \{0, 1, \{1\}\} = \{\emptyset, \{\emptyset\}, \{\{\emptyset\}\}\}$, which is transitive because all its elements are subsets of $A$, whereas its element $\{1\} \in A$ is not transitive.

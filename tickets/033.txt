@@ -1,0 +1,8 @@
+Ticket 033: Right Adjoints Preserve Limits (RAPL) and Left Adjoints Preserve Colimits (LAPC) via Yoneda
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_033.tex
+
+Issues Identified & Resolved:
+1. Proved via a chain of Yoneda natural bijections that if $L \dashv R$, then $R$ preserves all limits that exist in $D$ (RAPL) and $L$ preserves all colimits that exist in $C$ (LAPC).
+2. Proved that the limit and colimit functors (when they exist for all diagrams $J \to C$) are right and left adjoints to the diagonal functor $\Delta : C \to [J, C]$ ($\mathrm{colim}_J \dashv \Delta \dashv \lim_J$).

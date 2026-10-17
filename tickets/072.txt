@@ -1,0 +1,8 @@
+TICKET 072 (AUD-005 [Phase 1 / MINOR] — Clarify Functional Class Indexing in \Sigma R / \Pi R and Strict Well-Ordering in \Ord(A))
+STATUS: RESOLVED
+BACKUP: /w/backups/yoneda_agy_072.tex
+PDF: /w/pdfs/yoneda_agy_072.pdf
+
+CHANGES:
+1. Clarified in Subsection `sec:sigma_pi` that a set-valued family `R` indexed by a class or set `W = \dom(R)` is represented in `NBG` as a functional class (`\Rel(R) \land \Fun(R)`) with `R(x) \in \Set`, and noted when `\lambda x \in W.\ t(x)` is a set (`W \in \Set`) vs. a functional class (`W` a proper class).
+2. Expanded the proof of Theorem `thm:ord_htr_equiv`(2) (`\HTr(A) \implies \Ord(A)`) to explicitly verify irreflexivity (`x \notin x`) and transitivity (`x \in y \land y \in z \implies x \in z` via `\Tr(z)`) alongside `\in`-trichotomy and well-foundedness so that strict well-ordering of `(A, \in)` is proved in full.

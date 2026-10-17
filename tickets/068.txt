@@ -1,0 +1,7 @@
+TICKET 068 (AUD-001 [Phase 1 / FOUNDATIONAL] — Clarify NBG Metacategories vs. Grothendieck Universes for Large Functor Categories)
+STATUS: RESOLVED
+BACKUP: /w/backups/yoneda_agy_068.tex
+PDF: /w/pdfs/yoneda_agy_068.pdf
+
+CHANGES:
+1. Updated Subsection 1.1 (`sec:foundations`, items 1–2) and Definition `def:fun_class` (`[C, D]`) to make explicit that in `NBG`, `x \in K \implies x \in \Set`, so individual objects `X \in \Ob_C` and morphisms `f \in \Hom_C(X,Y)` are sets, whereas when `\Ob_C` is a proper class, functors `F : C \to D` and natural transformations `\eta : F \Rightarrow G` have proper-class domains and hence `[C, D]` is a metacategory in pure `NBG` (where `F \in [C, D]` and `\eta \in \Nat(F, G)` abbreviate first-order class predicates, and `\Nat(h_A, G)` is canonically encoded by the set `G(A) \in \Set`), or a genuine locally `\mathcal{U}^+`-small category in `ZFC` with Grothendieck universes `\mathcal{U} \in \mathcal{U}^+`.

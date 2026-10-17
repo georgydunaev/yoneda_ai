@@ -1,0 +1,8 @@
+Ticket 054 (AGY-013 [P0]): Fix Theorem retract_yoneda (Prove Both Directions and Idempotent Splitting)
+Type: Category Theory / Retracts & Idempotents
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_054.tex
+
+Issues Identified & Resolved:
+1. Clarified the statement of Theorem \ref{thm:retract_yoneda}(2) so that the data `(e, u, \sigma)` in the "if and only if" characterization are explicitly quantified with `\sigma \in \Nat(G, h_A)`.
+2. Proved both the forward direction `(\Longrightarrow)` and the converse direction `(\Longleftarrow)` (constructing `\rho = \Phi_{A,G}(u) \in \Nat(h_A, G)` and verifying `\rho \circ \sigma = 1_G`), as well as the canonical splitting of any idempotent `e = e \circ_C e \in \Hom_C(A, A)` in `[C^\op, \Set]` via the subpresheaf `h_A^e(X) = \{f \in \Hom_C(X, A) : e \circ_C f = f\}`.

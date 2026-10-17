@@ -1,0 +1,8 @@
+Ticket 019: Reflection of Isomorphisms by Fully Faithful Functors and Canonical Object Isomorphism via Yoneda
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_019.tex
+
+Issues Identified & Resolved:
+1. Proved that any fully faithful functor $(F, \FMor) : C \to D$ reflects isomorphisms ($\FMor^{A,B}(f) \in \mathrm{Iso}_D(F(A), F(B)) \iff f \in \mathrm{Iso}_C(A,B)$) and induces bijections $\mathrm{Iso}_C(A,B) \xrightarrow{\sim} \mathrm{Iso}_D(F(A), F(B))$.
+2. Deduced as a corollary of the Yoneda Embedding Theorem that $A \cong B$ in $C$ iff $h_A \cong h_B$ in $[C^\op, \Set]$ iff $h^A \cong h^B$ in $[C, \Set]$.

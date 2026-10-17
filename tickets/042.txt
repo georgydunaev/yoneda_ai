@@ -1,0 +1,8 @@
+Ticket 042 (AGY-001 [P0]): Declare a Foundational Framework and Size Conventions
+Type: Foundations / Set Theory & Category Theory
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_042.tex
+
+Issues Identified & Resolved:
+1. Added Subsection 1.1 (`\label{sec:foundations}`, "Foundations and Size Conventions") declaring von Neumann-Bernays-Godel (NBG) class-set theory as the foundational framework alongside the equivalent ZFC + Grothendieck universe translation (\mathcal{U} \in \mathcal{U}^+).
+2. Explicitly defined sets (x \in \Set \iff \exists K.\ x \in K), proper classes (K \notin \Set), the universal class \Set, small categories, locally small categories, large/metacategories, and size conventions for [C, D], \Nat(F, G), \Nat(h_A, G), \int_C G, and small limits/colimits.

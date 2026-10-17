@@ -1,0 +1,8 @@
+Ticket 035: Monomorphisms and Epimorphisms in Categories, Yoneda Hom-Set Criterion, and Characterization in \Set
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_035.tex
+
+Issues Identified & Resolved:
+1. Defined monomorphisms and epimorphisms in an arbitrary category $C$ and proved the Yoneda Hom-set characterizations: $f : A \to B$ is monic in $C$ iff $(f \circ_C -) : \Hom_C(X,A) \to \Hom_C(X,B)$ is injective for all $X \in \Ob_C$ iff $\eta^f : h_A \to h_B$ is monic in $[C^\op, \Set]$; $f$ is epic iff $(- \circ_C f) : \Hom_C(B,Z) \to \Hom_C(A,Z)$ is injective for all $Z \in \Ob_C$.
+2. Proved that in $\Set$, monomorphisms are precisely injective functions (tested on $1 = \{\emptyset\}$) and epimorphisms are precisely surjective functions (tested on the subobject classifier $2 = \{0, 1\}$ from Theorem \ref{thm:set_reps}).

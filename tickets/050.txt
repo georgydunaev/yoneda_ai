@@ -1,0 +1,8 @@
+Ticket 050 (AGY-009 [P0]): Add Size Hypotheses to Yoneda, Functor Categories, and Natural Transformations
+Type: Category Theory / Foundations
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_050.tex
+
+Issues Identified & Resolved:
+1. Audited and updated Definition \ref{def:nat}, Lemma \ref{lem:fun_cat}, and all results involving [C, D], [C^\op, \Set], \Nat(F, G), and \int_C G to state explicit size hypotheses (locally small C vs. small C).
+2. Proved in Lemma \ref{lem:fun_cat}(a)-(b) that [C, D] is locally small when C is small and D is locally small (and small when both C, D are small), and explained why \Nat(h_A, G) is indexed bijectively by the set G(A) \in \Set for any locally small C.

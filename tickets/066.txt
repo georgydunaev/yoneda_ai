@@ -1,0 +1,8 @@
+TICKET 066 (AGY-025 [P0] — Complete interrupted typography fix and establish untrusted audit baseline)
+STATUS: RESOLVED
+BACKUP: /w/backups/yoneda_agy_066.tex
+PDF: /w/pdfs/yoneda_agy_066.pdf
+
+CHANGES:
+1. Completed the interrupted Ticket 066 from the previous session (table column spacing in Table 1 `tab:axiompltab`, wording in Lemma `lem:pair_prop`(1), and `\check{\widehat{\tau}}` accent in Theorem `thm:cartesian_closed`(2) to eliminate overfull/underfull boxes).
+2. Preserved an immutable pre-audit snapshot in `/w/yoneda_agy_untrusted_baseline.tex` (alongside the original `/w/yoneda.tex`) before beginning the Phase 0–Phase 5 mathematical and foundational audit (Tickets 067–080).

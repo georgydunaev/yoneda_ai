@@ -1,0 +1,8 @@
+Ticket 027: Cones, Cocones, Limits, and Colimits as Universal Elements of Hom-Functors
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_027.tex
+
+Issues Identified & Resolved:
+1. Added Section 2.4 ("Limits, Colimits, and Continuity via the Yoneda Principle") defining the diagonal functor $\Delta : C \to [J, C]$, cones $\mathrm{Cone}(X, D) = \Nat(\Delta_X, D)$, and cocones $\mathrm{Cocone}(D, X) = \Nat(D, \Delta_X)$ for a diagram $D : J \to C$.
+2. Formulated limits and colimits as universal elements of the cone presheaf $\mathrm{Cone}(-, D) \in [C^\op, \Set]$ and cocone functor $\mathrm{Cocone}(D, -) \in [C, \Set]$, proving uniqueness of limits and colimits up to unique canonical isomorphism directly from Theorem \ref{thm:rep_unique}.

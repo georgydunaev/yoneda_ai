@@ -1,0 +1,8 @@
+Ticket 031: Adjoint Functors via Hom-Bifunctors and Yoneda Characterization via Universal Arrows
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_031.tex
+
+Issues Identified & Resolved:
+1. Added Section 2.5 ("Adjoint Functors via the Yoneda Principle") defining an adjunction $L \dashv R$ between $L : C \to D$ and $R : D \to C$ via a natural bijection $\theta_{X,Y} : \Hom_D(L(X), Y) \xrightarrow{\sim} \Hom_C(X, R(Y))$.
+2. Proved the Yoneda Characterization of Adjunctions: a functor $R : D \to C$ admits a left adjoint $L : C \to D$ iff for every $X \in \Ob_C$, the covariant functor $\Hom_C(X, R(-)) : D \to \Set$ is representable by $(L(X), \eta_X)$.

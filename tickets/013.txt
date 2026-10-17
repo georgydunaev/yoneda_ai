@@ -1,0 +1,8 @@
+Ticket 013: Kuratowski Ordered Pairs, Domain/Range, and Composition of Functional Relations
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_013.tex
+
+Issues Identified & Resolved:
+1. Defined Kuratowski ordered pairs $\langle x, y \rangle \eqdef \{\{x\}, \{x, y\}\}$ and proved the characteristic ordered-pair theorem $\langle x_1, y_1 \rangle = \langle x_2, y_2 \rangle \LRA x_1 = x_2 \land y_1 = y_2$.
+2. Explicitly defined $\dom(g)$, $\textrm{ran}(g)$, and relational composition $f \circ g$, and proved that functional relations are closed under composition with $(f \circ g)(x) = f(g(x))$.

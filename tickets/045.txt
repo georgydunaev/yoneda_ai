@@ -1,0 +1,8 @@
+Ticket 045 (AGY-004 [P1]): Repair the Deduction Metatheorem Proof
+Type: Logic / Proof Theory
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_045.tex
+
+Issues Identified & Resolved:
+1. Added Lemma \ref{lem:import_export} proving Hypothetical Syllogism, the Import Law (\Gamma \vdash A -> (C -> E) => \Gamma \vdash (A \land C) -> E), the Export Law (\Gamma \vdash (A \land C) -> E => \Gamma \vdash A -> (C -> E)), and Commutation of Antecedents directly from the Hilbert axioms.
+2. Defined formal dependency of a step D_k on the assumption A and wrote out the complete induction on derivation length in Theorem \ref{thm:deduction}, handling both the \forall I and \exists E inductive steps and their free-variable side conditions explicitly.

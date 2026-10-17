@@ -1,0 +1,8 @@
+Ticket 055 (AGY-014 [P1]): Complete the Mono/Epi Yoneda Characterization
+Type: Category Theory / Monomorphisms & Epimorphisms
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_055.tex
+
+Issues Identified & Resolved:
+1. Expanded Theorem \ref{thm:mono_epi_yoneda}(2) to prove explicitly that any natural transformation `\alpha \in \Nat(F, G)` in `[C^\op, \Set]` (and in particular `\eta^f : h_A \to h_B`) is a monomorphism in `[C^\op, \Set]` if and only if every component `\alpha_X : F(X) \to G(X)` is injective in `\Set`.
+2. Used naturality of the Yoneda bijection (`\alpha \circ \Phi_{X,F}(u_i) = \Phi_{X,G}(\alpha_X(u_i))`, Theorem \ref{thm:yoneda_nat}(1)) and evaluation at `\id_X` to deduce `u_1 = u_2` from `\alpha_X(u_1) = \alpha_X(u_2)` when `\alpha` is monic.

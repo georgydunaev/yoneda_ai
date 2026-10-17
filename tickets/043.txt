@@ -1,0 +1,8 @@
+Ticket 043 (AGY-002 [P0]): Add the Set-Theoretic Axioms Actually Used
+Type: Foundations / Set Theory
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_043.tex
+
+Issues Identified & Resolved:
+1. Added Subsection 1.3 (`\label{sec:axioms}`, "Axioms of Set and Class Theory") stating the 10 NBG/ZFC axioms used: Predicative Class Comprehension, Extensionality, Empty Set, Pairing (defining unordered pairs {x,y} and singletons {x}), Union (defining \bigcup X and A \cup B), Power Set (\Pow(X)), Separation, Replacement, Infinity, and Foundation/Regularity, plus an explicit remark explaining why the Axiom of Choice is not needed.
+2. Defined the Cartesian product X \times Y in Definition \ref{def:pair_rel}, proved X \times Y \subseteq \Pow(\Pow(X \cup Y)) and X \times Y \in \Set in Lemma \ref{lem:pair_prop}(2), and cited the exact axioms in every set-hood proof (\interclass K, \inter K, X \times Y, \Sigma R, and \Pi R).

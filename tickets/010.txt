@@ -1,0 +1,8 @@
+Ticket 010: Add Naturality of the Yoneda Bijection in $A$ and $G$, Covariant Version, and Commutative Diagrams
+Type: Mathematical & Presentation Enhancement
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_010.tex
+
+Issues Identified & Resolved:
+1. Proved that the Yoneda bijection $\Phi_{A,G} : G(A) \xrightarrow{\sim} \Nat(h_A, G)$ is natural in both $G \in [C^\op, \Set]$ and $A \in \Ob_C$, with explicit commutative diagrams via `amscd`.
+2. Defined the covariant Hom-functor $h^A = \Hom_C(A, -) \in [C, \Set]$ and proved the covariant Yoneda Lemma $\Nat(h^A, F) \cong F(A)$ along with the contravariant Yoneda embedding $h^- : C^\op \to [C, \Set]$.

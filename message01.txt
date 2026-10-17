@@ -1,0 +1,403 @@
+Continue working on /w/yoneda_agy.tex and /w/yoneda_agy.pdf in a token-economical way.
+
+Context from previous runs (message00.txt & message01.txt):
+1. Reference file: /w/yoneda.tex (kept untouched).
+2. Installed packages logged in /w/packages.log and added to /w/Dockerfile & /w/compose.yaml:
+   `apk add --no-cache texlive texmf-dist-latexrecommended`
+3. Tickets 000.txt through 040.txt in /w/tickets/ have been RESOLVED (in 3 batches of 10+ tickets during Run 01, logged in /w/progress_log.txt), with pre-fix backups saved in /w/backups/yoneda_agy_000.tex through /w/backups/yoneda_agy_040.tex.
+4. Current /w/yoneda_agy.pdf (25 pages) builds with zero warnings or errors and covers:
+   - Abstract & Table of Contents
+   - Section 1 (Logic & Set Theory):
+     * 1.1 Syntactic Metatheory (FFI, substitution), Hilbert derivation of A -> A, reflexivity/symmetry/transitivity of equality, Deduction Metatheorem, and quantifier distribution laws
+     * 1.2 Class and Set Intersections (\interclass K and \inter K)
+     * 1.3 Uniqueness (!x), Exists-Unique (\exists!x), Dual (?x) quantifiers, and Definite Description (\The x. P(x)) including default-to-\emptyset behavior
+     * 1.4 Kuratowski ordered pairs, domain/range, and composition of functional relations
+     * 1.5 Dependent sums (\Sigma R) and Dependent products (\Pi R), set-hood, and \beta/\eta-conversion
+     * 1.6 Functional inclusion and Functional Extensionality
+     * 1.7 Transitive sets (\Tr), Transitive ordinals (\TOrd), counterexamples, successor closure, and closure under unions and intersections
+   - Section 2 (Category Theory):
+     * 2.0 Formal Category axioms, Category of Sets (\Set), and Duality involution (C^\op)^\op = C
+     * 2.1 Contravariant & Covariant Hom-functors, Functor categories [C, D], Natural Isomorphisms, Yoneda Embedding, Contravariant & Covariant Yoneda Lemmas, Naturality in both A and G (with amscd commutative diagrams), and Object Isomorphism Characterization (A \cong B <=> h_A \cong h_B)
+     * 2.2 Representable Functors, Universal Elements, Uniqueness of Representing Objects up to unique isomorphism, Canonical Set-Theoretic Representations (Power set \Pow^* represented by 2 = \{0, 1\} and binary products), Retracts/Split Idempotents, and Monomorphisms/Epimorphisms via Yoneda
+     * 2.3 Category of Elements (\int_C G via \Sigma), Grothendieck's Terminality Criterion, and Slice Categories (\int_C h_A = C/A)
+     * 2.4 Cones, Cocones, Limits & Colimits via Universal Elements, Continuity of Hom-functors, Explicit Small Limits in \Set via \Pi, Preservation/Reflection of Limits by Yoneda, and the Density Theorem (G \cong colim_{\int_C G} h_A)
+     * 2.5 Adjoint Functors (L \dashv R) via Universal Arrows, Unit/Counit Triangle Identities, Uniqueness of Adjoints, and RAPL/LAPC
+     * 2.6 Cartesian Closure & Exponentials in \Set and [C^\op, \Set] (H^G(A) = \Nat(h_A \times G, H)) and Kan Extensions (Lan_K \dashv K^* \dashv Ran_K)
+     * 2.7 Foundational Synthesis connecting Section 1 and Section 2 (Table 3)
+
+Next steps for a future run (if requested):
+1. Review /w/progress_log.txt and /w/yoneda_agy.pdf.
+2. Always maintain open permissions (`chown -R 1000:1000 /w && chmod -R a+rwX /w`) so no sudo is required on the host.
+
+Comment from deepseek: "Overall verdict
+
+The text is ambitious, well-organized in places, and contains many correct statements, but it is not yet at the highest academic standard and should not be presented as a “self-contained, formally rigorous monograph.” It reads like a detailed proof sketch / blueprint that still needs major foundational, mathematical, and editorial revision. The main risks are:
+
+    Foundational/size issues: it mixes ZFC-style set theory with proper classes and treats functor categories and natural transformation classes too casually.
+
+    Missing set-theoretic axioms: it claims to start from axiomatic set theory but never states the axioms; Pow, products, unions, Replacement, Separation, Foundation, etc. are used without formal setup.
+
+    Logic/metatheory gaps: several Hilbert-style proofs are incomplete, circular, or use unproved import/export of conjunction.
+
+    Category-theory notation errors: especially composition superscripts in the category definition.
+
+    Overstrong or ambiguous claims: e.g., Yoneda embedding “injective on objects” requires a disjoint hom-sets convention; the retract-of-representable theorem states an “iff” but only sketches one direction.
+
+    Missing citations and bibliography: for a monograph on Yoneda, limits, adjunctions, Kan extensions, this is a major academic deficiency.
+
+    LaTeX/typography issues: [H] tables require float; many macros must be defined; \sloppy globally is not a polish strategy.
+
+    Scope is too broad for 25 pages: logic, set theory, ordinals, category theory, limits, adjunctions, Cartesian closure, Kan extensions, and synthesis all in one short text leads to skimping on proofs.
+
+The changelog file after40tickets.txt should be treated only as a changelog, not as evidence of mathematical correctness. “Zero-warning typography polish” must be independently verified by compilation.
+AGY commands
+
+The following commands are written as actionable instructions for AGY. They are prioritized. AGY should work in a branch, compile after each command, and record changes in an issue ledger.
+AGY-000 [P0] — Baseline compile and issue ledger
+
+Action. Create a branch rigor-audit. Compile with:
+bash
+
+latexmk -pdf -interaction=nonstopmode -halt-on-error yoneda_agy.tex
+
+Record all errors, warnings, undefined references, overfull/underfull boxes, and missing macros in issues.md. Add \usepackage{float} if [H] causes errors. Do not edit mathematics yet.
+
+Why. The text claims “zero-warning typography polish.” That must be verified before further work.
+
+Acceptance. A baseline PDF compiles or the exact blocking errors are listed. issues.md has severity labels.
+AGY-001 [P0] — Declare a foundational framework
+
+Action. Add a new subsection “Foundations and size conventions” at the start of Section 1. Choose and state one of:
+
+    NBG/MK class theory: sets and proper classes, categories may have proper class of objects, Set is the class of all sets.
+
+    ZFC + Grothendieck universes: small/large categories, Set as a universe, functor categories only for small domains unless otherwise stated.
+
+Then define explicitly: Set, proper class, small category, locally small category, class-valued Hom, set-valued Hom, and size assumptions for [C,D], Nat(F,G), ∫_C G, and limits.
+
+Why. The current text uses Set as both a proper class and a category, defines Nat(F,G) as a dependent product over Ob_C, and then applies Yoneda without size caveats. This is not rigorous in plain ZFC.
+
+Acceptance. Every theorem involving Nat, [C,D], Set, or limits states its size hypotheses. No proper class is silently treated as a set.
+AGY-002 [P0] — Add the set-theoretic axioms actually used
+
+Action. Add a concise subsection listing the ZFC/NBG axioms used: Extensionality, Empty Set, Pairing, Union, Power Set, Separation, Replacement, Infinity, Foundation/Regularity, and Choice only if used. Define \Pow, \bigcup, binary product X×Y, singleton, unordered pair, and set-hood of ΣR, ΠR.
+
+Why. The text claims “axiomatic set theory” but never states the axioms. Proofs such as K≠∅ → \interclass K∈Set cite Separation without having introduced it. ΠR uses \Pow before it is defined.
+
+Acceptance. Every set-hood claim cites an axiom or a previously proved lemma. X×Y and \Pow are defined before first use.
+AGY-003 [P1] — Repair the equality axiom schema and equality proofs
+
+Action. Rewrite Table 1 so that =refl and =subs apply to terms, not only variables. Define capture-avoiding substitution precisely. Fix the symmetry proof of equality; the current sentence “MP with impE yields …” is not a valid derivation. Either use the Deduction Metatheorem explicitly or give a direct Hilbert derivation.
+
+Why. The current =subs schema is too weak if equality is used on arbitrary terms and ordered pairs. The symmetry proof is muddled and does not correctly derive x=y → y=x.
+
+Acceptance. Every step of the equality proofs names an axiom or rule. No handwavy “MP with impE” steps.
+AGY-004 [P1] — Repair the Deduction Metatheorem proof
+
+Action. Before proving the Deduction Metatheorem, prove the import/export lemma:
+⊢(A→(C→E))↔((A∧C)→E).
+⊢(A→(C→E))↔((A∧C)→E).
+
+Then rewrite the induction proof fully. Handle the ∀I and ∃E cases explicitly. State the restriction on variables free in A precisely.
+
+Why. The current proof uses (A∧C) without establishing the equivalence, and the ∀I/∃E cases are sketched. The quantifier-distribution proof later uses the Deduction Theorem in a way that is not fully justified.
+
+Acceptance. The proof is a complete induction on derivation length. Every use of ∀I and ∃E checks the side condition.
+AGY-005 [P1] — Repair quantifier distribution laws
+
+Action. Prove both directions of
+∀x(A→B)↔(A→∀xB)(x∉FV(A))
+∀x(A→B)↔(A→∀xB)(x∈/FV(A))
+
+and
+∀x(A→B)↔(∃xA→B)(x∉FV(B))
+∀x(A→B)↔(∃xA→B)(x∈/FV(B))
+
+using the Deduction Metatheorem and the rules. Do not claim ⊢ ∀x(A→B) directly from A→B without respecting the ∀I rule.
+
+Why. The current proof is circular/sketchy, especially the dual direction.
+
+Acceptance. Each direction has a named derivation. No circular use of the equivalence being proved.
+AGY-006 [P1] — Rename or properly define TOrd
+
+Action. Either:
+
+    rename TOrd(A) to HTr(A) (“hereditarily transitive”) and stop calling it “transitive ordinal”; or
+
+    define Ord(A) properly as a transitive set well-ordered by ∈, and prove the equivalence with Tr(A) ∧ ∀a∈A.Tr(a) under Foundation.
+
+If the equivalence is used, prove it or cite it.
+
+Why. The name TOrd suggests “transitive ordinal,” but the definition is only “transitive set whose elements are transitive.” Under Foundation this may be equivalent to ordinal, but the text never states Foundation or proves the equivalence. As written, the terminology is misleading.
+
+Acceptance. No theorem calls an unproved predicate “ordinal.” Foundation is explicitly assumed if used.
+AGY-007 [P0] — Correct category composition notation and associativity
+
+Action. In Definition category, fix the composition superscripts. For f∈Hom(X,Y), g∈Hom(Y,Z), h∈Hom(Z,W):
+h∘(g∘f)=(h∘g)∘f
+h∘(g∘f)=(h∘g)∘f
+
+with correct source/target annotations. Strongly consider removing the heavy \circ_C^{X,Y,Z} notation and using g\circ f with explicit types in prose. If the heavy notation is kept, define it once and check every superscript.
+
+Why. The current associativity law has mismatched superscripts such as \circ_C^{X,Y,W} where X,Z,W is required. This is a real mathematical notation error.
+
+Acceptance. No mismatched superscripts. The unit and associativity laws type-check.
+AGY-008 [P1] — Make the category Set definition complete
+
+Action. Define Ob_Set, Hom_Set(X,Y), identity, and composition before proving Set is locally small. Define binary product X×Y before using it in Hom_Set(X,Y)=Pow(X×Y). Prove Hom_Set(X,Y) is a set via Π(x∈X).Y.
+
+Why. The current definition uses X×Y and \Pow before they are defined. It also says Set is locally small but does not fully justify the dependent product representation.
+
+Acceptance. Set is defined only after all operations used in its definition are available.
+AGY-009 [P0] — Add size hypotheses to Yoneda, functor categories, and natural transformations
+
+Action. Audit every statement involving Nat(F,G), [C,D], [C^op,Set], and ∫_C G. Add hypotheses:
+
+    Yoneda Lemma: C locally small, G∈[C^op,Set].
+
+    Functor category locally small: C small and D locally small.
+
+    Density theorem: C small.
+
+    Category of elements: C locally small.
+
+    Kan extensions: state size of C,D,E.
+
+If using NBG, explain why Nat(h_A,G) is a set. If using ZFC, either restrict or use universes.
+
+Why. The current text defines Nat(F,G) as a dependent product over Ob_C; for proper-class Ob_C, this is not a set. The Yoneda Lemma then claims a bijection with a set. This must be justified.
+
+Acceptance. No theorem silently quantifies over a proper class as if it were a set.
+AGY-010 [P1] — Polish the Yoneda Lemma proof
+
+Action. Rewrite the contravariant and covariant Yoneda Lemma proofs with explicit naturality squares and explicit inverse maps. Check every equation type-checks. State separately naturality in A and naturality in G.
+
+Why. The current proof is largely correct but uses heavy notation and several “by functional extensionality” steps. For a monograph, the naturality square should be displayed and checked.
+
+Acceptance. A referee can verify the bijection and naturality without guessing types.
+AGY-011 [P0] — Fix the Yoneda embedding “injective on objects” claim
+
+Action. Replace
+
+    “The Yoneda functor is fully faithful, injective on each hom-set, and injective on objects.”
+
+with either:
+
+    “fully faithful; it is injective on hom-sets by faithfulness; it is injective on objects if one assumes the standard convention that hom-sets are pairwise disjoint,” or
+
+    remove the injective-on-objects claim entirely.
+
+If keeping it, state the disjoint hom-sets convention explicitly in the notation section.
+
+Why. Without disjoint hom-sets, the Yoneda embedding reflects isomorphisms, not literal object equality. The current proof relies on the disjointness convention without stating it as a hypothesis.
+
+Acceptance. No unconditional false/ambiguous claim about injectivity on objects.
+AGY-012 [P1] — Strengthen the universal-element and representability proofs
+
+Action. In Theorem univ_elem_char, prove that a morphism in Set is an isomorphism iff it is bijective. In Theorem rep_unique, verify both uniqueness and the isomorphism property explicitly. In Theorem set_reps, prove functoriality of Pow^* and G_{A,B} carefully.
+
+Why. These are central theorems, but several steps are compressed.
+
+Acceptance. All universal properties are checked componentwise.
+AGY-013 [P0] — Fix Theorem retract_yoneda
+
+Action. The theorem currently states an “if and only if” but the proof only sketches the forward direction. Either:
+
+    state only the necessary condition and label it as one direction; or
+
+    prove the converse: from the idempotent e, element u, and a natural family σ_X that is a right inverse to ρ_X with image {f:e∘f=f}, construct a retract of h_A and show the naturality of σ.
+
+Why. As written, the converse is not proved and may require an explicit naturality assumption on σ. The statement is ambiguous about whether σ is given as a natural transformation.
+
+Acceptance. No unproved “iff.” All data in the statement are used in the proof.
+AGY-014 [P1] — Complete the mono/epi Yoneda characterization
+
+Action. Prove fully that η^f:h_A→h_B is monic in [C^op,Set] iff every component is injective. Use Yoneda faithfulness: if η^f_X(g_1)=η^f_X(g_2), compare the corresponding natural transformations \tilde g_1,\tilde g_2:h_X→h_A.
+
+Why. The current proof says “Since composition is objectwise and h_X represents evaluation by Yoneda, …” but does not spell out the argument.
+
+Acceptance. The equivalence between categorical monomorphism and pointwise injectivity is proved, not asserted.
+AGY-015 [P1] — Prove the category of elements and Grothendieck criterion fully
+
+Action. Verify that ∫_C G is a category, that the projection is faithful, and that the hom-set condition is closed under composition. Prove Grothendieck’s criterion both directions. Prove ∫_C h_A = C/A with all morphisms and the terminal object.
+
+Why. These results are mostly correct but compressed. They support the density theorem, so they must be solid.
+
+Acceptance. Every functoriality and universal property is checked.
+AGY-016 [P1] — Expand limits, continuity, and pointwise-limit proofs
+
+Action. In Theorem yoneda_limits, prove part (2) fully: define the action of L on morphisms, check functoriality, and prove the universal property. In Theorem hom_continuity, display the natural bijections with all variables.
+
+Why. The current pointwise-limit proof is only a sketch. The continuity theorem is central for RAPL and for Yoneda reflection of limits.
+
+Acceptance. A referee can verify each bijection and its naturality.
+AGY-017 [P1] — Expand the density theorem proof
+
+Action. Show explicitly that Θ_H:Nat(G,H)→Cocone(D_G,H) is a bijection, construct its inverse, and prove naturality in H. Check the cocone condition for ι.
+
+Why. The density theorem is one of the main results, but the proof is compressed.
+
+Acceptance. Both inverse directions are written and verified.
+AGY-018 [P1] — Complete adjunction and triangle-identity proofs
+
+Action. In Theorem adj_yoneda, prove the converse fully: functoriality of L, naturality of η, and naturality of θ_{X,Y}. In Theorem triangle_id, verify both triangle identities and the equivalence between adjunction data and unit/counit data.
+
+Why. Adjunctions are used later for RAPL/LAPC and Cartesian closure. The current proof is standard but sketchy.
+
+Acceptance. Every bijection is shown natural in both variables.
+AGY-019 [P1] — Define products of presheaves before Cartesian closure
+
+Action. Before Theorem cartesian_closed, define the pointwise product of presheaves (F×G)(X)=F(X)×G(X). Prove it is a presheaf. Then prove that H^G(A)=Nat(h_A×G,H) is a presheaf and that currying is natural.
+
+Why. The current theorem uses h_A×G before defining products in [C^op,Set].
+
+Acceptance. No undefined categorical product is used in the exponential definition.
+AGY-020 [P1] — Add size assumptions to Kan extensions and prove unification claims
+
+Action. In Definition kan_ext, state size assumptions for [D,E] and Nat. In Theorem kan_unification, prove part (1) and part (2) explicitly by identifying [1,E]≅E; for part (3), prove the pointwise formula and uniqueness of the colimit-preserving extension.
+
+Why. Kan extensions are particularly size-sensitive. The current text states the unification results without enough proof.
+
+Acceptance. Every Kan extension statement has size hypotheses and a proof or citation.
+AGY-021 [P1] — Add bibliography and citations
+
+Action. Add BibTeX entries and cite standard references, at minimum:
+
+    Mac Lane, Categories for the Working Mathematician
+
+    Riehl, Category Theory in Context
+
+    Awodey, Category Theory
+
+    Leinster, Basic Category Theory
+
+    Borceux, Handbook of Categorical Algebra
+
+    Kelly, Basic Concepts of Enriched Category Theory (if enriched topics appear)
+
+    Grothendieck’s work on the category of elements / fibrations, if historical claims are made
+
+Cite the Yoneda Lemma, density theorem, Kan extensions, RAPL/LAPC, and Cartesian closure.
+
+Why. A monograph without bibliography is not at academic standard. The text also makes historical claims that need support.
+
+Acceptance. Every named theorem has a proof or citation. Bibliography compiles.
+AGY-022 [P1] — Temper the abstract and introduction
+
+Action. Replace “self-contained, formally rigorous” with something accurate, e.g. “an expository development with detailed proof sketches” unless the foundational gaps are fully closed. Shorten the abstract. Move the long list of topics to an introduction with a dependency graph.
+
+Why. The current abstract overclaims. A referee will immediately notice missing axioms and sketched proofs.
+
+Acceptance. The abstract accurately describes the level of rigor and the prerequisites.
+AGY-023 [P0] — Fix LaTeX and typography
+
+Action.
+
+    Add \usepackage{float} for [H].
+
+    Verify gdmath defines every macro: \myprf, \myqed, \eqdef, \propdef, \LRA, \Tr, \TOrd, \mysucc, \Pow, \Set, \op, \Ob, \Hom, \Nat, \FMor, \GMor, \HomMor, \Rel, \Fun, \dom, \ran, \apo, \interclass, \inter, \The, \Var, \Term, \Fm, \FV, \id, \Iso, \Cone, \Cocone, \Lan, \Ran, \curry, \uncurry.
+
+    Remove global \sloppy; fix overfull boxes locally.
+
+    Use \usepackage{microtype}.
+
+    Use \begin{proof}/\end{proof} or ensure \myprf/\myqed are robust.
+
+    Replace hardcoded “Section 1.6” with \ref{...}.
+
+    Check all \label/\ref pairs.
+
+Why. The text claims zero-warning polish; this must be true. Global \sloppy hides bad spacing.
+
+Acceptance. latexmk reports no errors, no undefined references, and no overfull boxes above a stated threshold (e.g. 5pt).
+AGY-024 [P2] — Control scope
+
+Action. Create a dependency graph. Decide whether Section 1 is a prerequisite appendix or an integrated chapter. If a result is not used in the Yoneda development, move it to an appendix or remove it. For a 25-page monograph, consider splitting into:
+
+    Part I: Logic and set-theoretic prerequisites.
+
+    Part II: Yoneda, universal elements, limits, adjunctions, Kan extensions.
+
+Why. The current text tries to cover too much for its length. This is why proofs are sketched.
+
+Acceptance. Each theorem is either used later, explicitly marked as background, or moved to an appendix.
+AGY-025 [P0] — Final QA gate
+
+Action. Before accepting the revision, check:
+
+    The PDF compiles with no errors and no undefined references.
+
+    Every theorem has a complete proof or a citation.
+
+    No unproved “iff.”
+
+    All size assumptions are stated.
+
+    No unconditional claim that Yoneda is injective on objects.
+
+    TOrd is renamed or justified.
+
+    Composition superscripts are correct.
+
+    Bibliography exists.
+
+    Abstract does not overclaim.
+
+    A referee can verify every proof from the text.
+
+Why. This is the minimum for a rigorous academic monograph.
+
+Acceptance. A final referee-report.md lists remaining limitations explicitly. If limitations remain, the text must not claim formal rigor.
+Specific line-level issues AGY should fix immediately
+
+    Category associativity law: superscripts are wrong; fix h∘(g∘f) types.
+
+    Yoneda embedding theorem: remove unconditional injectivity on objects or add disjoint hom-sets hypothesis.
+
+    Retract-of-representable theorem: prove the converse or downgrade the statement.
+
+    Deduction Metatheorem proof: prove import/export before using A∧C.
+
+    Equality symmetry proof: replace with a correct Hilbert derivation or explicit Deduction Theorem use.
+
+    TOrd terminology: rename to HTr or prove ordinal equivalence with Foundation.
+
+    Set definition: define X×Y and Pow before use.
+
+    Nat size: add size hypotheses to functor categories and Yoneda statements.
+
+    [H] tables: add float package.
+
+    Hardcoded “Section 1.6”: replace with \ref.
+
+    Missing bibliography: add citations.
+
+    Global \sloppy: remove or localize.
+
+    \myprf/\myqed: ensure defined and consistent with amsthm.
+
+    H^G exponential: define presheaf product before use.
+
+    Kan extension size: state assumptions.
+
+Final recommendation
+
+Do not publish or present this as a rigorous monograph until AGY-000 through AGY-025 are addressed. The mathematical direction is good, and many statements are standard and correct, but the text currently has too many foundational gaps, compressed proofs, and notation errors to meet high academic standards. The priority order should be:
+
+    Compile and fix LaTeX.
+
+    Declare foundation and size conventions.
+
+    Add set-theoretic axioms.
+
+    Repair logic/metatheory.
+
+    Fix false/ambiguous statements.
+
+    Fill proof gaps.
+
+    Add bibliography and citations.
+
+    Temper claims in the abstract.
+
+After that, the text could become a solid expository monograph."

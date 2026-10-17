@@ -1,0 +1,8 @@
+Ticket 048 (AGY-007 [P0]): Correct Category Composition Notation and Associativity
+Type: Category Theory / Notation & Rigor
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_048.tex
+
+Issues Identified & Resolved:
+1. Corrected the composition superscripts in the associativity law of Definition \ref{def:category} (and the Section 2 notation header) from `h \circ_C^{X,Y,W} (g \circ_C^{X,Y,Z} f) = (h \circ_C^{Y,Z,W} g) \circ_C^{X,Y,Z} f` to the properly typed equation `h \circ_C^{X,Z,W} (g \circ_C^{X,Y,Z} f) = (h \circ_C^{Y,Z,W} g) \circ_C^{X,Y,W} f \in \Hom_C(X,W)`.
+2. Audited all other occurrences of `\circ_C^{...}` across Section 2 to ensure every superscript triple matches source, intermediate, and target objects.

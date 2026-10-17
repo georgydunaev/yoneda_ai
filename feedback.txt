@@ -1,0 +1,29 @@
+================================================================================
+FEEDBACK ON THE MANUSCRIPT AND DEVELOPMENT WORKFLOW (/w/feedback.txt)
+================================================================================
+
+1. WHAT IS STRONG ABOUT THIS PROJECT
+------------------------------------
+- Vision & Vertical Integration: Building a single self-contained text that starts from Hilbert-style first-order predicate calculus with equality, proceeds through axiomatic set/class theory (intersections, Russell's definite description binder `The`, Kuratowski pairs, dependent sums `\Sigma` and dependent products `\Pi`, functional extensionality, and von Neumann ordinals), and culminates in the Yoneda Lemma, the category of elements `\int_C G`, limits/colimits, adjunctions, Cartesian closure of `[C^\op, \Set]`, and Kan extensions is pedagogically and conceptually rewarding. Readers rarely see how `\Sigma R`, `\Pi R`, `The`, and functional extensionality directly power `\int_C G`, `\Nat(F, G)`, inverse bijections, and the Yoneda Lemma.
+- Incremental Ticket + Backup + PDF Workflow: Keeping numbered tickets (`000.txt`..`080.txt`), pre-fix `.tex` snapshots (`backups/yoneda_agy_NNN.tex`), and compiled PDFs (`pdfs/yoneda_agy_NNN.pdf`) creates a transparent, reproducible audit trail where any regression can be diffed or rolled back immediately.
+- Multi-Model Cross-Auditing: Using multiple AI models (ChatGPT, DeepSeek, and Claude/Antigravity) in adversarial roles (author/expander vs. hostile mathematical referee) was highly effective at catching subtle foundational and proof bugs that a single pass might gloss over.
+
+2. MATHEMATICAL & FOUNDATIONAL AREAS THAT CAN BE DONE BETTER
+------------------------------------------------------------
+- Foundational Discipline (NBG Classes vs. Grothendieck Universes):
+  In early drafts, `\Set` was used simultaneously as a proper class in ZFC/NBG and as an object of functor categories `[\Set^\op, \Set]`. In strict NBG, proper classes cannot be elements of classes (`x \in K \implies x \in \Set`), so when `C` is locally small but not small (e.g., `C = \Set`), a presheaf `G : C^\op \to \Set` is a proper class and `[C^\op, \Set]` is a *metacategory* rather than a legitimate NBG category unless one restricts to small `C` or works in `ZFC` with a hierarchy of Grothendieck universes `\mathcal{U} \in \mathcal{U}^+`. For future editions, choosing *Grothendieck universes* (`\mathcal{U}`-small vs. `\mathcal{U}^+`-small) as the primary foundation (with NBG as a remark) will make functor categories `[C^\op, \Set]` for locally `\mathcal{U}`-small `C` genuine categories without metacategorical caveats.
+- Strict Dependency Ordering in Part I:
+  In the original Section 1, several predicates (`\Rel`, `\Fun`, `\Pow`, `X \times Y`) were used in exercises or definitions before being formally defined, and `The x. P(x)` did not explicitly restrict comprehension to sets `x \in \Set` (which is required in NBG so that `{a}` is non-empty when `P(a)` holds). Defining all primitive predicates before their first use and stating explicit set-membership hypotheses (`a \in \Set`) prevents circularity.
+- Hilbert Calculus vs. Natural Deduction / Sequent Calculus:
+  Hilbert systems (`impI`, `impE`, `negI`, `negE`, `LEM`) are compact to state in a table, but proving routine propositional tautologies (such as `A \land B \to B \land A` or `\neg\neg A \to A`) in pure Hilbert style is verbose and distracts from category theory. If you want Part I to be pleasant for human readers while remaining 100% formal, consider either:
+  (a) Adding a short completeness theorem for propositional tautologies early in Section 1.2 so propositional steps don't obscure quantifier steps, or
+  (b) Formulating Section 1.2 in Gentzen's Natural Deduction (`NJ`/`NK`) or Sequent Calculus (`LK`), which aligns much more directly with categorical logic and Cartesian closed categories (`\Hom(A \times B, C) \cong \Hom(A, C^B)`).
+- Proof Completeness in Advanced Categorical Theorems:
+  When adding advanced material (like Kan extensions `\Lan_{h_-} F` in Subsection 2.6), beware of compressing proofs into a single paragraph: in the previous run, the proof of `\Nat(\Lan_{h_-} F, H) \cong \Nat(F, H \circ h_-)` accidentally used colimit preservation of `H` to prove the universal property of `\Lan_{h_-} F` (which actually holds for *all* `H`, whereas colimit preservation of `H` characterizes when `H \cong \Lan_{h_-}(H \circ h_-)`). Giving each major theorem its own supporting lemma (e.g., the Nerve-Realization adjunction `\Lan_{h_-} F \dashv N_F`) avoids compressed steps.
+
+3. WORKFLOW & ENGINEERING RECOMMENDATIONS
+-----------------------------------------
+- Automated Build & Check Script:
+  Instead of manually copying backups and PDFs on every ticket, a small shell script (e.g., `./scripts/ticket_step.sh NNN`) that (1) verifies `backups/yoneda_agy_NNN.tex` exists, (2) runs `latexmk -pdf -interaction=nonstopmode -halt-on-error`, (3) checks `yoneda_agy.log` for any `Overfull \hbox`, `Underfull \hbox`, or undefined references/citations, (4) copies `yoneda_agy.pdf` to `pdfs/yoneda_agy_NNN.pdf`, and (5) fixes file permissions (`chown -R 1000:1000 /w && chmod -R a+rwX /w`) makes the workflow faster and eliminates human/agent oversight.
+- Mechanized Proof Companion (Lean 4 or Isabelle/ZF):
+  Since your `gdmath.sty` already includes Isabelle macros and Hilbert/NBG primitives, pairing this LaTeX monograph with a companion formalization file (`Yoneda.thy` in Isabelle/ZF or `Yoneda.lean` in Lean 4) where each numbered Definition, Lemma, and Theorem in the PDF has a 1-to-1 machine-checked identifier would elevate this work from an AI-assisted exposition to a genuinely machine-verified monograph.

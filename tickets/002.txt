@@ -1,0 +1,8 @@
+Ticket 002: Clarify Set-Theoretic Foundations and Add Proofs for Exercises in Sections 1.1-1.3
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_002.tex
+
+Issues Identified:
+1. Section 1.1-1.3 states 7 exercises (Exercises 1.1-1.7) without proofs or explanations of the underlying conventions (e.g., `\Set` denoting the class $V$ of all sets, and function application $(g\apo x) \eqdef \inter \{y : \langle x,y\rangle \in g\}$).
+2. Adding concise, rigorous proofs for Exercises 1.1-1.7 makes the logical and set-theoretic preliminaries self-contained.

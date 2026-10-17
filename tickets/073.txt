@@ -1,0 +1,9 @@
+TICKET 073 (AUD-006 [Phase 2 / MINOR] — Contravariant Superscript Variance Convention, Covariant Yoneda Naturality Formulas, and Line-Breaking in Yoneda Embedding)
+STATUS: RESOLVED
+BACKUP: /w/backups/yoneda_agy_073.tex
+PDF: /w/pdfs/yoneda_agy_073.pdf
+
+CHANGES:
+1. Added an explicit Variance and Superscript Convention remark in Definition `def:functor` explaining that for a contravariant functor $G \in [C^\op, D]$ and $f \in \Hom_C(B, A) = \Hom_{C^\op}(A, B)$, the first superscript in $\GMor^{A,B}(f) : G(A) \to G(B)$ is the $C^\op$-source ($C$-target) $A$ and the second is the $C^\op$-target ($C$-source) $B$.
+2. Displayed the Hom-set bijection in Step 1 of Theorem `thm:yoneda_emb`, eliminating the Overfull `\hbox` at lines 676–677.
+3. Added the explicit naturality equations in both $F \in [C, \Set]$ and $A \in C^\op$ to the statement of the Covariant Yoneda Lemma (Theorem `thm:yoneda_cov`).

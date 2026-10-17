@@ -1,0 +1,8 @@
+Ticket 034: Exponentials and Cartesian Closure in \Set and Presheaf Categories [C^\op, \Set] via Yoneda
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_034.tex
+
+Issues Identified & Resolved:
+1. Added Section 2.6 ("Cartesian Closure, Exponentials, and Kan Extensions via Yoneda") proving the Currying Adjunction $(- \times Y) \dashv \Hom_\Set(Y, -)$ in $\Set$.
+2. Used the Yoneda Lemma to derive and prove the formula $H^G(A) \eqdef \Nat(h_A \times G, H)$ for the exponential presheaf in $[C^\op, \Set]$, proving that every presheaf category on a small category $C$ is Cartesian closed.

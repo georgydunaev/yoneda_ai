@@ -1,0 +1,8 @@
+Ticket 049 (AGY-008 [P1]): Make the Category Set Definition Complete
+Type: Category Theory / Set-Theoretic Foundations
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_049.tex
+
+Issues Identified & Resolved:
+1. Expanded Lemma \ref{lem:set_and_op}(1) to define \Ob_\Set, \Hom_\Set(X, Y), 1_X, and \circ_\Set^{X,Y,Z} explicitly after X \times Y, \Pow, \Sigma R, and \Pi R have been constructed and proved to be sets in Subsections \ref{sec:axioms}, \ref{sec:pairs_rels}, and \ref{sec:sigma_pi}.
+2. Verified local smallness (\Hom_\Set(X, Y) = \Pi(x \in X).\ Y \in \Set), closure under relational composition (Lemma \ref{lem:fun_comp}), and the unit and associativity laws (including typed superscripts in C^\op).

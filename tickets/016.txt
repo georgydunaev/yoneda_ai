@@ -1,0 +1,8 @@
+Ticket 016: Formal Category Axioms, Category of Sets, and Duality Involution (C^\op)^\op = C
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_016.tex
+
+Issues Identified & Resolved:
+1. Added a formal Definition of a Category $C = (\Ob_C, \Hom_C, \id, \circ_C)$ and locally small category at the opening of Section 2.
+2. Proved that $\Set$ (with total functional relations as morphisms) is a locally small category, and that for any category $C$, $C^\op$ is a category satisfying $(C^\op)^\op = C$.

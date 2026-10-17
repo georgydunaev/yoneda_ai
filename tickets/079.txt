@@ -1,0 +1,14 @@
+TICKET: 079 (Audit ID: AUD-012)
+PHASE: Phase 2 & Mandatory Checks (Scholarly Citations & Enriched Category Theory Scope Boundary)
+SEVERITY: MINOR
+LOCATION: Throughout /w/yoneda_agy.tex (Section 1 & Section 2 citations, Subsection 2.6 Remark)
+
+SUMMARY OF AUDIT & CHANGES:
+1. Audited all bibliographic references and `\cite` commands in `/w/yoneda_agy.tex` (`AUD-012`).
+2. Added exact chapter, section, definition, proposition, and theorem locators to citations across Section 1 and Section 2 (including Mendelson Ch. 2 & 4, Takeuti--Zaring Ch. 1--3 & Def. 7.12 / Thm. 7.13, Gödel Ch. I, Bernays Ch. I--III, Mac Lane Ch. I--IV & X, Riehl Sec. 1.1--2.4 & Ch. 3--6, Awodey Ch. 1, 6, 8, 9, Leinster Thm. 4.2.1, Borceux Vol. 1 Ch. 1, 2, 6, SGA 4 Exp. I Sec. 1, and Kelly Ch. 1--4).
+3. Added an explicit Remark on the Scope Boundary with Enriched Category Theory at the end of Subsection 2.6 (`AUD-012`), clarifying that all categories in the monograph are ordinary ($\Set$-enriched locally small) categories and stating the enriched Yoneda end formula $\int_{X \in \mathcal{C}} [\mathcal{C}(X, A), G(X)] \cong G(A)$ and coend density formula $\int^{A \in \mathcal{C}} G(A) \otimes \mathcal{C}(-, A) \cong G$ (\cite[Ch.~1--4]{Kelly1982}).
+
+ARTIFACTS:
+- Pre-edit backup: /w/backups/yoneda_agy_079.tex
+- Compiled PDF: /w/pdfs/yoneda_agy_079.pdf (40 pages, exit code 0)
+STATUS: CORRECTED & VERIFIED

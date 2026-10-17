@@ -1,0 +1,9 @@
+TICKET 067 (AUD-000 [Phase 0] — Inventory, Dependency Map, Issue Register, and AI Attribution)
+STATUS: RESOLVED
+BACKUP: /w/backups/yoneda_agy_067.tex
+PDF: /w/pdfs/yoneda_agy_067.pdf
+
+CHANGES:
+1. Completed Phase 0 of the formal audit: created `/w/dependency_map.md` recording all foundational conventions (Hilbert calculus, `LEM`, `NBG` vs. `ZFC` + Grothendieck universes, no global `AC`, size of `\Set`) and a complete dependency inventory of every table, definition, exercise, lemma, and theorem.
+2. Created `/w/issue_register.md` tracking `AUD-000` through `AUD-013` with columns: ID, Location, Original Claim/Text, Defect Class, Severity, Correction, Justification, Dependencies Affected, and Status.
+3. Added explicit attribution in `\author{\thanks{...}}` and at the end of the abstract in `/w/yoneda_agy.tex` noting that the manuscript was collaboratively generated, expanded, and audited by various AI systems alongside the author.

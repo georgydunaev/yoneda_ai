@@ -1,0 +1,8 @@
+Ticket 038: Kan Extensions (Lan_K \dashv K^* \dashv Ran_K) and Unification of Yoneda, Limits, and Adjunctions
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_038.tex
+
+Issues Identified & Resolved:
+1. Added the definition and theorem of Left and Right Kan Extensions ($\mathrm{Lan}_K \dashv K^* \dashv \mathrm{Ran}_K$) along a functor $K : C \to D$ to Section 2.6.
+2. Proved the Yoneda--Kan Identity ($\mathrm{Lan}_{h_-} F(G) \cong \mathrm{colim}_{\langle A, u \rangle \in \int_C G}\, F(A)$ and $\mathrm{Lan}_{h_-} h_- \cong 1_{[C^\op, \Set]}$) and showed how the Yoneda Lemma, limits/colimits, and adjoint functors are all unified as special cases of Kan extensions.

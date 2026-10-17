@@ -1,0 +1,14 @@
+TICKET: 076 (Audit ID: AUD-009)
+PHASE: Phase 2 (Statement & Proof Audit — Subsection 2.4: Limits, Colimits, and Continuity)
+SEVERITY: MAJOR
+LOCATION: Subsection 2.4 (\ref{sec:limits_colimits}), Theorem \ref{thm:hom_continuity}(1), Theorem \ref{thm:yoneda_limits}(2), Theorem \ref{thm:density}(2)
+
+SUMMARY OF AUDIT & CHANGES:
+1. Audited Definition \ref{def:limits}, Theorem \ref{thm:limit_unique}, Theorem \ref{thm:hom_continuity}, Theorem \ref{thm:yoneda_limits}, and Theorem \ref{thm:density}.
+2. In Theorem \ref{thm:hom_continuity}(1) (`AUD-009`), explicitly traced an arbitrary function $g \in \Hom_\Set(X, \Hom_C(A, L))$ through the composite natural bijection $\Hom_\Set(X, \Hom_C(A, L)) \xrightarrow{\sim} \Hom_\Set(X, \Cone_C(A, D)) = \Hom_\Set(X, \Cone_\Set(1, h^A \circ D)) \xrightarrow{\sim} \Cone_\Set(X, h^A \circ D)$ to show $g \mapsto ((\lambda_j \circ_C -) \circ_\Set g)_{j \in \Ob_J}$, and evaluated at $X = \Hom_C(A, L)$ on $g = 1_{\Hom_C(A, L)}$ to recover the universal limit cone $h^A(\lambda) = (\lambda_j \circ_C -)_{j \in \Ob_J}$.
+3. Formatted wide equations in Theorem \ref{thm:hom_continuity}(1), Theorem \ref{thm:yoneda_limits}(2), and Theorem \ref{thm:density}(2).
+
+ARTIFACTS:
+- Pre-edit backup: /w/backups/yoneda_agy_076.tex
+- Compiled PDF: /w/pdfs/yoneda_agy_076.pdf (39 pages, exit code 0)
+STATUS: CORRECTED & VERIFIED

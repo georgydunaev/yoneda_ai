@@ -1,0 +1,7 @@
+TICKET 058 (AGY-017 [P1] — Expand the Density Theorem proof)
+STATUS: RESOLVED
+BACKUP: /w/backups/yoneda_agy_058.tex
+
+CHANGES:
+1. Constructed the explicit inverse map `\Theta_H^{-1} : \Cocone(D_G, H) \to \Nat(G, H)` by `(\Theta_H^{-1}(\psi))_A(u) \eqdef \mathrm{ev}_A(\psi_{\langle A, u \rangle}) = (\psi_{\langle A, u \rangle})_A(\id_A)` and verified naturality of `\Theta_H^{-1}(\psi)` from the cocone condition on `\psi`.
+2. Explicitly verified both inverse equations `\Theta_H^{-1} \circ \Theta_H = 1_{\Nat(G,H)}` and `\Theta_H \circ \Theta_H^{-1} = 1_{\Cocone(D_G,H)}` componentwise, as well as naturality of `\Theta_H` in `H \in [C^\op, \Set]`.

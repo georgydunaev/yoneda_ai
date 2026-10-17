@@ -1,0 +1,8 @@
+Ticket 014: Equivalence of Dependent Product Definitions, Set-Hood of \Sigma R and \Pi R, and \beta/\eta-Laws
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_014.tex
+
+Issues Identified & Resolved:
+1. Proved that for $f \in \Pow(\Sigma R)$, the compact condition $\Fun(f) \land \dom(R) \subseteq \dom(f)$ (from the original `yoneda.tex`) is equivalent to $\Rel(f) \land \Fun(f) \land \dom(f) = \dom(R) \land \forall x \in \dom(R).\ f(x) \in R(x)$.
+2. Proved that $\Sigma R \in \Set$ and $\Pi R \in \Set$ whenever $\dom(R) \in \Set$ and $\forall x \in \dom(R).\ R(x) \in \Set$, and established $\beta$- and $\eta$-conversion for set-theoretic $\lambda$-abstraction.

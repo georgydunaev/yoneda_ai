@@ -1,0 +1,8 @@
+Ticket 052 (AGY-011 [P0]): Fix the Yoneda Embedding "Injective on Objects" Claim
+Type: Category Theory / Yoneda Embedding
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_052.tex
+
+Issues Identified & Resolved:
+1. Updated Theorem \ref{thm:yoneda_emb} to state accurately that `h_- : C \to [C^\op, \Set]` is fully faithful (hence injective on each hom-set `\Hom_C(A, B)` and isomorphism-reflecting on objects), and that injectivity on objects holds under the explicit convention that hom-sets `\Hom_C(X, Y)` are pairwise disjoint for distinct object pairs `\langle X, Y \rangle`.
+2. Stated the disjoint hom-set convention explicitly in the Section \ref{sec:cat_theory} notation notes.

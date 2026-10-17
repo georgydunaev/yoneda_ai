@@ -1,0 +1,8 @@
+Ticket 020: Dynamic Hyperlinked Cross-References (\label / \ref) Across Sections 1 and 2
+Type: Programming / LaTeX & Structure
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_020.tex
+
+Issues Identified & Resolved:
+1. Added semantic `\label{...}` tags to all definitions, exercises, lemmas, and theorems in Sections 1 and 2, and replaced hardcoded numbers (which shift when new lemmas/definitions are inserted) with dynamic `\ref{...}` links.
+2. Cleaned up minor underfull `\hbox` warnings in Section 1 and Section 2.

@@ -1,0 +1,8 @@
+TICKET 057 (AGY-016 [P1] — Expand limits, colimits, and continuity proofs)
+STATUS: RESOLVED
+BACKUP: /w/backups/yoneda_agy_057.tex
+
+CHANGES:
+1. Replaced hardcoded "Section 2.2" and "Section 1.4" with `Subsection \ref{sec:rep_functors}` and `Subsection \ref{sec:sigma_pi}` in Subsection 2.4 (`\label{sec:limits_colimits}`), and standardized `\Cone`, `\Cocone`, `\Iso` macros.
+2. Displayed all variables in the natural bijections in the proof of Theorem `thm:hom_continuity`.
+3. Expanded the proof of Theorem `thm:yoneda_limits(2)` (pointwise limits in `[C^\op, \Set]`) to explicitly define the morphism action `\widetilde{L}^{X,Y}(k)` for `k \in \Hom_C(Y, X)`, verify functoriality of `L`, verify naturality of the projection cone `\pi_j \in \Nat(L, P(j))`, and prove the universal property `\Nat(G, L) \cong \Cone(G, P)`.

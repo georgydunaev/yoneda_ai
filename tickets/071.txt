@@ -1,0 +1,9 @@
+TICKET 071 (AUD-004 [Phase 1 / MAJOR] — Fix Forward-Reference of \Rel(g) and \Fun(g) Before First Use)
+STATUS: RESOLVED
+BACKUP: /w/backups/yoneda_agy_071.tex
+PDF: /w/pdfs/yoneda_agy_071.pdf
+
+CHANGES:
+1. Moved the formal definitions of `\Rel(g)` and `\Fun(g)` into Definition `def:pair_rel` in Subsection `sec:pairs_rels` before their first use in Lemma `lem:fun_comp`, Definition `\Pi R`, and Lemma `lem:sigma_pi`.
+2. Updated Subsection `sec:extensionality` to cite Definition `def:pair_rel` instead of introducing `\Rel(g)` and `\Fun(g)` a posteriori.
+3. Displayed the ordered-pair equivalence in Lemma `lem:pair_prop`(1), eliminating the Overfull `\hbox` at lines 357–358.

@@ -1,0 +1,11 @@
+Ticket 006: Add Definition of Natural Transformation and Fix Lemmas 2.2-2.3 (Naturality of Post-Composition)
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_006.tex
+
+Issues Identified:
+1. Natural transformations `$\Nat(F,G)$` and the morphism structure of the functor category `$[C,D]$` are used without prior definition.
+2. Definition 2.4 calls $h_x = \Hom_C(-,x)$ the "Yoneda functor between categories $C$ and $[C^\op,\Set]$" (it is the representable presheaf for object $x$; the Yoneda functor is $h_- : C \to [C^\op,\Set]$).
+3. Definition 2.5 uses free variables $f,x,y$ without binding/declaring them.
+4. Lemma 2.2 has a typo ("from $\Hom_C(-,x)$ to $\Hom_C(-,x)$" instead of "$\Hom_C(-,y)$") and is written as informal notes.
+5. Lemma 2.3 writes `$\Hom_C(m,x)$` instead of `$\HomMor_C^{a,b}(m,x)$`, has a copy-paste error in line 305 (`$g_4 \in \Hom_C(a,y)$` instead of `$\Hom_C(a,x)$`), and omits the justification (`associativity of $\circ_C$`) for `LHS = RHS`.

@@ -1,0 +1,8 @@
+Ticket 011: Syntactic Metatheory of Predicate Calculus and Formal Hilbert Derivations
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_011.tex
+
+Issues Identified & Resolved:
+1. Translated and expanded the commented-out metatheoretic notes following Table 1 to define $\Term$, $\Fm$, $\FV(A)$, capture-avoiding substitution $A(t/x)$, and $\textrm{FFI}(t,x,A)$ ("term $t$ is free for substitution for $x$ in $A$").
+2. Added formal Hilbert-style derivations from Tables 1-2 for the identity law $A \to A$ and for reflexivity, symmetry, and transitivity of equality.

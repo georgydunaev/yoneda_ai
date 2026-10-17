@@ -1,0 +1,8 @@
+Ticket 036: The Deduction Metatheorem and Quantifier Distribution Laws in Predicate Calculus
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_036.tex
+
+Issues Identified & Resolved:
+1. Added the Deduction Metatheorem ($\Gamma, A \vdash B \implies \Gamma \vdash A \to B$ when applications of $\forall\textrm{I}$ and $\exists\textrm{E}$ do not generalize on variables in $\FV(A)$) to Section 1.1 with a complete inductive proof using $\textrm{impI}$, $\textrm{impE}$, and Lemma \ref{lem:id_law}.
+2. Added the Quantifier Distribution Laws ($\forall x (A \to B) \LRA (A \to \forall x B)$ for $x \notin \FV(A)$ and $\forall x (A \to B) \LRA (\exists x A \to B)$ for $x \notin \FV(B)$) connecting the inference rules $\forall\textrm{I}$ and $\exists\textrm{E}$ of Table 2 to the dependent $\Pi/\Sigma$ and adjoint structures later in the paper.

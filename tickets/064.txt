@@ -1,0 +1,8 @@
+TICKET 064 (AGY-023 [P0] — Clean up LaTeX macros, float usage, and typography)
+STATUS: RESOLVED
+BACKUP: /w/backups/yoneda_agy_064.tex
+
+CHANGES:
+1. Explicitly loaded `\usepackage{float}` and `\usepackage{microtype}` in the preamble of `/w/yoneda_agy.tex`.
+2. Unified `\myprf` and `\myqed` with the standard `amsthm` `\begin{proof} ... \end{proof}` environment.
+3. Removed global `\sloppy` and ensured all semantic macros (`\ran`, `\HTr`, `\Ord`, `\Iso`, `\Cone`, `\Cocone`, `\Lan`, `\Ran`, `\curry`, `\uncurry`) are defined in `/w/gdmath.sty`.

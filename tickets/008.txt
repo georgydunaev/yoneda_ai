@@ -1,0 +1,10 @@
+Ticket 008: Fix Errors and Complete Surjectivity/Naturality Steps in the Yoneda Lemma (Lemma 2.5)
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_008.tex
+
+Issues Identified:
+1. Line 345 writes `$\Phi^u_A(\id_A) \eqdef (\GMor^{A,A}(f))(\id_A)$` instead of `$(\GMor^{A,A}(\id_A))(u) = \id_{G(A)}(u) = u$`.
+2. Lines 347-356 mix `G(f)` and `\GMor^{x,y}(f)`, write `\Hom_C(f,A) = (-\circ^{y,x,a})` with missing operand and lowercase `a`, and state the conclusion before the functoriality step.
+3. Lines 369-371 (Surjectivity): Line 369 erroneously claims `$\Psi_x(f) \in G(A)$` (it belongs to $G(x)$) and skips the core Yoneda naturality calculation showing WHY $\Psi_x(f) = \GMor^{A,x}(f)(u)$.
+4. Resolution: Provide the complete, step-by-step naturality square calculation for $\Psi \in \Nat(h_A, G)$ along $f \in \Hom_{C^\op}(A,x) = \Hom_C(x,A)$ evaluated at $\id_A \in h_A(A)$, and explicitly verify that $u \mapsto \Phi^u$ and $\Psi \mapsto \Psi_A(\id_A)$ are mutually inverse bijections.

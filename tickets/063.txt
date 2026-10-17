@@ -1,0 +1,7 @@
+TICKET 063 (AGY-022 [P1] — Temper the abstract and add a dependency roadmap)
+STATUS: RESOLVED
+BACKUP: /w/backups/yoneda_agy_063.tex
+
+CHANGES:
+1. Tempered the abstract so that it accurately describes the scope, explicit $\mathrm{NBG}$ / Grothendieck-universe foundational framework, size conventions, and modular two-part organization of the monograph.
+2. Added a comprehensive Dependency Roadmap in Subsection `\ref{sec:foundations}` mapping each subsection of Section 1 (`\ref{sec:hilbert_logic}` through `\ref{sec:ordinals}`) to the exact definitions, lemmas, and theorems in Section 2 where it is used, with citations to all remaining bibliography entries.

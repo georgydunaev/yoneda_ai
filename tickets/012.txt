@@ -1,0 +1,8 @@
+Ticket 012: Explicit Characterization of Dual Quantifier and Default Behavior of Definite Description
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_012.tex
+
+Issues Identified & Resolved:
+1. Proved the explicit first-order characterization of the dual quantifier $?x.\ P(x) \LRA \exists x_1\, \exists x_2.\ (\neg P(x_1) \land \neg P(x_2) \land x_1 \neq x_2)$ (and $\neg !x.\ P(x) \LRA ?x.\ \neg P(x)$).
+2. Proved the default-to-empty lemma $\neg (\exists !w.\ P(w)) \to (\The x.\ P(x)) = \emptyset$, explaining why out-of-domain function application defaults to $\emptyset$.

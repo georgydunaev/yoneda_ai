@@ -1,0 +1,8 @@
+Ticket 018: Isomorphisms in Categories, Preservation by Functors, and Pointwise Characterization of Natural Isomorphisms
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_018.tex
+
+Issues Identified & Resolved:
+1. Defined isomorphisms $f \in \mathrm{Iso}_C(A,B)$ ($A \cong B$), proved uniqueness of two-sided inverses, and proved that every functor preserves isomorphisms.
+2. Proved that a natural transformation $\eta \in \Nat(F,G)$ is an isomorphism in $[C,D]$ (a natural isomorphism) if and only if each component $\eta_a$ is an isomorphism in $D$.

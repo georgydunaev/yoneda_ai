@@ -1,0 +1,16 @@
+TICKET: 078 (Audit ID: AUD-011)
+PHASE: Phase 2 (Statement & Proof Audit — Subsection 2.6: Cartesian Closure & Kan Extensions)
+SEVERITY: FATAL
+LOCATION: Subsection 2.6 (\ref{sec:ccc_kan}), Theorem \ref{thm:cartesian_closed}(2), Theorem \ref{thm:kan_unification}(3)
+
+SUMMARY OF AUDIT & CHANGES:
+1. Audited Lemma \ref{lem:presheaf_product}, Theorem \ref{thm:cartesian_closed}, Definition \ref{def:kan_ext}, and Theorem \ref{thm:kan_unification}.
+2. Repaired the FATAL proof gap in Theorem \ref{thm:kan_unification}(3) (`AUD-011`):
+   - Pre-audit defect: The statement and proof invoked small-colimit preservation of $H : [C^\op, \Set] \to E$ to establish $\Nat(\Lan_{h_-} F, H) \cong \Nat(F, H \circ h_-)$, whereas Definition \ref{def:kan_ext}(1) requires this bijection for *all* functors $H \in [[C^\op, \Set], E]$ without assuming $H$ preserves colimits.
+   - Correction: Proved $\widetilde{L}(\Phi_{A,G}(u)) \circ_E \eta_A = \kappa^G_{\langle A, u \rangle}$ directly from the definition of $\widetilde{L}$ at the terminal object $\langle A, \id_A \rangle \in \Ob_{\int_C h_A}$, and used naturality of $\sigma \in \Nat(L, H)$ at $\Phi_{A,G}(u)$ together with the universal property of the colimit $L(G)$ to establish $\Nat(\Lan_{h_-} F, H) \xrightarrow{\sim} \Nat(F, H \circ h_-)$ for *every* functor $H : [C^\op, \Set] \to E$. Then proved in part (b) that $\Lan_{h_-} F$ is left adjoint to the nerve functor $N_F : E \to [C^\op, \Set]$, $N_F(e)(A) \eqdef \Hom_E(F(A), e)$, and hence $\Lan_{h_-} F$ preserves all small colimits by Theorem \ref{thm:rapl_lapc}(2).
+3. Formatted wide displayed equations in Theorem \ref{thm:cartesian_closed}(2).
+
+ARTIFACTS:
+- Pre-edit backup: /w/backups/yoneda_agy_078.tex
+- Compiled PDF: /w/pdfs/yoneda_agy_078.pdf (40 pages, exit code 0)
+STATUS: CORRECTED & VERIFIED

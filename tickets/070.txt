@@ -1,0 +1,8 @@
+TICKET 070 (AUD-003 [Phase 1 / FOUNDATIONAL] — Fix Set-Restriction in Binders and Definite Description in NBG)
+STATUS: RESOLVED
+BACKUP: /w/backups/yoneda_agy_070.tex
+PDF: /w/pdfs/yoneda_agy_070.pdf
+
+CHANGES:
+1. Updated Subsection 1.5 (`sec:binders`) so that comprehension in Definition `def:the_binder` (`\The x.\ P(x) \eqdef \inter \{x \in \Set : P(x) \land !w.\ P(w)\}`) explicitly restricts to `x \in \Set`, and Exercise `ex:the_eq` explicitly includes the hypothesis `a \in \Set` required in `NBG` for `\{x \in \Set : x = a\} = \{a\}` to be non-empty.
+2. Linked the dual quantifier and default-value proofs in Subsection `sec:binders` to Lemma `lem:classical_neg`.

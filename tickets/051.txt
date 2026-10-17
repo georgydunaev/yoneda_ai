@@ -1,0 +1,8 @@
+Ticket 051 (AGY-010 [P1]): Polish the Contravariant and Covariant Yoneda Lemma Proofs
+Type: Category Theory / Yoneda Lemma
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_051.tex
+
+Issues Identified & Resolved:
+1. Added explicit `amscd` commutative naturality squares in Steps 2 and 4 of Theorem \ref{thm:yoneda_contra} (contravariant Yoneda Lemma) and in Theorem \ref{thm:yoneda_cov} (covariant Yoneda Lemma), displaying how `\id_A \in \Hom_C(A, A)` is chased along both paths of the naturality square.
+2. Verified all type signatures and explicit left/right inverse equations (`\mathrm{ev}_A \circ \Phi = \id_{G(A)}` and `\Phi \circ \mathrm{ev}_A = \id_{\Nat(h_A, G)}`).

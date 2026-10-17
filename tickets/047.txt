@@ -1,0 +1,8 @@
+Ticket 047 (AGY-006 [P1]): Rename or Properly Define TOrd (HTr and Ord under Foundation)
+Type: Set Theory / Ordinals
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_047.tex
+
+Issues Identified & Resolved:
+1. Defined `\HTr(A) \equiv \TOrd(A) \propdef \Tr(A) \land \forall a \in A.\ \Tr(a)` ("hereditarily transitive in one step") alongside the standard von Neumann ordinal predicate `\Ord(A) \propdef \Tr(A) \land \forall x, y \in A.\ (x \in y \lor x = y \lor y \in x)` (strict well-ordering by \in under Foundation) in Definition \ref{def:htr_ord}.
+2. Added and proved Theorem \ref{thm:ord_htr_equiv} establishing `\Ord(A) \LRA \HTr(A)` for all sets A under the Axiom of Foundation (Subsection \ref{sec:axioms}(10)).

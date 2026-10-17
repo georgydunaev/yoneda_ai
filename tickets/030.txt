@@ -1,0 +1,7 @@
+Ticket 030: The Density Theorem (Co-Yoneda Lemma): Every Presheaf is a Canonical Colimit of Representables
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_030.tex
+
+Issues Identified & Resolved:
+1. Stated and proved the Density Theorem (also known as the Co-Yoneda Lemma): for any small category $C$ and any presheaf $G \in [C^\op, \Set]$, $G$ is the colimit in $[C^\op, \Set]$ of the canonical diagram $h_- \circ \pi_G : \int_C G \to [C^\op, \Set]$, with universal cocone given at each $\langle A, u \rangle \in \Ob_{\int_C G}$ by the Yoneda natural transformation $\Phi_{A,G}(u) : h_A \to G$.

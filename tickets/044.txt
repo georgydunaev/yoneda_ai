@@ -1,0 +1,9 @@
+Ticket 044 (AGY-003 [P1]): Repair the Equality Axiom Schema and Equality Proofs
+Type: Logic / Proof Theory
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_044.tex
+
+Issues Identified & Resolved:
+1. Updated `=subs` in Table \ref{tab:axiompltab} to apply to arbitrary terms t, s \in \Term: `(t = s) -> (A(t/w) -> A(s/w))` subject to `FFI(t,w,A), FFI(s,w,A)`.
+2. Defined recursive free-variable sets \FV(u), \FV(A) and capture-avoiding substitution A(t/x) precisely in Subsection \ref{sec:hilbert_logic}.
+3. Replaced the abbreviated equality proofs in Theorem \ref{thm:eq_equiv} with complete, line-by-line Hilbert derivations for reflexivity (\vdash t = t), symmetry (\vdash t = s -> s = t), and transitivity (\vdash t = s -> (s = r -> t = r)) in which every step cites its exact axiom instance or Modus Ponens.

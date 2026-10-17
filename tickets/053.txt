@@ -1,0 +1,9 @@
+Ticket 053 (AGY-012 [P1]): Strengthen the Universal-Element and Representability Proofs
+Type: Category Theory / Representable Functors
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_053.tex
+
+Issues Identified & Resolved:
+1. Added Lemma \ref{lem:set_iso_bij} proving that a morphism in \Set is an isomorphism (`f \in \Iso_\Set(A, B)`) if and only if it is bijective (`\forall b \in B.\ \exists !a \in A.\ f(a) = b`), constructing the inverse function via the definite description binder `\The` (Exercises \ref{ex:the_eq}-\ref{ex:the_prop}).
+2. Expanded Theorem \ref{thm:rep_unique} to verify explicitly why `\GMor^{B,A}(f')(v) = u` is equivalent to `\Phi_{B,G}(v) \circ \widetilde{h}^{A,B}(f') = \Phi_{A,G}(u)`.
+3. Expanded Theorem \ref{thm:set_reps} to verify the functor axioms (identity and composition preservation) of `\Pow^*` and `G_{A,B}` explicitly.

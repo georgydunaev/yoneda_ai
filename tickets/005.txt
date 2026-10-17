@@ -1,0 +1,9 @@
+Ticket 005: Fix Contravariant Hom-Functor Conventions, Identity Law, and Composition Proof in Lemma 2.1
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_005.tex
+
+Issues Identified:
+1. Definition 2.3 defines `$\HomMor_C^{A,B}(f,x)$` for $f \in \Hom_C(A,B)$, whereas Lemma 2.1 uses `$\HomMor_C^{A,B}(f,x)$` for $f \in \Hom_{C^\op}(A,B) = \Hom_C(B,A)$, creating conflicting superscript conventions.
+2. Lemma 2.1 item 3 justifies $g \circ_C 1_A = g$ (for $g \in \Hom_C(A,x)$) by writing `since 1_A \circ_C g = g` (wrong side for identity composition).
+3. Lemma 2.1 item 4 writes `\circ_\Set^{\HomMor_C(X,x),...}` instead of `\circ_\Set^{\Hom_C(X,x),...}`, swaps $X$ and $Z$ in steps (a)-(c), and omits the concluding step by associativity of $\circ_C$ and functional extensionality.

@@ -1,0 +1,13 @@
+Ticket 000: Fix LaTeX Syntax Errors, Unmatched Delimiters, and Malformed Table Rows
+Type: Programming / LaTeX
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_000.tex
+
+Issues Identified:
+1. Line 3: `\usepackage{../LATEX/gdmath}` points to non-existent relative directory `../LATEX/` instead of local `gdmath.sty`.
+2. Lines 45-66 (Table 2): Declared as 4 columns `{|c|c|c|c|}` with header `name & rule & condition & parameters`, but rows MP, \forall I, \exists E only have 3 columns (missing `& parameters`), and caption/label are commented out.
+3. Line 212: Unmatched parenthesis `\left(\textrm{another form is }... \eqdef (g \in\Hom_C(B,x) \mapsto (g \circ_C f) \in\Hom_C(A,x)\right)` (missing closing `)` before `\right)`).
+4. Line 234: Stray closing parenthesis at end of `\HomMor_C^{A,B}(f, x) : \Hom_C(A,x) \to \Hom_C(B,x))`.
+5. Line 261-263: Stray closing parenthesis in `((u \circ_C g) \circ_C f))` and repeated arrows `\mapsto\mapsto\mapsto\mapsto\mapsto` and `\to\to\to\to\to` instead of extensible arrows `\xmapsto` and `\xrightarrow`.
+6. Line 275: Missing braces in superscript `f\circ_C^w,x,y g` (renders only `w` in superscript).
+7. Line 294: Malformed subscript `\Hom_C\op (a,b)` instead of `\Hom_{C^\op}(a,b)`.

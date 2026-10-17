@@ -1,0 +1,9 @@
+TICKET 069 (AUD-002 [Phase 1 / MAJOR] — Formal Definition of Hilbert Derivability, Direct Quantifier Proofs, and Classical Negation Lemma)
+STATUS: RESOLVED
+BACKUP: /w/backups/yoneda_agy_069.tex
+PDF: /w/pdfs/yoneda_agy_069.pdf
+
+CHANGES:
+1. Added Definition `def:hilbert_deriv` in Subsection 1.2 (`sec:hilbert_logic`) formally defining Hilbert derivations $D_1, \dots, D_n$ from $\Gamma$ ($\Gamma \vdash B$), theoremhood ($\vdash B$), and the biconditional $A \LRA B$ prior to Lemma `lem:id_law`.
+2. Simplified the $(\leftarrow)$ directions of Theorem `thm:quant_dist`(1)–(2) so they apply Hypothetical Syllogism (`lem:import_export`(1)) directly to $\vdash \forall x B \to B$ and $\vdash A \to \exists x A$ without introducing temporary assumptions.
+3. Added Lemma `lem:classical_neg` proving double negation elimination, negation of implication, and quantifier De Morgan laws from `negI`, `negE`, `LEM`, and `orE`.

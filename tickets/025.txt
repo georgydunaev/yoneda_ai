@@ -1,0 +1,8 @@
+Ticket 025: Terminal and Initial Objects and Grothendieck's Representability Criterion in \int_C G
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_025.tex
+
+Issues Identified & Resolved:
+1. Defined terminal and initial objects in a category $C$, characterized them as representations of the constant singleton presheaf $\Delta_1 : C^\op \to \Set$ (with $1 = \{\emptyset\}$ from Section 1.6), and proved uniqueness up to unique isomorphism.
+2. Proved Grothendieck's Representability Criterion: a pair $\langle A, u \rangle$ is a universal element of $G \in [C^\op, \Set]$ iff $\langle A, u \rangle$ is a terminal object in the category of elements $\int_C G$ (and dually initial in $\int^C F$).

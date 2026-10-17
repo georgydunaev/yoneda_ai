@@ -1,0 +1,7 @@
+TICKET 062 (AGY-021 [P1] — Add bibliography and proper citations)
+STATUS: RESOLVED
+BACKUP: /w/backups/yoneda_agy_062.tex
+
+CHANGES:
+1. Added a comprehensive 18-entry bibliography (`\begin{thebibliography}{99} ... \end{thebibliography}`) at the end of `/w/yoneda_agy.tex` covering logic, axiomatic set/class theory, and category theory (`SGA4`, `Awodey2010`, `Bernays1958`, `Borceux1994`, `Godel1940`, `Grothendieck1960`, `HilbertAckermann1928`, `Kan1958`, `Kelly1982`, `Kleene1952`, `Kuratowski1921`, `Leinster2014`, `MacLane1998`, `Mendelson2015`, `Riehl2016`, `Russell1905`, `TakeutiZaring1982`, `Yoneda1954`).
+2. Added `\cite{...}` references across Sections 1 and 2 for $\mathrm{NBG}$/universe foundations, Hilbert predicate calculus, Kuratowski pairs, Russell's definite description, von Neumann ordinals, the Yoneda Lemma, representable functors, Grothendieck's category of elements, limits/colimits, adjoint functors, Cartesian closure, and Kan extensions.

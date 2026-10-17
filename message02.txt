@@ -1,0 +1,38 @@
+Continue working on /w/yoneda_agy.tex and /w/yoneda_agy.pdf in a token-economical way.
+
+================================================================================
+CONTEXT FROM PREVIOUS RUNS (Run 00, Run 01, Run 02, and Run 03 / Audit to 080):
+================================================================================
+1. Immutable reference files:
+   - /w/yoneda.tex (original baseline manuscript, kept untouched)
+   - /w/yoneda_agy_untrusted_baseline.tex (pre-audit snapshot from Ticket 065/066)
+2. Tickets 000.txt through 080.txt in /w/tickets/ have been RESOLVED, with:
+   - Pre-fix backups in /w/backups/yoneda_agy_000.tex through /w/backups/yoneda_agy_080.tex
+   - Step-by-step compiled PDFs in /w/pdfs/yoneda_agy_000.pdf through /w/pdfs/yoneda_agy_080.pdf
+   - Current master PDF at /w/yoneda_agy.pdf
+3. Audit Deliverables created during Run 03 (Tickets 066-080):
+   - /w/dependency_map.md (Phase 0 complete inventory & dependency graph + foundational conventions)
+   - /w/issue_register.md (Phases 1-4 audit register with columns: ID, Location, Original Claim/Text, Defect Class, Severity, Correction, Justification, Dependencies Affected, Status)
+   - /w/unresolved_issues.md (Open/deferred foundational & scope items)
+   - /w/tracked_changes.diff (Complete unified diff from pre-audit baseline to Ticket 080)
+   - /w/audit_report.md (Phase 5 coverage and verification report)
+   - /w/feedback.txt (Constructive mathematical & workflow feedback for the author)
+
+================================================================================
+TASK TO GIVE THE AGENT ON THE NEXT RUN (Run 04 — Tickets 081 to 100):
+================================================================================
+Copy and paste the following prompt for the next session:
+
+"Continue the formal audit and expansion of /w/yoneda_agy.tex from Ticket 081 to Ticket 100 (backing up to /w/backups/yoneda_agy_NNN.tex and compiling /w/pdfs/yoneda_agy_NNN.pdf for each ticket, while maintaining open permissions chmod -R a+rwX /w).
+Specifically, address the deferred/open advanced verification tasks listed in /w/unresolved_issues.md and /w/audit_report.md:
+1. Phase 6 (Syntactic & Proof-Theoretic Completeness of Part I):
+   - Prove the Substitution Lemma for free variables and FFI in Subsection 1.2 (showing when A(t/x) is valid and proving \vdash \forall x A \to A(t/x) invariance under bound variable renaming / \alpha-conversion).
+   - Provide explicit Hilbert-style derivations in Subsection 1.2 for the classical negation lemmas (Double Negation Elimination \vdash \neg\neg A \to A from LEM, negI, negE, Contraposition, and De Morgan quantifier duality \vdash \neg \forall x A \LRA \exists x \neg A) used in Subsections 1.4-1.5.
+2. Phase 7 (Complete Pointwise Kan Extension & Coend Formula Audit in Part II):
+   - In Subsection 2.6, prove the general pointwise Left and Right Kan Extension formulas along an arbitrary functor K : C \to D (for small C, locally small D, and cocomplete/complete E) via comma categories (K \downarrow d) and (d \downarrow K):
+     (\Lan_K F)(d) \cong \mathrm{colim}_{(c, k : K(c) \to d) \in (K \downarrow d)} F(c),
+     (\Ran_K F)(d) \cong \lim_{(c, k : d \to K(c)) \in (d \downarrow K)} F(c),
+     and show how the Density formula (\Lan_{h_-} F)(G) \cong \mathrm{colim}_{\int_C G} F(A) is the special case K = h_- via the canonical isomorphism (h_- \downarrow G) \cong \int_C G.
+   - Prove explicitly that \Lan_{h_-} F : [C^\op, \Set] \to E has right adjoint N_F : E \to [C^\op, \Set] given by N_F(e)(A) = \Hom_E(F(A), e) (the nerve/realization adjunction \Lan_{h_-} F \dashv N_F), and therefore preserves all small colimits by LAPC (Theorem \ref{thm:rapl_lapc}(2)).
+3. Phase 8 (Mechanized Verification Blueprint / Isabelle-ZF & Lean 4 Cross-Check):
+   - Add a concise appendix or verification table mapping the core definitions and theorems of Part I and Part II to their formal counterparts in Isabelle/ZF (or Isabelle/HOL + Lean 4 mathlib), and update /w/issue_register.md, /w/unresolved_issues.md, /w/audit_report.md, and /w/message03.txt."

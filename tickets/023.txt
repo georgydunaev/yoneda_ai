@@ -1,0 +1,8 @@
+Ticket 023: Set-Theoretic Representations Connecting Section 1 and Section 2: Power Set Functor and Products
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_023.tex
+
+Issues Identified & Resolved:
+1. Connected Section 1 (ordinals $2 = \mysucc(1) = \{0, 1\}$ and dependent products) to Section 2 by proving that the contravariant power set functor $\Pow^* : \Set^\op \to \Set$ is represented by $2 = \{0, 1\}$ with universal element $\{1\} \in \Pow(2)$ (subobject classifier in $\Set$).
+2. Proved that for fixed $A, B \in \Set$, the binary product presheaf $X \mapsto \Hom_\Set(X,A) \times \Hom_\Set(X,B)$ is represented by $A \times B$ with universal element $(\pi_1, \pi_2)$.

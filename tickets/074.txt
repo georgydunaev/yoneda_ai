@@ -1,0 +1,9 @@
+TICKET 074 (AUD-007 [Phase 2 / MAJOR] — Pointwise Epimorphisms in [C^\op, \Set] vs. Epimorphisms in C and Split Epimorphisms under h_-)
+STATUS: RESOLVED
+BACKUP: /w/backups/yoneda_agy_074.tex
+PDF: /w/pdfs/yoneda_agy_074.pdf
+
+CHANGES:
+1. Expanded Theorem `thm:mono_epi_yoneda`(3) to prove that a natural transformation $\alpha \in \Nat(F, G)$ in $[C^\op, \Set]$ is an epimorphism in $[C^\op, \Set]$ if and only if every component $\alpha_X : F(X) \to G(X)$ is surjective in $\Set$, using the test presheaf $H(X) = \Hom_\Set(\Hom_C(X_0, X), 2)$ and characteristic functions into $2 = \{0, 1\}$ (requiring only local smallness of $C$).
+2. Clarified the distinction between (a) $f \in \Hom_C(A,B)$ being an epimorphism in $C$ ($\LRA h^f : h^B \to h^A$ is monic in $[C, \Set]$) and (b) $\eta^f : h_A \to h_B$ being an epimorphism in $[C^\op, \Set]$ ($\LRA f$ is a split epimorphism / retraction in $C$), showing that $h_-$ reflects epimorphisms but need not preserve non-split epimorphisms.
+3. Displayed the functoriality equation in the proof of Theorem `thm:set_reps`(2), eliminating the Overfull `\hbox` at lines 915–916.

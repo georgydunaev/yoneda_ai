@@ -1,0 +1,8 @@
+Ticket 046 (AGY-005 [P1]): Repair Quantifier Distribution Laws
+Type: Logic / Proof Theory
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_046.tex
+
+Issues Identified & Resolved:
+1. Separated and proved Theorem \ref{thm:quant_dist} ("Quantifier Distribution Laws over Implication") with four explicit, numbered derivations for both directions of `\forall x (A -> B) <-> (A -> \forall x B)` (for x \notin \FV(A)) and `\forall x (A -> B) <-> (\exists x A -> B)` (for x \notin \FV(B)).
+2. Checked the exact free-variable side conditions (`x \notin \FV(...)`) at every application of rules \forall I and \exists E from Table \ref{tab:rulestab}, using Lemma \ref{lem:import_export} (Import, Export, Commutation of Antecedents, and Syllogism) and Theorem \ref{thm:deduction} without any circularity.

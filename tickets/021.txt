@@ -1,0 +1,8 @@
+Ticket 021: Representable Functors and the Universal Element Characterization Theorem
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_021.tex
+
+Issues Identified & Resolved:
+1. Added Section 2.2 ("Representable Functors and Universal Elements") defining representable presheaves, representable covariant functors, and universal elements $(A, u)$.
+2. Proved the Universal Element Characterization Theorem: $(A, u)$ is a universal element of $G \in [C^\op, \Set]$ (meaning $\Phi_{A,G}(u) : h_A \xrightarrow{\sim} G$ is a natural isomorphism) iff for every $X \in \Ob_C$ and $v \in G(X)$, there is a unique morphism $f \in \Hom_C(X,A)$ such that $\GMor^{A,X}(f)(u) = v$.

@@ -1,0 +1,7 @@
+TICKET 060 (AGY-019 [P1] — Define presheaf product and expand Cartesian closure proof)
+STATUS: RESOLVED
+BACKUP: /w/backups/yoneda_agy_060.tex
+
+CHANGES:
+1. Added Lemma `lem:presheaf_product` before Theorem `thm:cartesian_closed` defining the pointwise binary product `F \times G` of presheaves and product `\alpha \times \beta` of natural transformations, and proving that `(F \times G, \pi_1, \pi_2)` is the categorical binary product in `[C^\op, \Set]`.
+2. In Theorem `thm:cartesian_closed`, used `\curry` and `\uncurry` macros, proved that `H^G` is a contravariant functor, verified naturality of `\widehat{\tau} \in \Nat(F, H^G)` and `\check{\psi} \in \Nat(F \times G, H)`, and proved both mutual inverse equations (`\widecheck{(\widehat{\tau})} = \tau` and `\widehat{(\check{\psi})} = \psi`) as well as naturality in `F` and `H`.

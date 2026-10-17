@@ -1,0 +1,8 @@
+Ticket 032: Unit and Counit of Adjunctions, Triangle Identities, and Uniqueness of Adjoints
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_032.tex
+
+Issues Identified & Resolved:
+1. Proved the equivalence between Hom-set adjunctions $\theta_{X,Y} : \Hom_D(L(X), Y) \xrightarrow{\sim} \Hom_C(X, R(Y))$ and unit-counit adjunctions $(\eta : 1_C \to R \circ L,\ \varepsilon : L \circ R \to 1_D)$ satisfying the Triangle Identities $\varepsilon_{L(X)} \circ_D L(\eta_X) = 1_{L(X)}$ and $R(\varepsilon_Y) \circ_C \eta_{R(Y)} = 1_{R(Y)}$.
+2. Proved from the Yoneda Lemma that left and right adjoints are unique up to unique canonical natural isomorphism.

@@ -1,0 +1,7 @@
+TICKET 061 (AGY-020 [P1] — Expand or scope the Kan extension section)
+STATUS: RESOLVED
+BACKUP: /w/backups/yoneda_agy_061.tex
+
+CHANGES:
+1. Added explicit size assumptions to Definition `def:kan_ext` and Theorem `thm:kan_unification`, and replaced `\mathrm{Lan}` / `\mathrm{Ran}` with semantic macros `\Lan` / `\Ran`.
+2. Wrote out complete proofs for parts (1), (2), and (3) of Theorem `thm:kan_unification` (the Yoneda Lemma as `\Lan_{i_A}(\Delta_1) = h_A`, limits/colimits as `\Ran_{!_J}`/`\Lan_{!_J}`, and pointwise left Kan extension along the Yoneda embedding `\Lan_{h_-} F`).

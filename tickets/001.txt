@@ -1,0 +1,10 @@
+Ticket 001: Fix Document Title Block, Spelling/Grammar Typos, and Overfull/Underfull Boxes
+Type: Programming / LaTeX & Typography
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_001.tex
+
+Issues Identified:
+1. Lines 6-7: Raw text used instead of standard `\title`, `\author`, `\date`, `\maketitle`.
+2. Multiple English typos: "Some Proofs of the Category Theory", "used interchangeable", "becames", "tranformation", "faithfull", "functior".
+3. Overfull \hbox warnings on Table 1 (47.2pt too wide) and long inline/displayed equations (lines 212, 230-237, 277, 336-374).
+4. Overuse of manual `\\` line breaks creating `Underfull \hbox (badness 10000)` warnings across the document.

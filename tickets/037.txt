@@ -1,0 +1,8 @@
+Ticket 037: Sections, Retractions, Split Idempotents, and Retracts of Representable Functors via Yoneda
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_037.tex
+
+Issues Identified & Resolved:
+1. Defined sections (split monomorphisms), retractions (split epimorphisms), retracts $G \triangleleft H$, and split idempotents in an arbitrary category $C$.
+2. Proved via the Yoneda Lemma that for any presheaf $G \in [C^\op, \Set]$, a Yoneda transformation $\Phi_{A,G}(u) : h_A \to G$ has a section $\sigma : G \to h_A$ (making $G$ a retract of $h_A$) iff there exists $e = \sigma_A(u) \in \Hom_C(A, A)$ such that $e \circ_C e = e$ is idempotent, $\GMor^{A,A}(e)(u) = u$, and $\sigma_X(v)$ is the canonical factoring morphism for all $v \in G(X)$.

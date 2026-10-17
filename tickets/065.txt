@@ -1,0 +1,9 @@
+TICKET 065 (AGY-024 [P2] — Decide whether to split into two parts)
+STATUS: RESOLVED
+BACKUP: /w/backups/yoneda_agy_065.tex
+
+CHANGES:
+1. Organized the monograph into two explicit parts:
+   - Part I: Logical and Set-Theoretic Foundations (`\part{Logical and Set-Theoretic Foundations}\label{part:foundations}`, Section 1)
+   - Part II: Category Theory and the Yoneda Paradigm (`\part{Category Theory and the Yoneda Paradigm}\label{part:category}`, Section 2)
+2. Linked the two parts via the Dependency Roadmap in Subsection `\ref{sec:foundations}` and the Foundational Synthesis Table (`\ref{tab:synthesis}`) in Subsection `\ref{sec:synthesis}`.

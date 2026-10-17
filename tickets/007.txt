@@ -1,0 +1,8 @@
+Ticket 007: Complete Proof that the Yoneda Embedding $h_- : C \to [C^\op,\Set]$ is a Functor (Lemma 2.4 Part 1)
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_007.tex
+
+Issues Identified:
+1. In Lemma 2.4 (lines 315-323), the proof that $h_- : C \to [C^\op,\Set]$ is a functor only lists the 4 general functor axioms from Definition 2.1 without proving any of them.
+2. Resolution: Explicitly define the object map $x \mapsto h_x$ and morphism map $\widetilde{h}^{x,y}(f) = \eta^f$, and prove preservation of identities ($\eta^{1_A} = \id_{h_A}$) and composition ($\eta^{f \circ_C g} = \eta^f \circ_{[C^\op,\Set]} \eta^g$).

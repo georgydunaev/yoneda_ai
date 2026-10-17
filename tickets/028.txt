@@ -1,0 +1,8 @@
+Ticket 028: Continuity of Hom-Functors: Representable Functors Preserve All Limits
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_028.tex
+
+Issues Identified & Resolved:
+1. Proved that for any diagram $D : J \to C$ and any $A \in \Ob_C$, there is a natural isomorphism of cone presheaves $\mathrm{Cone}(X, h^A \circ D) \cong \Hom_\Set(X, \mathrm{Cone}(A, D))$ in $\Set$.
+2. Proved the Continuity of Hom-Functors Theorem: covariant Hom-functors $h^A = \Hom_C(A, -) : C \to \Set$ preserve all limits that exist in $C$, and contravariant Hom-functors $h_A = \Hom_C(-, A) : C^\op \to \Set$ turn colimits in $C$ into limits in $\Set$.

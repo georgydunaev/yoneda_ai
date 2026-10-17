@@ -1,0 +1,9 @@
+Ticket 003: Fix Domain Hypothesis and Complete Unfinished Proof of Theorem 1.1 (Extensionality)
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_003.tex
+
+Issues Identified:
+1. Theorem 1.1 (Section 1.5, lines 136-146) assumes `$\forall x\in X. g_1(x)=g_2(x)$` without relating $X$ to $\dom(g_1)$ (requires $\dom(g_1) \subseteq X$).
+2. The proof stops mid-argument at line 144 with `... to be continued ...`.
+3. Full functional extensionality ($g_1 = g_2$ when $\dom(g_1) = \dom(g_2)$ and $\forall x \in \dom(g_1).\ g_1(x) = g_2(x)$) is needed later in the Yoneda Lemma proof (Section 2) and should be stated and proved as a corollary.

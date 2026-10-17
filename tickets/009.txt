@@ -1,0 +1,8 @@
+Ticket 009: Complete Proof that the Yoneda Embedding $h_-$ is Full, Faithful, and Injective on Morphisms (Lemma 2.4 Part 2)
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_009.tex
+
+Issues Identified:
+1. In Lemma 2.4 (lines 324-327), the items "$h_-$ is full", "$h_-$ is faithful", and "$h_-$ is injective on morphisms" are left as empty bullet points with no proof.
+2. Resolution: Deduce fullness and faithfulness directly from the Yoneda Lemma (Lemma 2.5) applied to $G = h_B = \Hom_C(-,B)$ (where $\Phi^f = \eta^f = \widetilde{h}^{A,B}(f)$ is a bijection $\Hom_C(A,B) \to \Nat(h_A,h_B)$), and prove injectivity on morphisms and objects.

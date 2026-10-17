@@ -1,0 +1,8 @@
+Ticket 029: Explicit Small Limits in \Set via Dependent Products and Preservation/Reflection of Limits by Yoneda
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_029.tex
+
+Issues Identified & Resolved:
+1. Constructed small limits in $\Set$ explicitly as subsets of dependent products $\Pi(j \in \Ob_J).\ D(j)$ from Section 1.4.
+2. Proved that limits in $[C^\op, \Set]$ are computed pointwise, and proved that the Yoneda embedding $h_- : C \to [C^\op, \Set]$ both preserves and reflects all limits.

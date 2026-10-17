@@ -1,0 +1,8 @@
+Ticket 015: Closure Properties of Transitive Sets and Transitive Ordinals under Unions and Intersections
+Type: Mathematical
+Status: RESOLVED
+Backup before fix: backups/yoneda_agy_015.tex
+
+Issues Identified & Resolved:
+1. Added dynamic LaTeX labels to Section 1 theorems/exercises so cross-references remain exact as new results are added.
+2. Proved that $\emptyset$ and all finite von Neumann ordinals $n = \mysucc^n(\emptyset)$ satisfy $\TOrd$, and proved that $\Tr$ and $\TOrd$ are closed under arbitrary unions $\bigcup K$ and set intersections $\inter K$.
