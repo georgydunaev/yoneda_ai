@@ -1,0 +1,19 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+\newtheorem{lemma}{Lemma}
+
+\begin{document}
+
+\begin{lemma}[Yoneda Embedding Properties]
+The Yoneda embedding $h_- : C \to [C^\op, \Set]$ is full, faithful, and injective on morphisms.
+\end{lemma}
+
+\begin{proof}
+1. **Fullness**: For any objects $A, B \in C$, the Yoneda embedding $h_-$ induces a bijection $\Hom_C(A, B) \cong \Nat(h_A, h_B)$. This shows that $h_-$ is full, meaning that for any two objects $A$ and $B$, every morphism in $\Hom_C(A, B)$ corresponds to a natural transformation between $h_A$ and $h_B$.\\
+2. **Faithfulness**: The bijection $\Hom_C(A, B) \cong \Nat(h_A, h_B)$ is natural in $A$ and $B$. This implies that $h_-$ is faithful, meaning that distinct morphisms in $C$ correspond to distinct natural transformations between the corresponding functors.\\
+3. **Injectivity on Morphisms**: The Yoneda embedding $h_-$ is injective on morphisms because the bijection $\Hom_C(A, B) \cong \Nat(h_A, h_B)$ is injective. This means that no two distinct morphisms in $C$ are mapped to the same natural transformation between the corresponding functors.\\
+\end{proof}
+
+\end{document}

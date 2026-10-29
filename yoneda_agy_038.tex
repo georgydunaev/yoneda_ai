@@ -1,0 +1,67 @@
+%% AUTONOMOUS WORKER PROVENANCE DECLARATION
+%% You are: 'openrouter/nvidia/nemotron-3.5-lightning:free' (Capability Tier 1, Verified Win Rate: 96.0%).
+%% You are working in repository 'yoneda_ai' in /botworkspace/yoneda_ai.
+%% In all commits, pull requests, and file headers, you must honestly declare your model identity ('openrouter/nvidia/nemotron-3.5-lightning:free') and capability tier (1).
+
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{gdmath}
+\usepackage{amscd}
+\usepackage{float}
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage[margin=2.4cm]{geometry}
+
+\title{Kan Extensions and Unification of Yoneda, Limits, and Adjunctions}
+\author{Georgy Dunaev}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+This document presents the definitions and theorems of Left and Right Kan Extensions, and their unification with the Yoneda Lemma, Limits, and Adjunctions.
+
+\section{Kan Extensions}
+
+\subsection{Left Kan Extension}
+
+Let $K : C \to D$ be a functor. The left Kan extension of a functor $F : D \to \Set$ along $K$ is defined as:
+
+\[\mathrm{Lan}_K F = \int^{c \in C} F(Kc)
+\]
+
+where $\int^{c \in C} F(Kc)$ is the Grothendieck construction of the functor $F \circ K : C \to \Set$.
+
+\subsection{Right Kan Extension}
+
+Let $K : C \to D$ be a functor. The right Kan extension of a functor $F : D \to \Set$ along $K$ is defined as:
+
+\[\mathrm{Ran}_K F = \int_{c \in C} F(Kc)
+\]
+
+where $\int_{c \in C} F(Kc)$ is the Grothendieck construction of the functor $F \circ K : C \to \Set$.
+
+\section{Yoneda-Kan Identity}
+
+The Yoneda-Kan Identity states that for a functor $F : D \to \Set$ and a functor $K : C \to D$, the left Kan extension of $F$ along $K$ is isomorphic to the colimit of the functor $F \circ K : C \to \Set$:
+
+\[\mathrm{Lan}_K F \cong \mathrm{colim}_{\langle A, u \rangle \in \int_C G} F(A)
+\]
+
+Additionally, the left Kan extension of the identity functor $h_- : [C^\op, \Set] \to [C^\op, \Set]$ along itself is the identity functor:
+
+\[\mathrm{Lan}_{h_-} h_- \cong 1_{[C^\op, \Set]}
+\]
+
+\section{Unification of Yoneda, Limits, and Adjunctions}
+
+The Yoneda Lemma, Limits, and Adjunctions can all be seen as special cases of Kan extensions:
+
+1. The Yoneda Lemma is the case where $C$ is a one-object category and $K$ is the unique functor from $C$ to $D$.
+2. Limits are the case where $D$ is a one-object category and $K$ is the unique functor from $C$ to $D$.
+3. Adjunctions are the case where $K$ is the left or right adjoint of a functor between $C$ and $D$.
+
+\end{document}

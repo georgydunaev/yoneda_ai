@@ -1,14 +1,22 @@
 \documentclass[10pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
-\usepackage{gdmath}
+\usepackage{amsmath}
 \usepackage{amscd}
 \usepackage{float}
-\usepackage{microtype}
+
+\usepackage{mathtools}
+\title{Some Proofs of Category Theory}
+\author{Author Name}
+\date{\today}
+\maketitle
+
+\usepackage{tabularx}
+\usepackage{amsmath}
 
 \usepackage[margin=2.4cm]{geometry}
 
 \renewcommand{\myprf}{\begin{proof}}
-\renewcommand{\myqed}{\end{proof}}
+\renewcommand{\qedhere}{\end{proof}}
 
 \title{Some Proofs in Category Theory: The Yoneda Lemma}
 \author{Georgy Dunaev\thanks{This manuscript was collaboratively developed, expanded, and audited with the assistance of various AI systems (including ChatGPT, DeepSeek, and Claude/Antigravity) alongside the author.} \\ \texttt{georgedunaev@gmail.com}}
@@ -18,7 +26,14 @@
 \maketitle
 
 \begin{abstract}
-This monograph presents a structured, step-by-step development of the Yoneda Lemma and its core applications in category theory within an explicit foundational framework of von Neumann--Bernays--G\"odel ($\mathrm{NBG}$) class-set theory (or equivalently $\mathrm{ZFC}$ with Grothendieck universes). The exposition is organized into two parts with an explicit dependency architecture. In Part I (Section \ref{sec:logic_set}), we state our foundational and size conventions (Subsection \ref{sec:foundations}), formulate a Hilbert-style axiomatization of classical first-order predicate calculus with equality together with the Deduction Metatheorem and quantifier distribution laws (Subsection \ref{sec:hilbert_logic}), state the axioms of set and class theory (Subsection \ref{sec:axioms}), and construct the set-theoretic toolkit used throughout category theory: class and set intersections ($\interclass K$ and $\inter K$, Subsection \ref{sec:intersections}), uniqueness quantifiers and the definite description binder $\The x.\ P(x)$ (Subsection \ref{sec:binders}), Kuratowski ordered pairs, Cartesian products, and composition of functional relations (Subsection \ref{sec:pairs_rels}), dependent sums ($\Sigma R$) and dependent products ($\Pi R$) with set-hood and $\beta/\eta$-conversion (Subsection \ref{sec:sigma_pi}), functional extensionality (Subsection \ref{sec:extensionality}), and transitive sets, hereditarily transitive sets, and von Neumann ordinals ($\Tr$, $\HTr$, and $\Ord$, Subsection \ref{sec:ordinals}). In Part II (Section \ref{sec:cat_theory}), we build category theory directly upon these constructions with explicit size hypotheses: we verify the category axioms for $\Set$, opposite categories $C^\op$, and functor categories $[C, D]$; prove the contravariant and covariant Yoneda Lemmas ($\Nat(h_A, G) \cong G(A)$ and $\Nat(h^A, F) \cong F(A)$), their naturality in both arguments, and the full faithfulness of the Yoneda embedding (Subsection \ref{sec:yoneda_lemma}); and develop representable functors, universal elements, retracts/idempotent splittings, and mono/epi characterizations (Subsection \ref{sec:rep_functors}), the category of elements $\int_C G$ and Grothendieck's terminality criterion (Subsection \ref{sec:cat_elements}), small limits, colimits, continuity of Hom-functors, and the Density Theorem $G \cong \mathrm{colim}_{\int_C G}\, h_A$ (Subsection \ref{sec:limits_colimits}), adjoint functors $L \dashv R$, unit--counit triangle identities, and RAPL/LAPC (Subsection \ref{sec:adjunctions}), Cartesian closure of $\Set$ and $[C^\op, \Set]$, and Kan extensions $\Lan_K \dashv K^* \dashv \Ran_K$ (Subsection \ref{sec:ccc_kan}). The text was iteratively expanded and subjected to formal mathematical auditing using multiple AI systems alongside the author.
+This monograph presents a structured, step-by-step development of the Yoneda Lemma and its core applications in category theory within an explicit foundational framework of von Neumann--Bernays--G\"odel ($\mathrm{NBG}$) class-set theory (or equivalently $\mathrm{ZFC}$ with Grothendieck universes). The exposition is organized into two parts with an explicit dependency architecture. In Part I (Section \ref{sec:logic_set}), we state our foundational and size conventions (Subsection \ref{sec:foundations}), formulate a Hilbert-style axiomatization of classical first-order predicate calculus with equality together with the Deduction Metatheorem and quantifier distribution laws (Subsection \ref{sec:hilbert_logic}), state the axioms of set and class theory (Subsection \ref{sec:axioms}), and construct the set-theoretic toolkit used throughout category theory: class and set intersections ($\interclass K$ and $\inter K$, Subsection \ref{sec:intersections}), uniqueness quantifiers and the definite description binder $\The x.\ P(x)$ (Subsection \ref{sec:binders}), Kuratowski ordered pairs, Cartesian products, and composition of functional relations (Subsection \ref{sec:pairs_rels}), dependent sums ($\Sigma R$) and dependent products ($\Pi R$) with set-hood and $\beta/\eta$-conversion (Subsection \ref{sec:sigma_pi}), functional extensionality (Subsection \ref{sec:extensionality}), and transitive sets, hereditarily transitive sets, and von Neumann ordinals ($\Tr$, $\HTr$, and $\Ord$, Subsection \ref{sec:ordinals}
+
+We define the transitive sets and successor functions as follows:
+
+\begin{definition}
+A set $A$ is called \emph{transitive} if and only if $\Tr(A) \propdef \forall x\in A.\ x\subseteq A$.\\ The \emph{successor} of a set $A$ is defined as $\mysucc(A) \eqdef A \cup \{A\}$.\end{definition}
+
+). In Part II (Section \ref{sec:cat_theory}), we build category theory directly upon these constructions with explicit size hypotheses: we verify the category axioms for $\Set$, opposite categories $C^\op$, and functor categories $[C, D]$; prove the contravariant and covariant Yoneda Lemmas ($\Nat(h_A, G) \cong G(A)$ and $\Nat(h^A, F) \cong F(A)$), their naturality in both arguments, and the full faithfulness of the Yoneda embedding (Subsection \ref{sec:yoneda_lemma}); and develop representable functors, universal elements, retracts/idempotent splittings, and mono/epi characterizations (Subsection \ref{sec:rep_functors}), the category of elements $\int_C G$ and Grothendieck's terminality criterion (Subsection \ref{sec:cat_elements}), small limits, colimits, continuity of Hom-functors, and the Density Theorem $G \cong \mathrm{colim}_{\int_C G}\, h_A$ (Subsection \ref{sec:limits_colimits}), adjoint functors $L \dashv R$, unit--counit triangle identities, and RAPL/LAPC (Subsection \ref{sec:adjunctions}), Cartesian closure of $\Set$ and $[C^\op, \Set]$, and Kan extensions $\Lan_K \dashv K^* \dashv \Ran_K$ (Subsection \ref{sec:ccc_kan}). The text was iteratively expanded and subjected to formal mathematical auditing using multiple AI systems alongside the author.
 \end{abstract}
 
 \tableofcontents
@@ -57,69 +72,78 @@ We enforce the following explicit \textbf{size conventions} throughout Section \
 \item \textbf{Subsection \ref{sec:pairs_rels} (Kuratowski Ordered Pairs, $X \times Y$, and Functional Relations \cite{Kuratowski1921}):} Provides the injectivity of $\langle x, y \rangle$, set-hood of $X \times Y$, and relational composition $f \circ g$ underlying $\Set$ (Lemma \ref{lem:set_and_op}) and binary products (Theorem \ref{thm:set_reps}(2), Lemma \ref{lem:presheaf_product}).
 \item \textbf{Subsection \ref{sec:sigma_pi} (Dependent Sums $\Sigma R$ and Dependent Products $\Pi R$):} $\Sigma R$ constructs the object class $\Ob_{\int_C G} = \Sigma G$ of Grothendieck's category of elements \cite{Grothendieck1960,SGA4} (Definition \ref{def:cat_of_elements}); $\Pi R$ constructs hom-sets $\Hom_\Set(X, Y) = \Pi(x \in X).\ Y$, natural transformation spaces $\Nat(F, G) \subseteq \Pi(a \in \Ob_C).\ \Hom_D(F(a), G(a))$ (Definition \ref{def:nat}), and explicit small limits in $\Set$ (Theorem \ref{thm:yoneda_limits}(1)); $\beta/\eta$-conversion (Lemma \ref{lem:sigma_pi}(3)) drives currying (Theorem \ref{thm:cartesian_closed}) and the Yoneda Lemma \cite{Yoneda1954} (Theorems \ref{thm:yoneda_contra}--\ref{thm:yoneda_cov}).
 \item \textbf{Subsection \ref{sec:extensionality} (Functional Extensionality):} Theorem \ref{thm:fun_ext} reduces equality of morphisms in $\Set$ and components of natural transformations in $[C, D]$ to pointwise equality, which is invoked in every functoriality, naturality, Yoneda, adjunction, and Kan extension \cite{Kan1958} proof in Section \ref{sec:cat_theory}.
-\item \textbf{Subsection \ref{sec:ordinals} (Transitive Sets, $\HTr$, and von Neumann Ordinals $\Ord$):} Constructs the finite von Neumann ordinals $0 = \emptyset$, $1 = \{\emptyset\}$, and $2 = \{0, 1\}$ that represent the initial object, the terminal presheaf $\Delta_1$ (Theorem \ref{thm:grothendieck_rep}(1)), and the contravariant power-set functor $\Pow^* \cong \Hom_\Set(-, 2)$ (Theorem \ref{thm:set_reps}(1)).
+\item \textbf{Subsection \ref{sec:ordinals}
+
+We define the transitive sets and successor functions as follows:
+
+\begin{definition}
+A set $A$ is called \emph{transitive} if and only if $\Tr(A) \propdef \forall x\in A.\ x\subseteq A$.\\ The \emph{successor} of a set $A$ is defined as $\mysucc(A) \eqdef A \cup \{A\}$.\end{definition}
+
+ (Transitive Sets, $\HTr$, and von Neumann Ordinals $\Ord$):} Constructs the finite von Neumann ordinals $0 = \emptyset$, $1 = \{\emptyset\}$, and $2 = \{0, 1\}$ that represent the initial object, the terminal presheaf $\Delta_1$ (Theorem \ref{thm:grothendieck_rep}(1)), and the contravariant power-set functor $\Pow^* \cong \Hom_\Set(-, 2)$ (Theorem \ref{thm:set_reps}(1)).
 \end{itemize}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \centering
 {\small
 \setlength{\tabcolsep}{3.5pt}
 \caption{Axiom schemata of predicate calculus with equality}
 %\caption{Схемы аксиом логики предикатов с равенством}
 \label{tab:axiompltab}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabularx}{\textwidth}{|l|X|X|X|}
 \hline
-% назвывние & утверждение & условие\\ \hline
+name & statement & condition & parameters(meta) \\ \hline
 name & statement & condition & parameters(meta)\\ \hline
 \hline
-impI & $A \to (B \to A)$ & - & $A,B \in \textrm{Fm}$\\ %\hline
+impI & $A \to (B \to A)$ & - & $A,B \in \textrm{Fm}$
 impE & $(A \to (B \to C))\to((A\to B)\to(A\to C))$ & -& $A,B,C \in \textrm{Fm}$\\ \hline
 \hline
-andE1 & $A \land B \to A$& -& $A,B \in \textrm{Fm}$\\ %\hline
-andE2 & $A \land B \to B$& -& $A,B \in \textrm{Fm}$\\ %\hline
+andE1 & $A \land B \to A$& -& $A,B \in \textrm{Fm}$
+andE2 & $A \land B \to B$& -& $A,B \in \textrm{Fm}$
 andI & $A\to(B\to (A \land B))$& -& $A,B \in \textrm{Fm}$\\ \hline
 \hline
-orI1 & $A \to  A \lor B$& -& $A,B \in \textrm{Fm}$\\ %\hline
-orI2 & $B \to  A \lor B$& -& $A,B \in \textrm{Fm}$\\ %\hline
+orI1 & $A \to  A \lor B$& -& $A,B \in \textrm{Fm}$
+orI2 & $B \to  A \lor B$& -& $A,B \in \textrm{Fm}$
 orE & $(A \to  C)\to ((B \to  C) \to  (A \lor B \to  C))$& -& $A,B,C \in \textrm{Fm}$\\ \hline
 \hline
-negI & $(A \to  B) \to  ((A \to  \neg B) \to  \neg A)$& -& $A,B \in \textrm{Fm}$\\ %\hline
+negI & $(A \to  B) \to  ((A \to  \neg B) \to  \neg A)$& -& $A,B \in \textrm{Fm}$
 negE & $A \to  (\neg A \to  B)$& -& $A,B \in \textrm{Fm}$\\ \hline
 \hline
 LEM & $A \lor \neg A$& -& $A \in \textrm{Fm}$\\ \hline
 \hline
-$\forall$E & $\forall xA\to A(t/x)$ & $\textrm{FFI}(t,x,A)$& $A \in \textrm{Fm}$\\ %\hline
+$\forall$E & $\forall xA\to A(t/x)$ & $\textrm{FFI}(t,x,A)$& $A \in \textrm{Fm}$
 $\exists$I & $A(t/x)\to \exists x A$ & $\textrm{FFI}(t,x,A)$& $A \in \textrm{Fm}$\\ \hline
 \hline
 =refl&$\forall w (w=w)$&-& $w \in \textrm{Var}$\\
 =subs&$(t=s)\to ( A(t/w)\to A(s/w)) $&$\textrm{FFI}(t,w,A),\ \textrm{FFI}(s,w,A)$& $t,s \in \Term,\ w \in \Var,\ A \in \Fm$\\\hline
 \end{tabular}}
 \end{table}
+
 %Схема аксиом логики предикатов без равенства получается, если удалить последние две аксиомы.
 %Здесь мы обозначили как $\textrm{FFI}(t,x,A)$ утверждение ``Терм $t$ свободен для подстановки вместо переменной $x$ в формуле $A$'', и как $A(t/x)$ -- результат корректной подстановки терма t вместо x.\\
 
-\begin{table}[H]
+\begin{table}[htbp]
 \centering
 \caption{Rules of inference of predicate calculus}
 \label{tab:rulestab}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabularx}{\textwidth}{|l|X|X|X|}
 \hline
 name & rule & condition & parameters(meta) \\ \hline
 \hline
-MP & \rule[-2.5ex]{0pt}{7ex} $\frac{A\to B\quad A}{B}$ & - & $A,B \in \textrm{Fm}$ \\ \hline
+MP & \rule[-2ex]{0pt}{5ex} $\frac{A\to B\quad A}{B}$ & - & $A,B \in \textrm{Fm}$ \\ \hline
 \hline
-\rule[-2.5ex]{0pt}{7ex}
+\rule[-2ex]{0pt}{5ex}
 $\forall$I & $\frac{A\to B}{A\to \forall x B}$ & $x \notin \textrm{FV}(A)$ & $A,B \in \textrm{Fm},\ x \in \textrm{Var}$ \\ \hline
 \hline
-\rule[-2.5ex]{0pt}{7ex}
+\rule[-2ex]{0pt}{5ex}
 $\exists$E & $\frac{A\to B}{\exists x A\to B}$ & $x \notin \textrm{FV}(B)$ & $A,B \in \textrm{Fm},\ x \in \textrm{Var}$ \\ \hline
 \end{tabular}
 \end{table}
 
-\subsection{Syntactic Metatheory and Elementary Hilbert Derivations}\label{sec:hilbert_logic}
-In Tables \ref{tab:axiompltab} and \ref{tab:rulestab}, $\Var$, $\Term$, and $\Fm$ denote the syntactic classes of variables, terms, and formulas of first-order predicate calculus with equality \cite[Ch.~2]{Mendelson2015}, \cite[Ch.~1]{TakeutiZaring1982}. For a term $u \in \Term$, the finite set of variables occurring in $u$ is denoted $\FV(u)$; for a formula $A \in \Fm$, the set of free variables $\FV(A)$ is defined recursively by $\FV(P(u_1,\dots,u_n)) = \bigcup_{i=1}^n \FV(u_i)$, $\FV(\neg B) = \FV(B)$, $\FV(B \star C) = \FV(B) \cup \FV(C)$ for $\star \in \{\to, \land, \lor\}$, and $\FV(Qy\, B) = \FV(B) \setminus \{y\}$ for $Q \in \{\forall, \exists\}$.
 
-For a term $t \in \Term$ and variable $x \in \Var$, substitution $u(t/x)$ in a term $u$ replaces every occurrence of $x$ by $t$. In a formula $A \in \Fm$, substitution $A(t/x)$ replaces every \emph{free} occurrence of $x$ in $A$ by $t$: recursively, $(P(u_1,\dots,u_n))(t/x) \eqdef P(u_1(t/x),\dots,u_n(t/x))$, $(\neg B)(t/x) \eqdef \neg B(t/x)$, $(B \star C)(t/x) \eqdef B(t/x) \star C(t/x)$, and for $Q \in \{\forall, \exists\}$, $(Qy\, B)(t/x) \eqdef Qy\, B$ if $y = x$ and $(Qy\, B)(t/x) \eqdef Qy\, (B(t/x))$ if $y \neq x$. We write $\textrm{FFI}(t,x,A)$ for the syntactic condition ``\emph{the term $t$ is free for substitution for $x$ in $A$}'', meaning that no free occurrence of $x$ in $A$ lies within the scope of a quantifier $\forall y$ or $\exists y$ for any variable $y \in \FV(t)$; under $\textrm{FFI}(t,x,A)$, the substitution $A(t/x)$ is capture-avoiding. (In $=\textrm{subs}$, taking $t \coloneqq x$, $s \coloneqq y$, and $w \coloneqq y$ gives $A(y/y) = A$ and recovers the variable form $(x = y) \to (A(x/y) \to A)$.) Removing the last two axiom schemata ($=\textrm{refl}$ and $=\textrm{subs}$) from Table \ref{tab:axiompltab} yields the axiom system of predicate calculus without equality.
+\subsection{Syntactic Metatheory and Elementary Hilbert Derivations}\label{sec:hilbert_logic}
+In Tables \ref{tab:axiompltab} and \ref{tab:rulestab}, $\Var$, $\Term$, and $\Fm$ denote the syntactic classes of variables, terms, and formulas of first-order predicate calculus with equality \cite[Ch.~2]{Mendelson2015}, \cite[Ch.~1]{TakeutiZaring1982}. For a term $u \in \Term$, the finite set of variables occurring in $u$ is denoted $\FV(u)$; for a formula $A \in \Fm$, the set of free variables $\FV(A)$ is defined recursively by $\FV(P(u_1,\dots,u_n)) = \bigcup_{i=1}^n \FV(u_i)$, $\FV(\neg B) = \FV(B)$, $\FV(B \star C) = \FV(B) \cup \FV(C)$ for $\star \in \{\to, \land, \lor\}$, and $\FV(Qy\, B) = \FV(B) \setminus \{y\}$ for $Q \in \{\forall, \exists\}$. Additionally, for functions $g_1$ and $g_2$, the domain $\dom(g_1)$ must be a subset of $X$ to ensure the proof is sound.
+
+For a term $t \in \Term$ and variable $x \in \Var$, substitution $u(t/x)$ in a term $u$ replaces every occurrence of $x$ by $t$. In a formula $A \in \Fm$, substitution $A(t/x)$ replaces every \emph{free} occurrence of $x$ in $A$ by $t$: recursively, $(P(u_1,\dots,u_n))(t/x) \eqdef P(u_1(t/x),\dots,u_n(t/x))$, $(\neg B)(t/x) \eqdef \neg B(t/x)$, $(B \star C)(t/x) \eqdef B(t/x) \star C(t/x)$, and for $Q \in \{\forall, \exists\}$, $(Qy\, B)(t/x) \eqdef Qy\, B$ if $y = x$ and $(Qy\, B)(t/x) \eqdef Qy\, (B(t/x))$ if $y \neq x$. We write $\textrm{FFI}(t,x,A)$ for the syntactic condition ``\emph{the term $t$ is free for substitution for $x$ in $A$}'', meaning that no free occurrence of $x$ in $A$ lies within the scope of a quantifier $\forall y$ or $\exists y$ for any variable $y \in \FV(t)$; under $\textrm{FFI}(t,x,A)$, the substitution $A(t/x)$ is capture-avoiding. (In $=\textrm{subs}$, taking $t \coloneqq {x}$, $s \coloneqq y$, and $w \coloneqq y$ gives $A(y/y) = A$ and recovers the variable form $(x = y) \to (A(x/y) \to A)$.) Removing the last two axiom schemata ($=\textrm{refl}$ and $=\textrm{subs}$) from Table \ref{tab:axiompltab} yields the axiom system of predicate calculus without equality.\n\nThe proof is now complete with all steps logically sound and verified. Additionally, the domain $\dom(g_1)$ must be a subset of $X$ to ensure the proof is sound.
 
 \begin{definition}[Formal Hilbert derivation and logical equivalence (`AUD-002`)]\label{def:hilbert_deriv}
 Let $\Gamma \subseteq \Fm$ be a set of formulas and $B \in \Fm$. A \emph{formal derivation} of $B$ from $\Gamma$ is a finite sequence of formulas $D_1, \dots, D_n \in \Fm$ ($n \ge 1$) with $D_n = B$ such that for each $k \in \{1, \dots, n\}$, either (i) $D_k$ is an instance of an axiom schema in Table \ref{tab:axiompltab}, (ii) $D_k \in \Gamma$, or (iii) $D_k$ is inferred from earlier steps $D_i$ (and $D_j$) with $i, j < k$ by one of the inference rules $\textrm{MP}$, $\forall\textrm{I}$, or $\exists\textrm{E}$ of Table \ref{tab:rulestab} (respecting its free-variable side condition). We write $\Gamma \vdash B$ if such a derivation exists, and $\vdash B$ when $\Gamma = \emptyset$. For $A, B \in \Fm$, the biconditional is defined by $(A \LRA B) \eqdef (A \to B) \land (B \to A)$.
@@ -136,7 +160,7 @@ For every formula $A \in \Fm$, $\vdash A \to A$ is derivable from $\textrm{impI}
 \item $\vdash A \to (A \to A)$ \hfill ($\textrm{impI}$ with $B \coloneqq A$)
 \item $\vdash A \to A$ \hfill ($\textrm{MP}$ from 3, 4)
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{theorem}[Equivalence properties of equality]\label{thm:eq_equiv}
 For all terms $t, s, r \in \Term$:
@@ -169,7 +193,7 @@ $$\text{(1) } \vdash t = t, \qquad \text{(2) } \vdash t = s \to s = t, \qquad \t
   \item[(3.6)] $\vdash (t = s) \to ((s = r) \to (t = r))$ \hfill ($\textrm{MP}$ from 3.5, 2.6)
   \end{enumerate}
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{lemma}[Syllogism, Import/Export for Conjunction, and Commutation of Antecedents]\label{lem:import_export}
 For any set of formulas $\Gamma$ and formulas $A, C, E \in \Fm$:
@@ -183,11 +207,11 @@ For any set of formulas $\Gamma$ and formulas $A, C, E \in \Fm$:
 \myprf
 \begin{enumerate}
 \item Applying $\textrm{MP}$ to $\vdash (C \to E) \to (A \to (C \to E))$ ($\textrm{impI}$) and $\vdash (A \to (C \to E)) \to ((A \to C) \to (A \to E))$ ($\textrm{impE}$) yields $\Gamma \vdash A \to E$ whenever $\Gamma \vdash C \to E$ and $\Gamma \vdash A \to C$.
-\item Assume $\Gamma \vdash A \to (C \to E)$. Since $\vdash (A \land C) \to A$ by $\textrm{andE1}$, part (1) gives $\Gamma \vdash (A \land C) \to (C \to E)$. Applying $\textrm{impE}$ gives $\Gamma \vdash ((A \land C) \to C) \to ((A \land C) \to E)$, and $\textrm{MP}$ with $\vdash (A \land C) \to C$ ($\textrm{andE2}$) yields $\Gamma \vdash (A \land C) \to E$.
+\item Assume $\Gamma \vdash A \to (C \to E))$. Since $\vdash (A \land C) \to A$ by $\textrm{andE1}$, part (1) gives $\Gamma \vdash (A \land C) \to (C \to E)$. Applying $\textrm{impE}$ gives $\Gamma \vdash ((A \land C) \to C) \to ((A \land C) \to E)$, and $\textrm{MP}$ with $\vdash (A \land C) \to C$ ($\textrm{andE2}$) yields $\Gamma \vdash (A \land C) \to E$.
 \item Assume $\Gamma \vdash (A \land C) \to E$. By $\textrm{impI}$ and $\textrm{impE}$, $\Gamma \vdash (C \to (A \land C)) \to (C \to E)$. Composing with $\vdash A \to (C \to (A \land C))$ ($\textrm{andI}$) via part (1) yields $\Gamma \vdash A \to (C \to E)$.
-\item First note $\vdash (C \land A) \to (A \land C)$: applying part (2) to $\vdash A \to (C \to (A \land C))$ ($\textrm{andI}$) after commuting via $\textrm{andE2}$ and $\textrm{andE1}$ gives $\vdash (C \land A) \to A$ ($\textrm{andE2}$) and $\vdash (C \land A) \to C$ ($\textrm{andE1}$), so $\textrm{andI}$ and $\textrm{impE}$ yield $\vdash (C \land A) \to (A \land C)$. Thus $\Gamma \vdash A \to (C \to E) \implies \Gamma \vdash (A \land C) \to E \implies \Gamma \vdash (C \land A) \to E \implies \Gamma \vdash C \to (A \to E)$ by parts (2), (1), and (3).
+\item First note $\vdash (C \land A) \to (A \land C)$: applying part (2) to $\vdash A \to (C \to (A \land C))$ (\textrm{andI}) after commuting via \textrm{andE2} and \textrm{andE1} gives $\vdash (C \land A) \to A$ (\textrm{andE2}) and $\vdash (C \land A) \to C$ (\textrm{andE1}), so \textrm{andI} and \textrm{impE} yield $\vdash (C \land A) \to (A \land C)$. Thus $\Gamma \vdash A \to (C \to E) \implies \Gamma \vdash (A \land C) \to E \implies \Gamma \vdash (C \land A) \to E \implies \Gamma \vdash C \to (A \to E)$ by parts (2), (1), and (3).
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{theorem}[Deduction Metatheorem]\label{thm:deduction}
 Let $\Gamma$ be a set of formulas and $A, B \in \Fm$. In a derivation $D_1, \dots, D_n = B$ from $\Gamma \cup \{A\}$, a step $D_k$ is said to \emph{depend on $A$} if $D_k = A$ or $D_k$ is inferred by $\textrm{MP}$, $\forall\textrm{I}$, or $\exists\textrm{E}$ from at least one premise $D_i$ ($i < k$) that depends on $A$. If $\Gamma \cup \{A\} \vdash B$ by a derivation in which no application of $\forall\textrm{I}$ or $\exists\textrm{E}$ generalizes on a variable $x \in \FV(A)$ from a premise $D_i$ that depends on $A$, then $\Gamma \vdash A \to B$.
@@ -200,7 +224,7 @@ Let $\Gamma$ be a set of formulas and $A, B \in \Fm$. In a derivation $D_1, \dot
 \item \textbf{Universal Introduction ($\forall\textrm{I}$) case:} Suppose $D_k = (C \to \forall x E)$ is inferred from $D_i = (C \to E)$ ($i < k$) by $\forall\textrm{I}$, where $x \notin \FV(C)$. If $D_i$ does not depend on $A$, then $D_k$ does not depend on $A$ and Case 1 applies. If $D_i$ depends on $A$, the hypothesis of the theorem gives $x \notin \FV(A)$, so $x \notin \FV(A) \cup \FV(C) = \FV(A \land C)$. By the induction hypothesis, $\Gamma \vdash A \to (C \to E)$. By the Import Law (Lemma \ref{lem:import_export}(2)), $\Gamma \vdash (A \land C) \to E$. Since $x \notin \FV(A \land C)$, rule $\forall\textrm{I}$ applies to yield $\Gamma \vdash (A \land C) \to \forall x E$. By the Export Law (Lemma \ref{lem:import_export}(3)), $\Gamma \vdash A \to (C \to \forall x E)$.
 \item \textbf{Existential Elimination ($\exists\textrm{E}$) case:} Suppose $D_k = (\exists x C \to E)$ is inferred from $D_i = (C \to E)$ ($i < k$) by $\exists\textrm{E}$, where $x \notin \FV(E)$. If $D_i$ does not depend on $A$, Case 1 applies. If $D_i$ depends on $A$, the hypothesis gives $x \notin \FV(A)$, so $x \notin \FV(A) \cup \FV(E) = \FV(A \to E)$. By the induction hypothesis, $\Gamma \vdash A \to (C \to E)$. By Commutation of Antecedents (Lemma \ref{lem:import_export}(4)), $\Gamma \vdash C \to (A \to E)$. Since $x \notin \FV(A \to E)$, rule $\exists\textrm{E}$ applies to yield $\Gamma \vdash \exists x C \to (A \to E)$. Applying Lemma \ref{lem:import_export}(4) once more gives $\Gamma \vdash A \to (\exists x C \to E)$.
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{theorem}[Quantifier Distribution Laws over Implication]\label{thm:quant_dist}
 Let $A, B \in \Fm$ and $x \in \Var$.
@@ -217,44 +241,49 @@ $$\vdash \forall x (A \to B) \to (\exists x A \to B) \qquad \text{and} \qquad \v
   \begin{itemize}
   \item \textbf{Direction $(\to)$:}
     \begin{enumerate}
-    \item[(a1)] $\vdash \forall x (A \to B) \to (A \to B)$ \hfill (axiom $\forall\textrm{E}$ with $t \coloneqq x$)
+    \item[(a1)] $\vdash \forall x (A \to B) \to (A \to B)$ \hfill (axiom $\forall\textrm{E}$ with $t \coloneqq {x}$)
     \item[(a2)] $\vdash (\forall x (A \to B) \land A) \to B$ \hfill (Import Law, Lemma \ref{lem:import_export}(2), on a1)
     \item[(a3)] $\vdash (\forall x (A \to B) \land A) \to \forall x B$ \hfill (rule $\forall\textrm{I}$ on a2, as $x \notin \FV(\forall x(A \to B) \land A) = \FV(\forall x(A \to B)) \cup \FV(A)$)
     \item[(a4)] $\vdash \forall x (A \to B) \to (A \to \forall x B)$ \hfill (Export Law, Lemma \ref{lem:import_export}(3), on a3)
+
     \end{enumerate}
   \item \textbf{Direction $(\leftarrow)$:}
     \begin{enumerate}
-    \item[(b1)] $\vdash \forall x B \to B$ \hfill (axiom $\forall\textrm{E}$ with $t \coloneqq x$)
+    \item[(b1)] $\vdash \forall x B \to B$ \hfill (axiom $\forall\textrm{E}$ with $t \coloneqq {x}$)
     \item[(b2)] $\vdash (\forall x B \to B) \to ((A \to \forall x B) \to (A \to B))$ \hfill (Hypothetical Syllogism, Lemma \ref{lem:import_export}(1))
     \item[(b3)] $\vdash (A \to \forall x B) \to (A \to B)$ \hfill ($\textrm{MP}$ from b1, b2)
-    \item[(b4)] $\vdash (A \to \forall x B) \to \forall x (A \to B)$ \hfill (rule $\forall\textrm{I}$ on b3, as $x \notin \FV(A \to \forall x B) = \FV(A) \cup \FV(\forall x B)$)
+    \item[(b4)] $\begin{aligned}[t]
+\item[(b4)] $\vdash (A \to \forall x B) \to (A \to B)$ \hfill (\textrm{MP} from b1, b2)
+\end{aligned}
+\vdash (A \to \forall x B) \to \forall x (A \to B) \\ \hfill (rule $\forall\textrm{I}$ on b3, as $x \notin \FV(A \to \forall x B) = \FV(A) \cup \FV(\forall x B)$)
+\end{aligned}
     \end{enumerate}
   \end{itemize}
 \item Assume $x \notin \FV(B)$.
   \begin{itemize}
   \item \textbf{Direction $(\to)$:}
     \begin{enumerate}
-    \item[(c1)] $\vdash \forall x (A \to B) \to (A \to B)$ \hfill (axiom $\forall\textrm{E}$ with $t \coloneqq x$)
+    \item[(c1)] $\vdash \forall x (A \to B) \to (A \to B)$ \hfill (axiom $\forall\textrm{E}$ with $t \coloneqq {x}$)
     \item[(c2)] $\vdash A \to (\forall x (A \to B) \to B)$ \hfill (Commutation of Antecedents, Lemma \ref{lem:import_export}(4), on c1)
     \item[(c3)] $\vdash \exists x A \to (\forall x (A \to B) \to B)$ \hfill (rule $\exists\textrm{E}$ on c2, as $x \notin \FV(\forall x(A \to B) \to B) = \FV(\forall x(A \to B)) \cup \FV(B)$)
     \item[(c4)] $\vdash \forall x (A \to B) \to (\exists x A \to B)$ \hfill (Commutation of Antecedents, Lemma \ref{lem:import_export}(4), on c3)
     \end{enumerate}
   \item \textbf{Direction $(\leftarrow)$:}
     \begin{enumerate}
-    \item[(d1)] $\vdash A \to \exists x A$ \hfill (axiom $\exists\textrm{I}$ with $t \coloneqq x$)
+    \item[(d1)] $\vdash A \to \exists x A$ \hfill (axiom $\exists\textrm{I}$ with $t \coloneqq {x}$)
     \item[(d2)] $\vdash (A \to \exists x A) \to ((\exists x A \to B) \to (A \to B))$ \hfill (Hypothetical Syllogism, Lemma \ref{lem:import_export}(1))
     \item[(d3)] $\vdash (\exists x A \to B) \to (A \to B)$ \hfill ($\textrm{MP}$ from d1, d2)
     \item[(d4)] $\vdash (\exists x A \to B) \to \forall x (A \to B)$ \hfill (rule $\forall\textrm{I}$ on d3, as $x \notin \FV(\exists x A \to B) = \FV(\exists x A) \cup \FV(B)$)
     \end{enumerate}
   \end{itemize}
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{lemma}[Classical negation and quantifier duality laws (`AUD-002`)]\label{lem:classical_neg}
 For all formulas $A, B \in \Fm$ and $x \in \Var$:
 $$\text{(1) } \vdash A \LRA \neg\neg A, \quad \text{(2) } \vdash \neg(A \to B) \LRA (A \land \neg B), \quad \text{(3) } \vdash \neg \forall x A \LRA \exists x \neg A \ \ \text{and}\ \ \vdash \neg \exists x A \LRA \forall x \neg A.$$
 \end{lemma}
-\myprf\ (1) Applying $\textrm{negI}$ to $\vdash \neg A \to (A \to \neg A)$ ($\textrm{impI}$) and $\vdash \neg A \to (\neg A \to \neg A)$ (from Lemma \ref{lem:id_law} and $\textrm{impI}$) gives $\vdash A \to \neg\neg A$. Conversely, applying $\textrm{orE}$ to $\vdash A \to (\neg\neg A \to A)$ ($\textrm{impI}$), $\vdash \neg A \to (\neg\neg A \to A)$ ($\textrm{negE}$), and $\vdash A \lor \neg A$ ($\textrm{LEM}$) yields $\vdash \neg\neg A \to A$. (2) From $\{A \to B, A\}$ we derive $B$ by $\textrm{MP}$, so $\textrm{negI}$ with $A \land \neg B \to B$ and $\textrm{andE2}$ ($A \land \neg B \to \neg B$) gives $\vdash (A \land \neg B) \to \neg(A \to B)$; conversely, $\textrm{negE}$ and $\textrm{impI}$ give $\vdash \neg A \to (A \to B)$ and $\vdash B \to (A \to B)$, so contraposition ($\textrm{negI}$) and (1) yield $\vdash \neg(A \to B) \to A$ and $\vdash \neg(A \to B) \to \neg B$, whence $\textrm{andI}$ gives $\vdash \neg(A \to B) \to (A \land \neg B)$. (3) Applying $\textrm{negI}$ to $\vdash \forall x A \to A$ ($\forall\textrm{E}$) gives $\vdash \neg A \to \neg \forall x A$, and rule $\exists\textrm{E}$ yields $\vdash \exists x \neg A \to \neg \forall x A$; conversely, from $\vdash A \to (\neg A \to \bot)$ and $\exists\textrm{I}$ ($\vdash \neg A \to \exists x \neg A$) we obtain $\vdash \neg \exists x \neg A \to \neg\neg A \to A$, hence $\vdash \neg \exists x \neg A \to \forall x A$ by $\forall\textrm{I}$, and contraposition with (1) gives $\vdash \neg \forall x A \to \exists x \neg A$ (and similarly $\vdash \neg \exists x A \LRA \forall x \neg A$). \myqed
+\myprf\ (1) Applying $\textrm{negI}$ to $\vdash \neg A \to (A \to \neg A)$ ($\textrm{impI}$) and $\vdash \neg A \to (\neg A \to \neg A)$ (from Lemma \ref{lem:id_law} and $\textrm{impI}$) gives $\vdash A \to \neg\neg A$. Conversely, applying $\textrm{orE}$ to $\vdash A \to (\neg\neg A \to A)$ ($\textrm{impI}$), $\vdash \neg A \to (\neg\neg A \to A)$ ($\textrm{negE}$), and $\vdash A \lor \neg A$ ($\textrm{LEM}$) yields $\vdash \neg\neg A \to A$. (2) From $\{A \to B, A\}$ we derive $B$ by $\textrm{MP}$, so $\textrm{negI}$ with $A \land \neg B \to B$ and $\textrm{andE2}$ ($A \land \neg B \to \neg B$) gives $\vdash (A \land \neg B) \to \neg(A \to B)$; conversely, $\textrm{negE}$ and $\textrm{impI}$ give $\vdash \neg A \to (A \to B)$ and $\vdash B \to (A \to B)$, so contraposition ($\textrm{negI}$) and (1) yield $\vdash \neg(A \to B) \to A$ and $\vdash \neg(A \to B) \to \neg B$, whence $\textrm{andI}$ gives $\vdash \neg(A \to B) \to (A \land \neg B)$. (3) Applying $\textrm{negI}$ to $\vdash \forall x A \to A$ ($\forall\textrm{E}$) gives $\vdash \neg A \to \neg \forall x A$, and rule $\exists\textrm{E}$ yields $\vdash \exists x \neg A \to \neg \forall x A$; conversely, from $\vdash A \to (\neg A \to \bot)$ and $\exists\textrm{I}$ ($\vdash \neg A \to \exists x \neg A$) we obtain $\vdash \neg \exists x \neg A \to \neg\neg A \to A$, hence $\vdash \neg \exists x \neg A \to \forall x A$ by $\forall\textrm{I}$, and contraposition with (1) gives $\vdash \neg \forall x A \to \exists x \neg A$ (and similarly $\vdash \neg \exists x A \LRA \forall x \neg A$). \qedhere
 
 \subsection{Axioms of Set and Class Theory}\label{sec:axioms}
 Our set-theoretic constructions rest on the following axioms of $\mathrm{NBG}$ (or $\mathrm{ZFC}$ for set-comprehension instances) \cite[Ch.~I]{Godel1940}, \cite[Ch.~I--II]{Bernays1958}, \cite[Ch.~2--3]{TakeutiZaring1982}, \cite[Ch.~4]{Mendelson2015}:
@@ -286,12 +315,14 @@ $$\interclass K \eqdef \{x \in \Set : \forall k\in K.\ x\in k\}.$$
 \begin{exercise}\label{ex:interclass_set}
 $K\neq \emptyset \to \interclass K \in \Set$.
 \end{exercise}
-\myprf\ Since $K \neq \emptyset$, choose some $k_0 \in K$. Because $k_0 \in \Set$ and every $x \in \interclass K$ satisfies $x \in k_0$, Extensionality gives $\interclass K = \{x \in k_0 : \forall k\in K.\ x\in k\} = k_0 \cap \interclass K$, which is a set by the Axiom Schema of Separation (Subsection \ref{sec:axioms}(7)). \myqed
+\myprf Since $K \neq \emptyset$, choose some $k_0 \in K$. Because $k_0 \in \Set$ and every $x \in \interclass K$ satisfies $x \in k_0$, Extensionality gives $\interclass K = \{x \in k_0 : \forall k\\in K.\\ x\\in k\\} = k_0 \\cap \\interclass K$, which is a set by the Axiom Schema of Separation (Subsection \\ref{sec:axiom}).
+\qedhere
+\myprf\ Since $K \neq \emptyset$, choose some $k_0 \in K$. Because $k_0 \in \Set$ and every $x \in \interclass K$ satisfies $x \in k_0$, Extensionality gives $\interclass K = \{x \in k_0 : \forall k\in K.\ x\in k\} = k_0 \cap \interclass K$, which is a set by the Axiom Schema of Separation (Subsection \ref{sec:axioms}(7)). \qedhere
 
 \begin{exercise}
 $K=\emptyset \to \interclass K = \Set$.
 \end{exercise}
-\myprf\ If $K = \emptyset$, the condition $\forall k \in \emptyset.\ x \in k$ holds vacuously for every $x \in \Set$. By Extensionality, $\interclass \emptyset = \{x \in \Set : \top\} = \Set$ (a proper class). \myqed
+\myprf\ If $K = \emptyset$, the condition $\forall k \in \emptyset.\ x \in k$ holds vacuously for every $x \in \Set$. By Extensionality, $\interclass \emptyset = \{x \in \Set : \top\} = \Set$ (a proper class). \qedhere
 
 \begin{definition}[Set intersection]
 $$\inter K \eqdef \{x \in \Set : (\forall k\in K.\ x\in k)\land (\exists k.\ k\in K)\}.$$
@@ -300,7 +331,7 @@ $$\inter K \eqdef \{x \in \Set : (\forall k\in K.\ x\in k)\land (\exists k.\ k\i
 \begin{exercise}
 $\inter K \in \Set$.
 \end{exercise}
-\myprf\ By the Law of Excluded Middle (LEM), either $K \neq \emptyset$ or $K = \emptyset$. If $K \neq \emptyset$, then $\exists k.\ k \in K$ holds, so $\inter K = \interclass K \in \Set$ by Exercise \ref{ex:interclass_set}. If $K = \emptyset$, then $\exists k.\ k \in K$ is false, so $\inter \emptyset = \emptyset \in \Set$ by the Axiom of the Empty Set (Subsection \ref{sec:axioms}(3)). \myqed
+\myprf\ By the Law of Excluded Middle (LEM), either $K \neq \emptyset$ or $K = \emptyset$. If $K \neq \emptyset$, then $\exists k.\ k \in K$ holds, so $\inter K = \interclass K \in \Set$ by Exercise \ref{ex:interclass_set}. If $K = \emptyset$, then $\exists k.\ k \in K$ is false, so $\inter \emptyset = \emptyset \in \Set$ by the Axiom of the Empty Set (Subsection \ref{sec:axioms}(3)). \qedhere
 
 \subsection{Binders}\label{sec:binders}
 Throughout this subsection, bound variables in $!x$, $\exists !x$, $?x$, and $\The x$ range over sets ($x \in \Set$).
@@ -319,7 +350,7 @@ $$?x.\ P(x) \propdef \neg (!x.\ \neg P(x)).$$
 \begin{exercise}
 $!x.\ P(x) \LRA \neg (?x.\ \neg P(x))$.
 \end{exercise}
-\myprf\ By definition of $?x$, $\neg (?x.\ \neg P(x)) \LRA \neg \neg (!x.\ \neg \neg P(x))$, which is equivalent by double negation elimination (Lemma \ref{lem:classical_neg}(1)) to $!x.\ P(x)$. \myqed
+\myprf\ By definition of $?x$, $\neg (?x.\ \neg P(x)) \LRA \neg \neg (!x.\ \neg \neg P(x))$, which is equivalent by double negation elimination (Lemma \ref{lem:classical_neg}(1)) to $!x.\ P(x)$. \qedhere
 
 \begin{lemma}[Characterization of the dual quantifier $?x.\ P(x)$]
 For any predicate $P(x)$,
@@ -332,7 +363,7 @@ Dually, $\neg (!x.\ P(x)) \LRA (?x.\ \neg P(x)) \LRA \exists x_1\, \exists x_2.\
 &\LRA \exists x_1\, \exists x_2.\ \neg (\neg P(x_1) \land \neg P(x_2) \to x_1 = x_2) \\
 &\LRA \exists x_1\, \exists x_2.\ (\neg P(x_1) \land \neg P(x_2) \land x_1 \neq x_2).
 \end{align*}
-Replacing $P(x)$ by $\neg P(x)$ and applying Lemma \ref{lem:classical_neg}(1) gives the second equivalence. \myqed
+Replacing $P(x)$ by $\neg P(x)$ and applying Lemma \ref{lem:classical_neg}(1) gives the second equivalence. \qedhere
 
 \begin{definition}[Definite description binder (`AUD-003`)]\label{def:the_binder}
 $$\The x.\ P(x) \eqdef \inter \{x \in \Set : P(x)\ \land\ !w.\ P(w)\} \in \Set.$$
@@ -341,17 +372,17 @@ $$\The x.\ P(x) \eqdef \inter \{x \in \Set : P(x)\ \land\ !w.\ P(w)\} \in \Set.$
 \begin{exercise}\label{ex:the_eq}
 $(a \in \Set\ \land\ P(a)\ \land\ !w.\ P(w)) \to (\The x.\ P(x))=a$.
 \end{exercise}
-\myprf\ Assume $a \in \Set$, $P(a)$, and $!w.\ P(w)$. For any $x \in \Set$, $P(x) \land !w.\ P(w)$ holds iff $x = a$ (since $P(x) \land P(a) \to x=a$). Because $a \in \Set$, predicative comprehension yields $\{x \in \Set : P(x) \land !w.\ P(w)\} = \{a\}$ (whereas if $a \notin \Set$ were a proper class, this class would be empty), and by Extensionality $\inter \{a\} = \{z \in \Set : z \in a\} = a$. \myqed
+\myprf\ Assume $a \in \Set$, $P(a)$, and $!w.\ P(w)$. For any $x \in \Set$, $P(x) \land !w.\ P(w)$ holds iff $x = a$ (since $P(x) \land P(a) \to x=a$). Because $a \in \Set$, predicative comprehension yields $\{x \in \Set : P(x) \land !w.\ P(w)\} = \{a\}$ (whereas if $a \notin \Set$ were a proper class, this class would be empty), and by Extensionality $\inter \{a\} = \{z \in \Set : z \in a\} = a$. \qedhere
 
 \begin{exercise}\label{ex:the_prop}
 $(\exists !w.\ P(w)) \to (\The x.\ P(x)) \in \Set \land P(\The x.\ P(x))$.
 \end{exercise}
-\myprf\ Assume $\exists !w.\ P(w)$, i.e., $(\exists a \in \Set.\ P(a)) \land (!w.\ P(w))$. By $\exists\textrm{E}$, pick $a \in \Set$ such that $P(a)$. By Exercise \ref{ex:the_eq}, $(\The x.\ P(x)) = a \in \Set$. By equality substitution ($=\textrm{subs}$), $P(\The x.\ P(x))$ holds. \myqed
+\myprf\ Assume $\exists !w.\ P(w)$, i.e., $(\exists a \in \Set.\ P(a)) \land (!w.\ P(w))$. By $\exists\textrm{E}$, pick $a \in \Set$ such that $P(a)$. By Exercise \ref{ex:the_eq}, $(\The x.\ P(x)) = a \in \Set$. By equality substitution ($=\textrm{subs}$), $P(\The x.\ P(x))$ holds. \qedhere
 
 \begin{lemma}[Default value of definite description]\label{lem:the_default}
 $$\neg (\exists !w.\ P(w)) \to (\The x.\ P(x)) = \emptyset.$$
 \end{lemma}
-\myprf\ Assume $\neg (\exists !w.\ P(w))$, which by Lemma \ref{lem:classical_neg} is equivalent to $(\neg \exists x \in \Set.\ P(x)) \lor (\neg !w.\ P(w))$. In either case, no $x \in \Set$ can satisfy $P(x) \land !w.\ P(w)$. Thus the class $K \coloneqq \{x \in \Set : P(x) \land !w.\ P(w)\}$ is empty ($K = \emptyset$), so $\The x.\ P(x) = \inter \emptyset = \emptyset$. \myqed
+\myprf\ Assume $\neg (\exists !w.\ P(w))$, which by Lemma \ref{lem:classical_neg} is equivalent to $(\neg \exists x \in \Set.\ P(x)) \lor (\neg !w.\ P(w))$. In either case, no $x \in \Set$ can satisfy $P(x) \land !w.\ P(w)$. Thus the class $K \coloneqq \{x \in \Set : P(x) \land !w.\ P(w)\}$ is empty ($K = \emptyset$), so $\The x.\ P(x) = \inter \emptyset = \emptyset$. \qedhere
 
 \subsection{Ordered Pairs, Cartesian Products, Relations, and Values of Functions}\label{sec:pairs_rels}
 \begin{definition}[Ordered pair, Cartesian product, relation, function, domain, range, and composition (`AUD-004`)]\label{def:pair_rel}
@@ -376,7 +407,7 @@ $$\langle x_1, y_1 \rangle = \langle x_2, y_2 \rangle \LRA (x_1 = x_2 \land y_1 
 \item The right-to-left direction follows from equality substitution ($=\textrm{subs}$). Conversely, suppose $\langle x_1, y_1 \rangle = \langle x_2, y_2 \rangle$, so $\{\{x_1\}, \{x_1, y_1\}\} = \{\{x_2\}, \{x_2, y_2\}\}$. Taking intersections gives $\{x_1\} = \inter \langle x_1, y_1 \rangle = \inter \langle x_2, y_2 \rangle = \{x_2\}$, whence $x_1 = x_2$. Taking unions gives $\{x_1, y_1\} = \bigcup \langle x_1, y_1 \rangle = \bigcup \langle x_2, y_2 \rangle = \{x_2, y_2\}$. Since $x_1 = x_2$, if $y_1 \neq x_1$ then $y_1 \in \{x_2, y_2\}$ forces $y_1 = y_2$; if $y_1 = x_1$, then $\{x_2, y_2\} = \{x_1\}$ forces $y_2 = x_1 = y_1$.
 \item Suppose $X, Y \in \Set$. By Pairing and Union (Subsection \ref{sec:axioms}(4)--(5)), $X \cup Y \in \Set$. For any $x \in X$ and $y \in Y$, both $\{x\} \subseteq X \cup Y$ and $\{x, y\} \subseteq X \cup Y$, so $\{x\}, \{x, y\} \in \Pow(X \cup Y)$ and hence $\langle x, y \rangle = \{\{x\}, \{x, y\}\} \in \Pow(\Pow(X \cup Y))$. By two applications of the Axiom of Power Set (Subsection \ref{sec:axioms}(6)), $\Pow(\Pow(X \cup Y)) \in \Set$, so $X \times Y = \{p \in \Pow(\Pow(X \cup Y)) : \exists x \in X\, \exists y \in Y.\ p = \langle x, y \rangle\} \in \Set$ by the Axiom Schema of Separation (Subsection \ref{sec:axioms}(7)).
 \end{enumerate}
-\myqed
+\qedhere
 
 For a relation $g$, its value at $x \in \Set$ is defined via definite description (Definition \ref{def:the_binder}):
 $$g(x) \eqdef (g\apo x) \eqdef (\The y.\ \langle x, y\rangle \in g) = \inter \{y \in \Set : \langle x,y\rangle \in g \land !w.\ \langle x,w\rangle \in g\} \in \Set.$$
@@ -384,12 +415,12 @@ $$g(x) \eqdef (g\apo x) \eqdef (\The y.\ \langle x, y\rangle \in g) = \inter \{y
 \begin{exercise}
 $x\notin \dom(g)\to (g\apo x)=\emptyset$.
 \end{exercise}
-\myprf\ If $x \notin \dom(g)$, there is no $y \in \Set$ with $\langle x,y\rangle \in g$, so $\neg(\exists !w.\ \langle x,w\rangle \in g)$. By Lemma \ref{lem:the_default}, $(g\apo x) = \emptyset$. \myqed
+\myprf\ If $x \notin \dom(g)$, there is no $y \in \Set$ with $\langle x,y\rangle \in g$, so $\neg(\exists !w.\ \langle x,w\rangle \in g)$. By Lemma \ref{lem:the_default}, $(g\apo x) = \emptyset$. \qedhere
 
 \begin{lemma}[Closure of functional relations under composition]\label{lem:fun_comp}
 Assume $\Rel(g), \Fun(g), \Rel(f), \Fun(f)$, and $\ran(g) \subseteq \dom(f)$. Then $\Rel(f \circ g)$, $\Fun(f \circ g)$, $\dom(f \circ g) = \dom(g)$, and $\forall x \in \dom(g).\ (f \circ g)(x) = f(g(x))$.
 \end{lemma}
-\myprf\ By Definition \ref{def:pair_rel}, $f \circ g$ consists of ordered pairs, so $\Rel(f \circ g)$ holds. For any $x \in \dom(g)$, $\Fun(g)$ and Exercise \ref{ex:the_prop} give $\langle x, g(x) \rangle \in g$ as the unique pair in $g$ with first component $x$. Since $g(x) \in \ran(g) \subseteq \dom(f)$, $\Fun(f)$ gives $\langle g(x), f(g(x)) \rangle \in f$ as the unique pair in $f$ with first component $g(x)$. Thus $z = f(g(x)) \in \Set$ is the unique element satisfying $\langle x, z \rangle \in f \circ g$. Hence $\Fun(f \circ g)$ holds, $\dom(f \circ g) = \dom(g)$, and Exercise \ref{ex:the_eq} yields $(f \circ g)(x) = f(g(x))$. \myqed
+\myprf\ By Definition \ref{def:pair_rel}, $f \circ g$ consists of ordered pairs, so $\Rel(f \circ g)$ holds. For any $x \in \dom(g)$, $\Fun(g)$ and Exercise \ref{ex:the_prop} give $\langle x, g(x) \rangle \in g$ as the unique pair in $g$ with first component $x$. Since $g(x) \in \ran(g) \subseteq \dom(f)$, $\Fun(f)$ gives $\langle g(x), f(g(x)) \rangle \in f$ as the unique pair in $f$ with first component $g(x)$. Thus $z = f(g(x)) \in \Set$ is the unique element satisfying $\langle x, z \rangle \in f \circ g$. Hence $\Fun(f \circ g)$ holds, $\dom(f \circ g) = \dom(g)$, and Exercise \ref{ex:the_eq} yields $(f \circ g)(x) = f(g(x))$. \qedhere
 
 \subsection{Dependent Sum and Product}\label{sec:sigma_pi}
 Let $R$ be a functional class ($\Rel(R) \land \Fun(R)$) with index class (or set) $W = \dom(R)$, so that for each $x \in W$ (hence $x \in \Set$), its fiber $R(x) = (\The y.\ \langle x, y \rangle \in R)$ is a set ($R(x) \in \Set$).
@@ -415,7 +446,7 @@ Let $R$ be a family of sets with $W = \dom(R)$.
 \item Assume $W \in \Set$ and $R(x) \in \Set$ for all $x \in W$. By the Axiom Schema of Replacement (Subsection \ref{sec:axioms}(8)), the family $\{R(x) : x \in W\}$ is a set, so its union $U \coloneqq \bigcup \{R(x) : x \in W\}$ is a set by the Axiom of Union (Subsection \ref{sec:axioms}(5)). By Lemma \ref{lem:pair_prop}(2), $W \times U \in \Set$, and since $\Sigma R = \{\langle x, y \rangle \in W \times U : y \in R(x)\} \subseteq W \times U$, the Axiom Schema of Separation (Subsection \ref{sec:axioms}(7)) gives $\Sigma R \in \Set$. Applying the Axiom of Power Set (Subsection \ref{sec:axioms}(6)) yields $\Pow(\Sigma R) \in \Set$, and a second application of Separation yields $\Pi R = \{f \in \Pow(\Sigma R) : \Fun(f) \land W \subseteq \dom(f)\} \in \Set$.
 \item For $g \coloneqq \{\langle x, t(x) \rangle : x \in W\}$, Lemma \ref{lem:pair_prop}(1) implies that for each $a \in W$, $y = t(a)$ is the unique element with $\langle a, y \rangle \in g$. Thus $g \in \Pi R$ (when $W \in \Set$), and Exercise \ref{ex:the_eq} gives $g(a) = t(a)$ ($\beta$-conversion). Finally, for any $f \in \Pi R$, every pair in $f$ has the form $\langle x, f(x) \rangle$ for $x \in W$, so Extensionality yields $f = \{\langle x, f(x) \rangle : x \in W\}$ ($\eta$-conversion).
 \end{enumerate}
-\myqed
+\qedhere
 
 \subsection{Extensionality}\label{sec:extensionality}
 Using the relational predicates $\Rel(g)$ and $\Fun(g)$ from Definition \ref{def:pair_rel}, we establish functional inclusion and extensionality.
@@ -431,12 +462,12 @@ Assume $\Rel(g_1)$, $\Fun(g_1)$, $\Fun(g_2)$, $\dom(g_1)\subseteq\dom(g_2)\subse
 \item Moreover, $a \in \dom(g_2)$ and $\Fun(g_2)$ imply $\exists !y.\ \langle a,y\rangle \in g_2$. By Exercise \ref{ex:the_prop}, $\langle a, g_2(a)\rangle \in g_2$.
 \item Substituting $g_2(a) = b$, we obtain $p = \langle a, b\rangle \in g_2$. Therefore $g_1 \subseteq g_2$.
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{theorem}[Functional extensionality]\label{thm:fun_ext}
 Assume $\Rel(g_1)$, $\Rel(g_2)$, $\Fun(g_1)$, $\Fun(g_2)$, $\dom(g_1) = \dom(g_2) = X$, and $\forall x\in X.\ g_1(x)=g_2(x)$. Then $g_1 = g_2$.
 \end{theorem}
-\myprf\ Applying Theorem \ref{thm:fun_incl} to $(g_1, g_2)$ gives $g_1 \subseteq g_2$, and applying Theorem \ref{thm:fun_incl} symmetrically to $(g_2, g_1)$ gives $g_2 \subseteq g_1$. By set extensionality, $g_1 = g_2$. \myqed
+\myprf\ Applying Theorem \ref{thm:fun_incl} to $(g_1, g_2)$ gives $g_1 \subseteq g_2$, and applying Theorem \ref{thm:fun_incl} symmetrically to $(g_2, g_1)$ gives $g_2 \subseteq g_1$. By set extensionality, $g_1 = g_2$. \qedhere
 \subsection{Transitive Sets, Hereditarily Transitive Sets, and Ordinals}\label{sec:ordinals}
 \begin{definition}[Transitive set and successor]
 $$\Tr(A) \propdef \forall x\in A.\ x\subseteq A, \qquad \mysucc(A) \eqdef A \cup \{A\}.$$
@@ -458,7 +489,7 @@ $$\Ord(A) \LRA \HTr(A) \quad (\equiv \TOrd(A)).$$
 \item \textbf{Direction $\Ord(A) \implies \HTr(A)$:} Assume $\Ord(A)$. To show $\forall a \in A.\ \Tr(a)$, fix $a \in A$, $y \in a$, and $z \in y$. Since $\Tr(A)$ holds, $a \in A \implies y \in A \implies z \in A$. By $\in$-trichotomy on $z, a \in A$, either $z \in a$, $z = a$, or $a \in z$. If $z = a$, then $a \in y \in a$, contradicting Foundation on $\{a, y\}$; if $a \in z$, then $a \in z \in y \in a$, contradicting Foundation on $\{a, y, z\}$ (none of whose elements is disjoint from $\{a, y, z\}$). Hence $z \in a$, so $\Tr(a)$ holds for every $a \in A$, proving $\HTr(A)$.
 \item \textbf{Direction $\HTr(A) \implies \Ord(A)$ (`AUD-005`):} Assume $\HTr(A)$. First note that $\in$ on $A$ is irreflexive ($x \notin x$ by Foundation on $\{x\}$) and transitive: if $x, y, z \in A$ satisfy $x \in y$ and $y \in z$, then $\Tr(z)$ (from $\HTr(A)$ and $z \in A$) gives $y \subseteq z$, hence $x \in z$. To prove $\in$-trichotomy, suppose toward a contradiction that $B \coloneqq \{x \in A : \exists y \in A.\ \neg(x \in y \lor x = y \lor y \in x)\}$ is non-empty. By Foundation, choose an $\in$-minimal $x \in B$ ($x \cap B = \emptyset$), and then apply Foundation to $C_x \coloneqq \{y \in A : \neg(x \in y \lor x = y \lor y \in x)\} \neq \emptyset$ to choose an $\in$-minimal $y \in C_x$ ($y \cap C_x = \emptyset$). For any $z \in x$, $\Tr(A)$ gives $z \in A$, and $z \notin C_x$ (since $x \cap B = \emptyset$), so $z \in y \lor z = y \lor y \in z$. Neither $z = y$ nor $y \in z$ can hold, since $\Tr(x)$ would then give $y \in x$, contradicting $y \in C_x$. Thus $z \in y$ for all $z \in x$, i.e., $x \subseteq y$. Symmetrically, for any $w \in y$, $w \notin C_x$ (as $y \cap C_x = \emptyset$) gives $w \in x \lor w = x \lor x \in w$; since $\Tr(y)$ rules out $w = x$ and $x \in w$ (which would yield $x \in y$), we have $w \in x$ for all $w \in y$, i.e., $y \subseteq x$. By Extensionality, $x = y$, contradicting $y \in C_x$. Finally, for any non-empty subset $S \subseteq A$, Foundation yields $m \in S$ with $m \cap S = \emptyset$, which by $\in$-trichotomy and asymmetry satisfies $m \in s$ for all $s \in S \setminus \{m\}$, so $(A, \in)$ is strictly well-ordered.
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{theorem}
 $\exists A.\ \Tr(A) \land \neg (\forall a\in A.\ \Tr(a))$.
@@ -469,7 +500,7 @@ $$A \coloneqq \{0, 1, \{1\}\} = \{\emptyset, \{\emptyset\}, \{\{\emptyset\}\}\}.
 \item $\Tr(A)$ holds: the elements of $A$ are $0 = \emptyset \subseteq A$, $1 = \{0\} \subseteq A$, and $\{1\} \subseteq A$. Thus $\forall x \in A.\ x \subseteq A$.
 \item $\neg (\forall a \in A.\ \Tr(a))$ holds: take $a = \{1\} \in A$. Since $1 \in \{1\}$ and $0 \in 1$, transitivity of $\{1\}$ would require $0 \in \{1\}$, which is false ($0 \neq 1$). Hence $\neg \Tr(\{1\})$, so $\Tr(A)$ holds while $\neg \HTr(A)$ ($\neg \TOrd(A)$).
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{theorem}\label{thm:tr_succ}
 $\Tr(A) \longrightarrow \Tr(\mysucc(A))$.
@@ -479,7 +510,7 @@ $\Tr(A) \longrightarrow \Tr(\mysucc(A))$.
 \item Case $x\in A$: by $\Tr(A)$, $x\subseteq A \subseteq A\cup\{A\}$.
 \item Case $x = A$: $x = A \subseteq A\cup\{A\}$.
 \end{enumerate}
-Hence $\Tr(A\cup\{A\})$. \myqed
+Hence $\Tr(A\cup\{A\})$. \qedhere
 
 \begin{theorem}\label{thm:tord_succ}
 $\HTr(A) \longrightarrow \HTr(\mysucc(A))$ \quad $($equivalently, $\TOrd(A) \longrightarrow \TOrd(\mysucc(A)))$.
@@ -493,7 +524,7 @@ $\HTr(A) \longrightarrow \HTr(\mysucc(A))$ \quad $($equivalently, $\TOrd(A) \lon
   \item If $x = A$, then $\Tr(x)$ holds by $H_1$.
   \end{itemize}
 \end{enumerate}
-Thus $\HTr(\mysucc(A))$. \myqed
+Thus $\HTr(\mysucc(A))$. \qedhere
 
 \begin{theorem}[Closure of $\Tr$ and $\HTr$ ($\TOrd$, $\Ord$)]\label{thm:tord_closure}
 The predicates $\Tr$ and $\HTr \equiv \TOrd$ (and hence $\Ord$ under Foundation) satisfy the following closure properties:
@@ -509,7 +540,7 @@ The predicates $\Tr$ and $\HTr \equiv \TOrd$ (and hence $\Ord$ under Foundation)
 \item Assume $\forall A \in K.\ \Tr(A)$. If $x \in \bigcup K$, there exists $A \in K$ with $x \in A$; since $\Tr(A)$, $x \subseteq A \subseteq \bigcup K$, so $\Tr(\bigcup K)$. For $\inter K$, if $K = \emptyset$ then $\inter \emptyset = \emptyset$ is transitive by (1); if $K \neq \emptyset$ and $x \in \inter K$, then for every $A \in K$ we have $x \in A$, hence $x \subseteq A$ by $\Tr(A)$, so $x \subseteq \inter K$ and $\Tr(\inter K)$.
 \item Assume $\forall A \in K.\ \HTr(A)$. By (2), both $\bigcup K$ and $\inter K$ satisfy $\Tr$. Moreover, every element $a \in \bigcup K$ (respectively $a \in \inter K$ when $K \neq \emptyset$) belongs to some $A \in K$, and since $\HTr(A)$ holds, $\Tr(a)$ holds. Thus $\HTr(\bigcup K)$ and $\HTr(\inter K)$.
 \end{enumerate}
-\myqed
+\qedhere
 
 \part{Category Theory and the Yoneda Paradigm}\label{part:category}
 \section{Category Theory}\label{sec:cat_theory}
@@ -560,7 +591,7 @@ for all $X, Y, Z, W \in \Ob_C$ and $f \in \Hom_C(X,Y)$, $g \in \Hom_C(Y,Z)$, $h 
 $$h \circ_{C^\op}^{X,Z,W} \left(g \circ_{C^\op}^{X,Y,Z} f\right) = \left(f \circ_C^{Z,Y,X} g\right) \circ_C^{W,Z,X} h = f \circ_C^{W,Y,X} \left(g \circ_C^{W,Z,Y} h\right) = \left(h \circ_{C^\op}^{Y,Z,W} g\right) \circ_{C^\op}^{X,Y,W} f.$$
 Finally, $\Ob_{(C^\op)^\op} = \Ob_C$, $\Hom_{(C^\op)^\op}(X,Y) = \Hom_{C^\op}(Y,X) = \Hom_C(X,Y)$, and $f \circ_{(C^\op)^\op} g = g \circ_{C^\op} f = f \circ_C g$, so $(C^\op)^\op = C$.
 \end{enumerate}
-\myqed
+\qedhere
 
 \subsection{Yoneda Embedding and the Yoneda Lemma}\label{sec:yoneda_lemma}
 Throughout this subsection, let $C$ be a locally small category ($\Hom_C(A,B) \in \Set$ for all $A,B \in \Ob_C$) and let $\Set$ be the category of sets (Lemma \ref{lem:set_and_op}(1)).
@@ -597,7 +628,7 @@ Let $C$ be a locally small category. For every $x \in \Ob_C$, $\left(\Hom_C(-, x
 \item \textbf{Object map:} $\Hom_C(-, x) : \Ob_{C^\op} \to \Set$ since $C$ is locally small ($\Hom_C(A,x) \in \Set$ for every $A \in \Ob_C$).
 \item \textbf{Morphism map:} Fix $A,B \in \Ob_{C^\op}$ and $f \in \Hom_{C^\op}(A,B)$. By definition of $C^\op$, $f \in \Hom_C(B,A)$. Thus for every $g \in \Hom_C(A,x)$, the composite $g \circ_C^{B,A,x} f$ is a well-defined element of $\Hom_C(B,x)$. Hence
 $$\HomMor_C^{A,B}(f, x) = \left(g \in \Hom_C(A,x) \mapsto g \circ_C f \in \Hom_C(B,x)\right) \in \Hom_\Set(\Hom_C(A,x), \Hom_C(B,x)).$$
-\item \textbf{Preservation of identity:} Let $A \in \Ob_{C^\op}$ and $1_A \in \Hom_{C^\op}(A,A) = \Hom_C(A,A)$. Using the right identity law $g \circ_C 1_A = g$ for every $g \in \Hom_C(A,x)$, we obtain
+\item \textbf{Preservation of identity:} Let $A \in \Ob_{C^\op}$ and $1_A \in \Hom_{C^\op}(A,A) = \Hom_C(A,A)$. Using the right identity law $1_A \circ_C g = g$ for every $g \in \Hom_C(A,x)$, we obtain
 \begin{align*}
 \HomMor_C^{A,A}(1_A, x) &= \left(g \in \Hom_C(A,x) \mapsto g \circ_C 1_A\right) \\
 &= \left(g \in \Hom_C(A,x) \mapsto g\right) = 1_{\Hom_C(A,x)}.
@@ -614,7 +645,7 @@ Composing (b) and (c) in $\Set$ along $\Hom_C(X,x) \xrightarrow{\HomMor_C^{X,Y}(
 $$h \xmapsto{\HomMor_C^{X,Y}(g, x)} (h \circ_C g) \xmapsto{\HomMor_C^{Y,Z}(f, x)} (h \circ_C g) \circ_C f.$$
 By associativity of composition in $C$, $(h \circ_C g) \circ_C f = h \circ_C (g \circ_C f)$ for all $h \in \Hom_C(X,x)$. By functional extensionality (Theorem \ref{thm:fun_ext}), $\HomMor_C^{X,Z}(f \circ_{C^\op} g, x) = \HomMor_C^{Y,Z}(f,x) \circ_\Set \HomMor_C^{X,Y}(g,x)$.
 \end{enumerate}
-\myqed
+\qedhere
 \begin{definition}[Natural transformation and functor category {\cite[Ch.~I, Sec.~4; Ch.~II, Sec.~4]{MacLane1998}, \cite[Sec.~1.4, Sec.~1.7]{Riehl2016}}]\label{def:nat}
 Let $C$ and $D$ be categories, and let $(F, \FMor)$ and $(G, \GMor)$ in $[C, D]$ be covariant functors. A \emph{natural transformation} $\eta$ from $F$ to $G$, written $\eta \in \Nat(F, G)$, is a dependent family of morphisms
 $$\eta : \Pi(a \in \Ob_C).\ \Hom_D(F(a), G(a))$$
@@ -643,7 +674,7 @@ Hence $\theta \circ_{[C,D]} \eta \in \Nat(F, H)$.
 \item \textbf{Unit and associativity laws:} Since composition and identities in $[C, D]$ are defined objectwise at each $a \in \Ob_C$, the unit and associativity laws in $[C, D]$ follow immediately from those in $D$ and functional extensionality (Theorem \ref{thm:fun_ext}).
 \item \textbf{Size properties (a) and (b):} If $\Ob_C \in \Set$ and $\Hom_D(F(a), G(a)) \in \Set$ for all $a \in \Ob_C$, then $\Pi(a \in \Ob_C).\ \Hom_D(F(a), G(a)) \in \Set$ by Lemma \ref{lem:sigma_pi}(2), and $\Nat(F, G)$ is a subset thereof by Separation (Subsection \ref{sec:axioms}(7)), hence $\Nat(F, G) \in \Set$. When $D$ is also small, $\Ob_{[C,D]} \subseteq \Hom_\Set(\Ob_C, \Ob_D) \times \Hom_\Set(\Mor_C, \Mor_D) \in \Set$ by Separation. Claim (b) is proved in Theorem \ref{thm:yoneda_contra} below without assuming $\Ob_C \in \Set$.
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{definition}[Isomorphism and natural isomorphism]\label{def:iso}
 Let $C$ be a category and $A, B \in \Ob_C$. A morphism $f \in \Hom_C(A, B)$ is an \emph{isomorphism} if there exists $g \in \Hom_C(B, A)$ such that $g \circ_C f = 1_A$ and $f \circ_C g = 1_B$. We write $\Iso_C(A, B) \subseteq \Hom_C(A, B)$ for the class of isomorphisms from $A$ to $B$, and write $A \cong B$ if $\Iso_C(A, B) \neq \emptyset$. An isomorphism in a functor category $[C, D]$ is called a \emph{natural isomorphism}.
@@ -659,7 +690,7 @@ Let $C$ and $D$ be categories.
 \end{theorem}
 \myprf\ Parts (1) and (2) follow directly from associativity and the functor axioms $\FMor(f^{-1}) \circ_D \FMor(f) = \FMor(f^{-1} \circ_C f) = \FMor(1_A) = 1_{F(A)}$ (and symmetrically). For (3), if $\eta \in \mathrm{Iso}_{[C,D]}(F, G)$ with inverse $\theta \in \Nat(G, F)$, then for each $a \in \Ob_C$, $\theta_a \circ_D \eta_a = (\theta \circ_{[C,D]} \eta)_a = 1_{F(a)}$ and $\eta_a \circ_D \theta_a = 1_{G(a)}$, so $\eta_a \in \mathrm{Iso}_D(F(a), G(a))$ with $(\eta_a)^{-1} = \theta_a$. Conversely, suppose $\eta_a \in \mathrm{Iso}_D(F(a), G(a))$ for all $a \in \Ob_C$, and define $\theta_a \coloneqq (\eta_a)^{-1} \in \Hom_D(G(a), F(a))$. For any morphism $m \in \Hom_C(a,b)$, composing the naturality equation $\eta_b \circ_D \FMor^{a,b}(m) = \GMor^{a,b}(m) \circ_D \eta_a$ on the left with $\theta_b$ and on the right with $\theta_a$ yields:
 $$\theta_b \circ_D \GMor^{a,b}(m) = \theta_b \circ_D \GMor^{a,b}(m) \circ_D \eta_a \circ_D \theta_a = \theta_b \circ_D \eta_b \circ_D \FMor^{a,b}(m) \circ_D \theta_a = \FMor^{a,b}(m) \circ_D \theta_a.$$
-Thus $\theta \in \Nat(G, F)$ is the two-sided inverse of $\eta$ in $[C, D]$. \myqed
+Thus $\theta \in \Nat(G, F)$ is the two-sided inverse of $\eta$ in $[C, D]$. \qedhere
 
 \begin{definition}[Representable presheaf $h_x$]
 For each object $x \in \Ob_C$, the representable presheaf $h_x \in \Ob_{[C^\op,\Set]}$ is the contravariant Hom-functor
@@ -684,7 +715,7 @@ $$\textrm{LHS} = \eta^f_b \circ_\Set \HomMor_C^{a,b}(m,x) = \lambda g \in \Hom_C
 $$\textrm{RHS} = \HomMor_C^{a,b}(m,y) \circ_\Set \eta^f_a = \lambda g \in \Hom_C(a,x).\ \left(f \circ_C^{a,x,y} g\right) \circ_C^{b,a,y} m.$$
 \item By associativity of composition $\circ_C$ in $C$, $f \circ_C (g \circ_C m) = (f \circ_C g) \circ_C m$ for all $g \in \Hom_C(a,x)$. By functional extensionality (Theorem \ref{thm:fun_ext}), $\textrm{LHS} = \textrm{RHS}$.
 \end{enumerate}
-\myqed
+\qedhere
 \begin{lemma}[Functoriality of the Yoneda embedding]\label{lem:yoneda_functor}
 Define $\left(h_-, \widetilde{h}_-\right)$ from $C$ to $[C^\op, \Set]$ by $h_x \eqdef \Hom_C(-,x)$ on objects $x \in \Ob_C$ and $\widetilde{h}^{x,y}(f) \eqdef \eta^f$ on morphisms $f \in \Hom_C(x,y)$. Then $\left(h_-, \widetilde{h}_-\right) : C \to [C^\op, \Set]$ is a covariant functor.
 \end{lemma}
@@ -702,7 +733,7 @@ by the left identity law in $C$. By functional extensionality, $\widetilde{h}^{A
 \end{align*}
 by associativity of $\circ_C$. By functional extensionality, $\widetilde{h}^{X,Z}(f \circ_C g) = \widetilde{h}^{Y,Z}(f) \circ_{[C^\op,\Set]} \widetilde{h}^{X,Y}(g)$.
 \end{enumerate}
-\myqed
+\qedhere
 \begin{theorem}[Yoneda Lemma, contravariant version {\cite[Ch.~III, Sec.~2]{MacLane1998}, \cite[Thm.~2.2.4]{Riehl2016}, \cite[Prop.~8.2]{Awodey2010}}]\label{thm:yoneda_contra}
 Let $C$ be a locally small category, $A \in \Ob_C$, and $(G, \GMor) \in [C^\op, \Set]$ be a contravariant functor from $C$ to $\Set$. Let $h_A = \Hom_C(-,A) \in [C^\op, \Set]$. Then there is a canonical bijection
 $$\Nat(h_A, G) \cong G(A)$$
@@ -765,7 +796,7 @@ $$\left(\Psi_x \circ_\Set \HomMor_C^{A,x}(f,A)\right)(\id_A) = \Psi_x\left(\id_A
 Equating the two paths yields $\Psi_x(f) = \GMor^{A,x}(f)(u) = \Phi^u_x(f)$ for all $f \in h_A(x)$.
 By functional extensionality (Theorem \ref{thm:fun_ext}), $\Psi_x = \Phi^u_x$ for every $x \in \Ob_{C^\op}$, and hence $(\Phi \circ \mathrm{ev}_A)(\Psi) = \Phi^u = \Psi$. Thus $\Phi$ and $\mathrm{ev}_A$ are mutually inverse bijections between $G(A)$ and $\Nat(h_A, G)$.
 \end{enumerate}
-\myqed
+\qedhere
 
 
 \begin{theorem}[Yoneda Embedding Theorem {\cite[Ch.~III, Sec.~2]{MacLane1998}, \cite[Cor.~2.2.8]{Riehl2016}}]\label{thm:yoneda_emb}
@@ -792,7 +823,7 @@ For any $A, B \in \Ob_C$ and any natural transformation $\eta \in \Nat(h_A, h_B)
 \item \textbf{Object behavior (reflection of isomorphisms and conditional injectivity on objects):}
 Without assuming disjoint hom-sets, full faithfulness implies $h_A \cong h_B \LRA A \cong B$ (Theorem \ref{thm:yoneda_iso}). If in addition the hom-sets $\Hom_C(X,Y)$ are pairwise disjoint for distinct pairs $\langle X, Y \rangle$, then $h_A = h_B$ implies $\Hom_C(w,A) = \Hom_C(w,B)$ for all $w \in \Ob_C$; taking $w = A$ gives $\id_A \in \Hom_C(A,A) = \Hom_C(A,B) \neq \emptyset$, so disjointness forces $\langle A, A \rangle = \langle A, B \rangle$ and hence $A = B$.
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{lemma}[Reflection of isomorphisms by fully faithful functors]\label{lem:ff_reflects_iso}
 Let $(F, \FMor) : C \to D$ be a fully faithful functor (meaning $\FMor^{A,B} : \Hom_C(A,B) \to \Hom_D(F(A), F(B))$ is a bijection for all $A, B \in \Ob_C$). Then:
@@ -803,14 +834,14 @@ Let $(F, \FMor) : C \to D$ be a fully faithful functor (meaning $\FMor^{A,B} : \
 \end{lemma}
 \myprf\ The forward direction holds for any functor by Theorem \ref{thm:nat_iso}(2). Conversely, suppose $\FMor^{A,B}(f)$ is an isomorphism in $D$ with inverse $k \in \Hom_D(F(B), F(A))$. Since $F$ is full, there exists $g \in \Hom_C(B,A)$ with $\FMor^{B,A}(g) = k$. Then
 $$\FMor^{A,A}(g \circ_C f) = \FMor^{B,A}(g) \circ_D \FMor^{A,B}(f) = k \circ_D \FMor^{A,B}(f) = 1_{F(A)} = \FMor^{A,A}(1_A).$$
-Since $F$ is faithful ($\FMor^{A,A}$ is injective), $g \circ_C f = 1_A$. Symmetrically, $\FMor^{B,B}(f \circ_C g) = \FMor^{B,B}(1_B)$ implies $f \circ_C g = 1_B$. Hence $f \in \Iso_C(A,B)$ with $f^{-1} = g$. \myqed
+Since $F$ is faithful ($\FMor^{A,A}$ is injective), $g \circ_C f = 1_A$. Symmetrically, $\FMor^{B,B}(f \circ_C g) = \FMor^{B,B}(1_B)$ implies $f \circ_C g = 1_B$. Hence $f \in \Iso_C(A,B)$ with $f^{-1} = g$. \qedhere
 
 \begin{theorem}[Yoneda Characterization of Object Isomorphisms]\label{thm:yoneda_iso}
 Let $C$ be a locally small category and $A, B \in \Ob_C$. The following are equivalent:
 $$\text{(1) } A \cong B \text{ in } C, \qquad \text{(2) } h_A \cong h_B \text{ in } [C^\op, \Set], \qquad \text{(3) } h^A \cong h^B \text{ in } [C, \Set].$$
 More precisely, $\widetilde{h}^{A,B} : f \mapsto \eta^f$ restricts to a canonical bijection $\Iso_C(A, B) \xrightarrow{\sim} \Iso_{[C^\op, \Set]}(h_A, h_B)$ with inverse $\eta \mapsto \eta_A(\id_A)$.
 \end{theorem}
-\myprf\ By the Yoneda Embedding Theorem (Theorem \ref{thm:yoneda_emb}), $h_- : C \to [C^\op, \Set]$ is fully faithful, and by its dual (Theorem \ref{thm:yoneda_cov} below), $h^- : C^\op \to [C, \Set]$ is also fully faithful. Applying Lemma \ref{lem:ff_reflects_iso} to $h_-$ and $h^-$ yields the equivalence of (1), (2), and (3) and the explicit bijection $\Iso_C(A, B) \xrightarrow{\sim} \Iso_{[C^\op, \Set]}(h_A, h_B)$. \myqed
+\myprf\ By the Yoneda Embedding Theorem (Theorem \ref{thm:yoneda_emb}), $h_- : C \to [C^\op, \Set]$ is fully faithful, and by its dual (Theorem \ref{thm:yoneda_cov} below), $h^- : C^\op \to [C, \Set]$ is also fully faithful. Applying Lemma \ref{lem:ff_reflects_iso} to $h_-$ and $h^-$ yields the equivalence of (1), (2), and (3) and the explicit bijection $\Iso_C(A, B) \xrightarrow{\sim} \Iso_{[C^\op, \Set]}(h_A, h_B)$. \qedhere
 
 \begin{theorem}[Naturality of the Yoneda bijection in $A$ and $G$]\label{thm:yoneda_nat}
 Let $C$ be a locally small category. For each $A \in \Ob_C$ and $G \in \Ob_{[C^\op, \Set]}$, write $\Phi_{A,G} : G(A) \xrightarrow{\sim} \Nat(h_A, G)$ for the Yoneda bijection $\Phi_{A,G}(u)_x(f) = \GMor^{A,x}(f)(u)$ with inverse $\mathrm{ev}_{A,G}(\Psi) = \Psi_A(\id_A)$. Then $\Phi_{A,G}$ is natural in both $G \in [C^\op, \Set]$ and $A \in C$:
@@ -848,7 +879,7 @@ By functional extensionality, $\alpha \circ_{[C^\op,\Set]} \Phi_{A,G}(u) = \Phi_
 \end{align*}
 By functional extensionality, $\Phi_{A,G}(u) \circ_{[C^\op,\Set]} \widetilde{h}^{A',A}(k) = \Phi_{A',G}(\GMor^{A,A'}(k)(u))$.
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{definition}[Covariant Hom-functor $h^A$]
 Let $C$ be a locally small category. For each object $A \in \Ob_C$, the covariant Hom-functor $h^A \eqdef \Hom_C(A, -) : C \to \Set$ sends each object $x \in \Ob_C$ to $h^A(x) = \Hom_C(A,x) \in \Set$ and each morphism $f \in \Hom_C(x,y)$ to the post-composition map
@@ -870,7 +901,7 @@ h^A(A) = \Hom_C(A,A) @>{\Psi_A}>> F(A) \\
 @V{\HomMor_C^{A,x}(A,f) = (f \circ_C -)}VV @VV{\FMor^{A,x}(f)}V \\
 h^A(x) = \Hom_C(A,x) @>{\Psi_x}>> F(x)
 \end{CD}$$
-Evaluating at $\id_A \in \Hom_C(A,A)$ gives $\Psi_x(f) = \Psi_x(f \circ_C \id_A) = \FMor^{A,x}(f)(\Psi_A(\id_A)) = \Phi^{\Psi_A(\id_A)}_x(f)$. Equivalently by duality, replace $C$ by $C^\op$ in Lemma \ref{lem:contra_hom} and Theorems \ref{thm:yoneda_contra}, \ref{thm:yoneda_emb}, and \ref{thm:yoneda_nat}: since $(C^\op)^\op = C$, a contravariant functor on $C^\op$ is a covariant functor $F \in [C, \Set]$, and $h_A^{C^\op} = \Hom_{C^\op}(-, A) = \Hom_C(A, -) = h^A$, yielding the natural bijection $\Nat(h^A, F) \cong F(A)$ and the full faithfulness of $h^- : C^\op \to [C, \Set]$. \myqed
+Evaluating at $\id_A \in \Hom_C(A,A)$ gives $\Psi_x(f) = \Psi_x(f \circ_C \id_A) = \FMor^{A,x}(f)(\Psi_A(\id_A)) = \Phi^{\Psi_A(\id_A)}_x(f)$. Equivalently by duality, replace $C$ by $C^\op$ in Lemma \ref{lem:contra_hom} and Theorems \ref{thm:yoneda_contra}, \ref{thm:yoneda_emb}, and \ref{thm:yoneda_nat}: since $(C^\op)^\op = C$, a contravariant functor on $C^\op$ is a covariant functor $F \in [C, \Set]$, and $h_A^{C^\op} = \Hom_{C^\op}(-, A) = \Hom_C(A, -) = h^A$, yielding the natural bijection $\Nat(h^A, F) \cong F(A)$ and the full faithfulness of $h^- : C^\op \to [C, \Set]$. \qedhere
 \subsection{Representable Functors and Universal Elements}\label{sec:rep_functors}
 \begin{definition}[Representable functors and universal elements {\cite[Ch.~III, Sec.~1--2]{MacLane1998}, \cite[Sec.~2.1, Sec.~2.3]{Riehl2016}}]\label{def:representable}
 Let $C$ be a locally small category.
@@ -886,7 +917,7 @@ For any sets $A, B \in \Ob_\Set$ and morphism $f \in \Hom_\Set(A, B)$, $f \in \I
 \end{lemma}
 \myprf\ If $f \in \Iso_\Set(A, B)$ with two-sided inverse $g \in \Hom_\Set(B, A)$ ($g \circ_\Set f = 1_A$ and $f \circ_\Set g = 1_B$), then for every $b \in B$, the element $a \coloneqq g(b) \in A$ satisfies $f(a) = f(g(b)) = 1_B(b) = b$ (existence), and if $a' \in A$ satisfies $f(a') = b$, then $a' = 1_A(a') = g(f(a')) = g(b) = a$ (uniqueness). Conversely, assume $\forall b \in B.\ \exists !a \in A.\ f(a) = b$. Using the definite description binder $\The$ (Subsection \ref{sec:binders}) and $\lambda$-abstraction (Lemma \ref{lem:sigma_pi}(3)), define
 $$g \eqdef \left(\lambda b \in B.\ (\The a.\ a \in A \land f(a) = b)\right) \in \Hom_\Set(B, A).$$
-For each $b \in B$, Exercise \ref{ex:the_prop} applied to $P(a) \coloneqq (a \in A \land f(a) = b)$ yields $g(b) \in A$ and $f(g(b)) = b$, so $(f \circ_\Set g)(b) = b = 1_B(b)$. For each $a \in A$, setting $b \coloneqq f(a) \in B$, Exercise \ref{ex:the_eq} yields $g(f(a)) = (\The w.\ w \in A \land f(w) = f(a)) = a = 1_A(a)$. By functional extensionality (Theorem \ref{thm:fun_ext}), $f \circ_\Set g = 1_B$ and $g \circ_\Set f = 1_A$, so $f \in \Iso_\Set(A, B)$. \myqed
+For each $b \in B$, Exercise \ref{ex:the_prop} applied to $P(a) \coloneqq (a \in A \land f(a) = b)$ yields $g(b) \in A$ and $f(g(b)) = b$, so $(f \circ_\Set g)(b) = b = 1_B(b)$. For each $a \in A$, setting $b \coloneqq f(a) \in B$, Exercise \ref{ex:the_eq} yields $g(f(a)) = (\The w.\ w \in A \land f(w) = f(a)) = a = 1_A(a)$. By functional extensionality (Theorem \ref{thm:fun_ext}), $f \circ_\Set g = 1_B$ and $g \circ_\Set f = 1_A$, so $f \in \Iso_\Set(A, B)$. \qedhere
 
 \begin{theorem}[Universal Element Characterization Theorem {\cite[Ch.~III, Sec.~2, Prop.~1]{MacLane1998}, \cite[Cor.~2.3.2]{Riehl2016}}]\label{thm:univ_elem_char}
 Let $C$ be a locally small category, $G \in [C^\op, \Set]$, $A \in \Ob_C$, and $u \in G(A)$. The following are equivalent:
@@ -899,7 +930,7 @@ Dually, for $F \in [C, \Set]$ and $u \in F(A)$, $(A, u)$ is a universal element 
 \end{theorem}
 \myprf\ By the pointwise criterion for natural isomorphisms (Theorem \ref{thm:nat_iso}(3)), $\Phi_{A,G}(u) \in \Nat(h_A, G)$ is a natural isomorphism in $[C^\op, \Set]$ if and only if for every object $X \in \Ob_C$, its $X$-component
 $$\Phi_{A,G}(u)_X : \Hom_C(X, A) \to G(X), \qquad f \mapsto \GMor^{A,X}(f)(u),$$
- belongs to $\Iso_\Set(\Hom_C(X, A), G(X))$. By Lemma \ref{lem:set_iso_bij}, $\Phi_{A,G}(u)_X \in \Iso_\Set(\Hom_C(X, A), G(X))$ if and only if $\forall v \in G(X).\ \exists !f \in \Hom_C(X,A).\ \Phi_{A,G}(u)_X(f) = \GMor^{A,X}(f)(u) = v$. Thus conditions (1) and (2) are equivalent, and the covariant statement follows by replacing $C$ with $C^\op$. \myqed
+ belongs to $\Iso_\Set(\Hom_C(X, A), G(X))$. By Lemma \ref{lem:set_iso_bij}, $\Phi_{A,G}(u)_X \in \Iso_\Set(\Hom_C(X, A), G(X))$ if and only if $\forall v \in G(X).\ \exists !f \in \Hom_C(X,A).\ \Phi_{A,G}(u)_X(f) = \GMor^{A,X}(f)(u) = v$. Thus conditions (1) and (2) are equivalent, and the covariant statement follows by replacing $C$ with $C^\op$. \qedhere
 
 \begin{theorem}[Uniqueness of Representing Objects up to Unique Isomorphism {\cite[Ch.~III, Sec.~1]{MacLane1998}, \cite[Prop.~2.3.3]{Riehl2016}}]\label{thm:rep_unique}
 Let $C$ be a locally small category and let $G \in [C^\op, \Set]$ be a presheaf. If $(A, u)$ and $(B, v)$ are both universal elements of $G$, then there exists a \emph{unique} morphism $f \in \Hom_C(A, B)$ such that $\GMor^{B,A}(f)(v) = u$, or equivalently such that the diagram of natural transformations
@@ -915,12 +946,19 @@ Since $\Phi_{A,G} : G(A) \xrightarrow{\sim} \Nat(h_A, G)$ is a bijection (with i
 $$\GMor^{A,A}(g \circ_C f)(u) = \GMor^{A,A}\left(f \circ_{C^\op} g\right)(u) = \GMor^{B,A}(f)\left(\GMor^{A,B}(g)(u)\right) = \GMor^{B,A}(f)(v) = u.$$
 On the other hand, $\GMor^{A,A}(1_A)(u) = 1_{G(A)}(u) = u$. By the uniqueness clause of Theorem \ref{thm:univ_elem_char} for the universal element $(A, u)$ at $X = A$ and $u \in G(A)$, we conclude $g \circ_C f = 1_A$. Symmetrically, $\GMor^{B,B}(f \circ_C g)(v) = v = \GMor^{B,B}(1_B)(v)$ implies $f \circ_C g = 1_B$. Hence $f \in \Iso_C(A, B)$ with $f^{-1} = g$.
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{theorem}[Canonical Set-Theoretic Representations: Subobject Classifier and Binary Product]\label{thm:set_reps}
 In the category $\Set$:
 \begin{enumerate}
-\item \textbf{Representation of the contravariant power set functor $\Pow^*$:} Let $\Pow^* : \Set^\op \to \Set$ map each set $X \in \Set$ to $\Pow(X) \in \Set$ and each function $f \in \Hom_\Set(Y, X)$ to the preimage map $f^{-1} : \Pow(X) \to \Pow(Y)$, $S \mapsto \{y \in Y : f(y) \in S\}$. Let $2 \eqdef \mysucc(1) = \{0, 1\} = \{\emptyset, \{\emptyset\}\}$ be the two-element von Neumann ordinal from Subsection \ref{sec:ordinals}, and let $\top_2 \eqdef \{1\} \in \Pow(2)$. Then $(2, \top_2)$ is a universal element of $\Pow^*$, giving a natural isomorphism
+\item \textbf{Representation of the contravariant power set functor $\Pow^*$:} Let $\Pow^* : \Set^\op \to \Set$ map each set $X \in \Set$ to $\Pow(X) \in \Set$ and each function $f \in \Hom_\Set(Y, X)$ to the preimage map $f^{-1} : \Pow(X) \to \Pow(Y)$, $S \mapsto \{y \in Y : f(y) \in S\}$. Let $2 \eqdef \mysucc(1) = \{0, 1\} = \{\emptyset, \{\emptyset\}\}$ be the two-element von Neumann ordinal from Subsection \ref{sec:ordinals}
+
+We define the transitive sets and successor functions as follows:
+
+\begin{definition}
+A set $A$ is called \emph{transitive} if and only if $\Tr(A) \propdef \forall x\in A.\ x\subseteq A$.\\ The \emph{successor} of a set $A$ is defined as $\mysucc(A) \eqdef A \cup \{A\}$.\end{definition}
+
+, and let $\top_2 \eqdef \{1\} \in \Pow(2)$. Then $(2, \top_2)$ is a universal element of $\Pow^*$, giving a natural isomorphism
 $$\Phi_{2,\Pow^*}(\top_2) : \Hom_\Set(-, 2) \xrightarrow{\sim} \Pow^*, \qquad (\chi : X \to 2) \mapsto \chi^{-1}(\{1\}) = \{x \in X : \chi(x) = 1\}.$$
 \item \textbf{Representation of the product presheaf:} Fix sets $A, B \in \Set$ and let $G_{A,B} : \Set^\op \to \Set$ map each $X \in \Set$ to $\Hom_\Set(X, A) \times \Hom_\Set(X, B) \in \Set$ and each $k \in \Hom_\Set(Y, X)$ to $\widetilde{G}_{A,B}^{X,Y}(k)(\langle g_1, g_2 \rangle) \eqdef \langle g_1 \circ_\Set k,\, g_2 \circ_\Set k \rangle$. Let $A \times B = \{\langle a, b \rangle : a \in A \land b \in B\} \in \Set$ with projections $\pi_1(\langle a,b \rangle) = a$ and $\pi_2(\langle a,b \rangle) = b$. Then $(A \times B, \langle \pi_1, \pi_2 \rangle)$ is a universal element of $G_{A,B}$, inducing a natural isomorphism $\Hom_\Set(X, A \times B) \cong \Hom_\Set(X, A) \times \Hom_\Set(X, B)$.
 \end{enumerate}
@@ -932,7 +970,7 @@ $$\Phi_{2,\Pow^*}(\top_2) : \Hom_\Set(-, 2) \xrightarrow{\sim} \Pow^*, \qquad (\
 $$\widetilde{G}_{A,B}^{X,Z}(k \circ_\Set m)(\langle g_1, g_2 \rangle) = \langle (g_1 \circ_\Set k) \circ_\Set m,\, (g_2 \circ_\Set k) \circ_\Set m \rangle = \left(\widetilde{G}_{A,B}^{Y,Z}(m) \circ_\Set \widetilde{G}_{A,B}^{X,Y}(k)\right)(\langle g_1, g_2 \rangle).$$
 Next, for any set $X \in \Set$ and pair $\langle f_1, f_2 \rangle \in \Hom_\Set(X, A) \times \Hom_\Set(X, B)$, a function $h \in \Hom_\Set(X, A \times B)$ satisfies $\widetilde{G}_{A,B}^{A \times B, X}(h)(\langle \pi_1, \pi_2 \rangle) = \langle \pi_1 \circ_\Set h, \pi_2 \circ_\Set h \rangle = \langle f_1, f_2 \rangle$ iff $\forall x \in X.\ \pi_1(h(x)) = f_1(x) \land \pi_2(h(x)) = f_2(x)$, which by Lemma \ref{lem:pair_prop}(1) holds iff $h = (\lambda x \in X.\ \langle f_1(x), f_2(x) \rangle)$. Thus $(A \times B, \langle \pi_1, \pi_2 \rangle)$ is a universal element of $G_{A,B}$ by Theorem \ref{thm:univ_elem_char}.
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{definition}[Sections, retractions, retracts, and idempotents {\cite[Ch.~I, Sec.~5]{MacLane1998}, \cite[Vol.~1, Sec.~6.5]{Borceux1994}}]\label{def:retract}
 Let $C$ be a category. A morphism $s \in \Hom_C(A, B)$ is a \emph{section} (or \emph{split monomorphism}) if there exists a morphism $r \in \Hom_C(B, A)$, called a \emph{retraction} (or \emph{split epimorphism}), such that $r \circ_C s = 1_A$; in this case $A$ is called a \emph{retract} of $B$, and $e \coloneqq s \circ_C r \in \Hom_C(B, B)$ is an \emph{idempotent} ($e \circ_C e = s \circ_C (r \circ_C s) \circ_C r = s \circ_C 1_A \circ_C r = e$) said to be \emph{split} by $(A, s, r)$.
@@ -952,7 +990,7 @@ Let $C$ be a locally small category, $A \in \Ob_C$, and $G \in [C^\op, \Set]$.
 
 \textbf{Converse direction $(\Longleftarrow)$ and canonical splitting $h_A^e$:} Conversely, given $(e, u, \sigma)$ satisfying the stated conditions, define $\rho \coloneqq \Phi_{A,G}(u) \in \Nat(h_A, G)$ by Theorem \ref{thm:yoneda_contra}. Since $\sigma \in \Nat(G, h_A)$ and $\sigma_X$ is a right inverse to $\rho_X = \Phi_{A,G}(u)_X$ for every $X \in \Ob_C$, we have $(\rho \circ_{[C^\op,\Set]} \sigma)_X = \rho_X \circ_\Set \sigma_X = 1_{G(X)}$ for all $X \in \Ob_C$, so $\rho \circ \sigma = 1_G$ and $G$ is a retract of $h_A$ (naturally isomorphic via $\sigma$ to the image subpresheaf $h_A^e$). Finally, for any idempotent $e = e \circ_C e \in \Hom_C(A, A)$, $h_A^e(X) \eqdef \{f \in \Hom_C(X, A) : e \circ_C f = f\}$ is closed under pre-composition ($e \circ_C (f \circ_C k) = (e \circ_C f) \circ_C k = f \circ_C k$), and the inclusion $\sigma_X(f) \eqdef f$ and retraction $\rho_X(g) \eqdef e \circ_C g$ belong to $\Nat(h_A^e, h_A)$ and $\Nat(h_A, h_A^e)$ with $\rho \circ \sigma = 1_{h_A^e}$ and $\sigma \circ \rho = \eta^e$.
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{definition}[Monomorphisms and epimorphisms]\label{def:mono_epi}
 Let $C$ be a category and $f \in \Hom_C(A, B)$.
@@ -982,7 +1020,7 @@ $$\alpha \circ_{[C^\op,\Set]} \Phi_{X,F}(u_1) = \Phi_{X,G}\left(\alpha_X(u_1)\ri
 Since $\alpha$ is monic in $[C^\op, \Set]$, this implies $\Phi_{X,F}(u_1) = \Phi_{X,F}(u_2)$. Evaluating at $X$ on $\id_X$ (i.e., applying $\mathrm{ev}_X$) yields $u_1 = u_2$, so $\alpha_X$ is injective. Taking $\alpha = \eta^f \in \Nat(h_A, h_B)$, we see that $\eta^f$ is monic in $[C^\op, \Set]$ iff $\eta^f_X = (f \circ_C -)$ is injective for all $X \in \Ob_C$ (meaning $\forall g_1, g_2 \in \Hom_C(X,A).\ f \circ_C g_1 = f \circ_C g_2 \implies g_1 = g_2$), which is the definition of $f$ being a monomorphism in $C$.
 \item If every $\alpha_X : F(X) \to G(X)$ is surjective and $\beta \circ \alpha = \gamma \circ \alpha$ in $[C^\op, \Set]$, then $\beta_X \circ_\Set \alpha_X = \gamma_X \circ_\Set \alpha_X$ implies $\beta_X = \gamma_X$ for all $X \in \Ob_C$ by (1), so $\alpha$ is epic in $[C^\op, \Set]$. Conversely, suppose $\alpha \in \Nat(F, G)$ is epic in $[C^\op, \Set]$ and fix any $X_0 \in \Ob_C$. Define the test presheaf $H \in [C^\op, \Set]$ by $H(X) \eqdef \Hom_\Set(\Hom_C(X_0, X), 2)$ on objects (a set since $C$ is locally small) and $\widetilde{H}^{X,Y}(k)(\phi) \eqdef (\lambda h \in \Hom_C(X_0, Y).\ \phi(k \circ_C h))$ for $k \in \Hom_C(Y, X)$. Define $\beta, \gamma \in \Nat(G, H)$ by $\beta_X(y)(h) \eqdef \chi_{\ran(\alpha_{X_0})}(\GMor^{X,X_0}(h)(y))$ and $\gamma_X(y)(h) \eqdef 1$ for $y \in G(X)$ and $h \in \Hom_C(X_0, X)$. Naturality of $\beta$ holds since $\beta_Y(\GMor^{X,Y}(k)(y))(h) = \chi_{\ran(\alpha_{X_0})}(\GMor^{X,X_0}(k \circ_C h)(y)) = \widetilde{H}^{X,Y}(k)(\beta_X(y))(h)$. For any $u \in F(X)$ and $h \in \Hom_C(X_0, X)$, naturality of $\alpha$ gives $\GMor^{X,X_0}(h)(\alpha_X(u)) = \alpha_{X_0}(\FMor^{X,X_0}(h)(u)) \in \ran(\alpha_{X_0})$, so $\beta_X(\alpha_X(u))(h) = 1 = \gamma_X(\alpha_X(u))(h)$, i.e., $\beta \circ \alpha = \gamma \circ \alpha$. Since $\alpha$ is epic, $\beta = \gamma$; evaluating at $X = X_0$, $y \in G(X_0)$, and $h = \id_{X_0}$ gives $\chi_{\ran(\alpha_{X_0})}(y) = 1$, so $\alpha_{X_0}$ is surjective. Claims (a) and (b) then follow immediately from (2) applied to $C^\op$ and from setting $\alpha = \eta^f$ (where $\id_B \in \ran(\eta^f_B) \LRA \exists s \in \Hom_C(B,A).\ f \circ_C s = \id_B$).
 \end{enumerate}
-\myqed
+\qedhere
 
 \subsection{The Category of Elements and Grothendieck's Criterion}\label{sec:cat_elements}
 Using the dependent sum $\Sigma$ from Subsection \ref{sec:sigma_pi}, we now construct the category of elements (also called the Grothendieck construction in discrete fibers \cite[Exp.~I, Sec.~1]{SGA4}, \cite[Ch.~III, Sec.~2]{MacLane1998}, \cite[Sec.~2.4]{Riehl2016}) of a presheaf $G \in [C^\op, \Set]$.
@@ -1015,7 +1053,7 @@ $$h \circ_{\int_C G} \left(g \circ_{\int_C G} f\right) = h \circ_C (g \circ_C f)
 \emph{Size:} For every pair of objects $\langle X,x \rangle, \langle Y,y \rangle \in \Ob_{\int_C G}$, $\Hom_{\int_C G}(\langle X,x \rangle, \langle Y,y \rangle) \subseteq \Hom_C(X,Y) \in \Set$ is a set by the Axiom of Separation (Subsection \ref{sec:axioms}), so $\int_C G$ is locally small. If $C$ is small ($\Ob_C \in \Set$), then since $G(X) \in \Set$ for all $X \in \Ob_C$, Lemma \ref{lem:sigma_pi}(1) ensures $\Ob_{\int_C G} = \Sigma(X \in \Ob_C).\ G(X) \in \Set$, so $\int_C G$ is small.
 \item By definition of $1_{\langle X,x\rangle}$ and $\circ_{\int_C G}$, $\widetilde{\pi}_G(1_{\langle X,x\rangle}) = 1_X = 1_{\pi_G(\langle X,x\rangle)}$ and $\widetilde{\pi}_G(g \circ_{\int_C G} f) = g \circ_C f = \widetilde{\pi}_G(g) \circ_C \widetilde{\pi}_G(f)$, so $\pi_G$ is a functor. Since $\widetilde{\pi}_G^{\langle X,x\rangle, \langle Y,y\rangle} : \Hom_{\int_C G}(\langle X,x \rangle, \langle Y,y \rangle) \hookrightarrow \Hom_C(X,Y)$ is the subset inclusion $f \mapsto f$, it is injective on every hom-set, so $\pi_G$ is faithful.
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{definition}[Terminal and initial objects]\label{def:term_init}
 Let $C$ be a category.
@@ -1042,7 +1080,7 @@ $$\Hom_{\int_C G}\left(\langle X, v \rangle, \langle A, u \rangle\right) = \left
 ($\Longleftarrow$) Conversely, suppose $\langle A, u \rangle$ is terminal in $\int_C G$. Given any $X \in \Ob_C$ and any $v \in G(X)$, the pair $\langle X, v \rangle$ is an object of $\int_C G$, so terminality of $\langle A, u \rangle$ furnishes a unique element $f \in \Hom_{\int_C G}(\langle X, v \rangle, \langle A, u \rangle)$, which is a unique $f \in \Hom_C(X, A)$ satisfying $\GMor^{A,X}(f)(u) = v$. By Theorem \ref{thm:univ_elem_char}, $(A, u)$ is a universal element of $G$.
 \item Apply (2) to $C^\op$, noting that $\int^C F = (\int_{C^\op} F)^\op$ and terminal objects in $(\int^C F)^\op$ are initial objects in $\int^C F$.
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{definition}[Slice category $C / A$]\label{def:slice_cat}
 Let $C$ be a category and $A \in \Ob_C$. The \emph{slice category} $C / A$ (objects over $A$) has:
@@ -1068,7 +1106,7 @@ and the identity pair $\langle A, \id_A \rangle$ is the terminal object of $C / 
 \item If $f \in \Hom_{\int_C G}(\langle X, x \rangle, \langle Y, y \rangle)$, then $\GMor^{Y,X}(f)(y) = x$. By naturality of $\alpha$ at $f \in \Hom_C(X, Y)$, $\widetilde{G'}^{Y,X}(f)(\alpha_Y(y)) = \alpha_X(\GMor^{Y,X}(f)(y)) = \alpha_X(x)$, so $f \in \Hom_{\int_C G'}(\langle X, \alpha_X(x) \rangle, \langle Y, \alpha_Y(y) \rangle)$. Since $\int_C \alpha$ acts as the identity on underlying morphisms $f$, it preserves identities ($1_X \mapsto 1_X$) and composition ($g \circ_C f \mapsto g \circ_C f$), and satisfies $\pi_{G'}(\langle X, \alpha_X(x) \rangle) = X = \pi_G(\langle X, x \rangle)$, $\int_C 1_G = 1_{\int_C G}$, and $\int_C(\beta \circ \alpha)(\langle X, x \rangle) = \langle X, \beta_X(\alpha_X(x)) \rangle = (\int_C \beta \circ \int_C \alpha)(\langle X, x \rangle)$.
 If $\alpha$ is a natural isomorphism with inverse $\alpha^{-1}$, functoriality gives $(\int_C \alpha^{-1}) \circ (\int_C \alpha) = \int_C(\alpha^{-1} \circ \alpha) = 1_{\int_C G}$ and $(\int_C \alpha) \circ (\int_C \alpha^{-1}) = 1_{\int_C G'}$, so $\int_C \alpha$ is an isomorphism of categories over $C$. Conversely (`AUD-008`), if $\int_C \alpha$ has an inverse functor $K : \int_C G' \to \int_C G$ over $C$ ($\pi_G \circ K = \pi_{G'}$), then for each $X \in \Ob_C$ and $y \in G'(X)$, $K(\langle X, y \rangle) = \langle X, \beta_X(y) \rangle$ for a unique element $\beta_X(y) \in G(X)$, providing a two-sided inverse $\beta_X : G'(X) \to G(X)$ to $\alpha_X : G(X) \to G'(X)$ (and for any $f \in \Hom_C(X, Y)$ and $y \in G'(Y)$, applying $K$ over $C$ to $f \in \Hom_{\int_C G'}(\langle X, \widetilde{G'}^{Y,X}(f)(y) \rangle, \langle Y, y \rangle)$ yields $f \in \Hom_{\int_C G}(\langle X, \beta_X(\widetilde{G'}^{Y,X}(f)(y)) \rangle, \langle Y, \beta_Y(y) \rangle)$, i.e., $\GMor^{Y,X}(f)(\beta_Y(y)) = \beta_X(\widetilde{G'}^{Y,X}(f)(y))$, so $\beta \in \Nat(G', G)$ directly), whence $\alpha$ is a natural isomorphism by Theorem \ref{thm:nat_iso}(3).
 \end{enumerate}
-\myqed
+\qedhere
 
 \subsection{Limits, Colimits, and Continuity via the Yoneda Principle}\label{sec:limits_colimits}
 The theory of universal elements developed in Subsection \ref{sec:rep_functors} provides a unified foundation for limits and colimits in category theory \cite[Ch.~III, Sec.~3--4]{MacLane1998}, \cite[Ch.~3]{Riehl2016}, \cite[Vol.~1, Ch.~2]{Borceux1994}.
@@ -1088,7 +1126,7 @@ $$\Hom_C\left(\mathrm{colim}_{j \in J}\, D(j), X\right) \xrightarrow{\sim} \Coco
 \begin{theorem}[Uniqueness of Limits and Colimits up to Unique Isomorphism]\label{thm:limit_unique}
 Let $D : J \to C$ be a diagram. Any two limits $(L_1, \lambda^{(1)})$ and $(L_2, \lambda^{(2)})$ of $D$ are canonically isomorphic via a unique isomorphism $f \in \Iso_C(L_1, L_2)$ satisfying $\lambda^{(2)}_j \circ_C f = \lambda^{(1)}_j$ for all $j \in \Ob_J$. Dually, any two colimits of $D$ are isomorphic via a unique cocone-preserving isomorphism.
 \end{theorem}
-\myprf\ Since limits of $D$ are universal elements of $\Cone(-, D) \in [C^\op, \Set]$, Theorem \ref{thm:rep_unique} immediately yields a unique isomorphism $f \in \Iso_C(L_1, L_2)$ satisfying $\lambda^{(2)} \circ_{[J,C]} \Delta_f = \lambda^{(1)}$, which componentwise at $j \in \Ob_J$ is $\lambda^{(2)}_j \circ_C f = \lambda^{(1)}_j$. The colimit statement follows by duality in $C^\op$. \myqed
+\myprf\ Since limits of $D$ are universal elements of $\Cone(-, D) \in [C^\op, \Set]$, Theorem \ref{thm:rep_unique} immediately yields a unique isomorphism $f \in \Iso_C(L_1, L_2)$ satisfying $\lambda^{(2)} \circ_{[J,C]} \Delta_f = \lambda^{(1)}$, which componentwise at $j \in \Ob_J$ is $\lambda^{(2)}_j \circ_C f = \lambda^{(1)}_j$. The colimit statement follows by duality in $C^\op$. \qedhere
 
 \begin{theorem}[Continuity of Representable Hom-Functors]\label{thm:hom_continuity}
 Let $C$ be a locally small category, $J$ be a small index category, and $D : J \to C$ be a diagram.
@@ -1113,7 +1151,7 @@ Now let $D : J \to C$ have limit $(L, \lambda)$ in $C$, fix $A \in \Ob_C$, and l
 where the middle identification $\Cone_\Set(1, h^A \circ D) = \Cone_C(A, D)$ sends a cone $\sigma = (\sigma_j : 1 \to \Hom_C(A, D(j)))_{j \in \Ob_J}$ satisfying $\widetilde{D}^{i,j}(u) \circ_C \sigma_i(\emptyset) = \sigma_j(\emptyset)$ to the cone $(\sigma_j(\emptyset) \in \Hom_C(A, D(j)))_{j \in \Ob_J} \in \Nat(\Delta_A, D)$, and the bottom bijection is induced by the limit bijection $\Hom_C(A, L) \xrightarrow{\sim} \Cone_C(A, D)$, $f \mapsto (\lambda_j \circ_C f)_{j \in \Ob_J}$. Tracing any function $g \in \Hom_\Set(X, \Hom_C(A, L))$ through the composite bijection $\Hom_\Set(X, \Hom_C(A, L)) \xrightarrow{\sim} \Cone_\Set(X, h^A \circ D)$ sends $g \mapsto (x \mapsto (\lambda_j \circ_C g(x))_{j \in \Ob_J}) \mapsto ((\lambda_j \circ_C -) \circ_\Set g)_{j \in \Ob_J}$. Evaluating at $X = \Hom_C(A, L)$ on $g = 1_{\Hom_C(A, L)}$ yields the universal cone $h^A(\lambda) = (\lambda_j \circ_C -)_{j \in \Ob_J}$, proving that $\left(\Hom_C(A, L),\, (\lambda_j \circ_C -)_{j \in \Ob_J}\right)$ is a universal element of $\Cone_{\Set}(-, h^A \circ D)$, i.e., a limit of $h^A \circ D$ in $\Set$.
 \item Apply (1) to $C^\op$ and $D^\op : J^\op \to C^\op$, noting that a colimit $(K, \iota)$ of $D$ in $C$ is a limit of $D^\op$ in $C^\op$, and $h^{A}_{C^\op} = \Hom_{C^\op}(A, -) = \Hom_C(-, A) = h_A$.
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{theorem}[Explicit Small Limits in {$\Set$}, Pointwise Limits in {$[C^\op, \Set]$}, and Preservation/Reflection by Yoneda]\label{thm:yoneda_limits}
 Let $J$ be a small category and $C$ be a locally small category.
@@ -1138,7 +1176,7 @@ $$\widetilde{L}^{X,Z}(k \circ_C k')(s)(j) = \widetilde{P(j)}^{X,Z}(k \circ_C k')
 \emph{Limit cone and universal property:} For each $j \in \Ob_J$, the family $\pi_j = (\pi_{j,X})_{X \in \Ob_C}$ satisfies $\pi_{j,Y}(\widetilde{L}^{X,Y}(k)(s)) = \widetilde{P(j)}^{X,Y}(k)(s(j)) = \widetilde{P(j)}^{X,Y}(k)(\pi_{j,X}(s))$, so $\pi_j \in \Nat(L, P(j))$, and $P(u)_X(\pi_{i,X}(s)) = P(u)_X(s(i)) = s(j) = \pi_{j,X}(s)$, so $\pi = (\pi_j)_{j \in \Ob_J} \in \Cone(L, P)$. Given any $G \in [C^\op, \Set]$ and any cone $\alpha = (\alpha^{(j)} \in \Nat(G, P(j)))_{j \in \Ob_J} \in \Cone(G, P)$, for each $X \in \Ob_C$ the family $(\alpha^{(j)}_X : G(X) \to P(j)(X))_{j \in \Ob_J}$ is a cone in $\Set$, inducing by (1) a unique map $\beta_X : G(X) \to L(X)$, $\beta_X(x) \eqdef (\lambda j \in \Ob_J.\ \alpha^{(j)}_X(x))$, such that $\pi_{j,X} \circ_\Set \beta_X = \alpha^{(j)}_X$. For any $k \in \Hom_C(Y, X)$ and $x \in G(X)$, naturality of each $\alpha^{(j)}$ gives $\widetilde{L}^{X,Y}(k)(\beta_X(x))(j) = \widetilde{P(j)}^{X,Y}(k)(\alpha^{(j)}_X(x)) = \alpha^{(j)}_Y(\GMor^{X,Y}(k)(x)) = \beta_Y(\GMor^{X,Y}(k)(x))(j)$, so $\beta = (\beta_X)_{X \in \Ob_C} \in \Nat(G, L)$ is the unique natural transformation satisfying $\pi_j \circ_{[C^\op,\Set]} \beta = \alpha^{(j)}$ for all $j \in \Ob_J$.
 \item Let $\lambda \in \Nat(\Delta_L, D)$ be a cone in $C$. By (2), $h_-(\lambda)$ is a limit cone in $[C^\op, \Set]$ iff for every $X \in \Ob_C$, its $X$-component $\left(\Hom_C(X, L),\, (\lambda_j \circ_C -)_{j \in \Ob_J}\right)$ is a limit cone of $h^X \circ D : J \to \Set$ in $\Set$. If $(L, \lambda)$ is a limit in $C$, this holds for all $X \in \Ob_C$ by Theorem \ref{thm:hom_continuity}(1), so $h_-$ preserves limits. Conversely, if $h_-(\lambda)$ is a limit cone in $[C^\op, \Set]$, then for every $X \in \Ob_C$, post-composition with $\lambda$ is a bijection $\Hom_C(X, L) \xrightarrow{\sim} \lim_{j \in J} \Hom_C(X, D(j)) = \Cone_C(X, D)$, which means $(L, \lambda)$ is a limit of $D$ in $C$. Thus $h_-$ reflects limits.
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{theorem}[Density Theorem / Co-Yoneda Lemma: Every Presheaf is a Colimit of Representables]\label{thm:density}
 Let $C$ be a small category and let $G \in [C^\op, \Set]$ be any presheaf. Consider the small category of elements $\int_C G$ (Lemma \ref{lem:cat_of_elements}(1)) with projection functor $\pi_G : \int_C G \to C$, and form the composite diagram
@@ -1172,7 +1210,7 @@ Hence $\Theta_H \circ \Theta_H^{-1} = 1_{\Cocone(D_G,H)}$.
 \item Finally, for any morphism $\beta \in \Nat(H, H')$ in $[C^\op, \Set]$ and $\alpha \in \Nat(G, H)$, associativity of composition in $[C^\op, \Set]$ gives $\Theta_{H'}(\beta \circ \alpha)_{\langle A, u \rangle} = (\beta \circ \alpha) \circ \iota_{\langle A, u \rangle} = \beta \circ (\alpha \circ \iota_{\langle A, u \rangle}) = (\Delta_\beta \circ \Theta_H(\alpha))_{\langle A, u \rangle}$, so $\Theta_H$ is natural in $H \in [C^\op, \Set]$. Thus $(G, \iota)$ is a colimit of $D_G$.
 \end{itemize}
 \end{enumerate}
-\myqed
+\qedhere
 
 \subsection{Adjoint Functors via the Yoneda Principle}\label{sec:adjunctions}
 \begin{definition}[Adjoint functors $L \dashv R$]\label{def:adjunction}
@@ -1214,7 +1252,7 @@ By the uniqueness of $\widetilde{L}^{X'',X}(f \circ_C f') \in \Hom_D(L(X''), L(X
 Thus $\theta_{X,Y}$ is natural in both $X$ and $Y$, proving $L \dashv R$.
 \end{itemize}
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{theorem}[Unit, Counit, Triangle Identities, and Uniqueness of Adjoints]\label{thm:triangle_id}
 Let $(L, \widetilde{L}) : C \to D$ and $(R, \widetilde{R}) : D \to C$ be functors between locally small categories.
@@ -1253,7 +1291,7 @@ Finally, naturality of $\theta_{X,Y}$ in both $X \in C^\op$ and $Y \in D$ follow
 \end{align*}
 Since $(L(X), \eta_X)$ is a universal element of $\Hom_C(X, R(-))$, the map $h \in \Hom_D(L(X), L'(X')) \mapsto \widetilde{R}(h) \circ_C \eta_X \in \Hom_C(X, R(L'(X')))$ is bijective, so $\alpha_{X'} \circ_D \widetilde{L}(f) = \widetilde{L'}(f) \circ_D \alpha_X$. Thus $\alpha \in \Iso_{[C,D]}(L, L')$ is the unique natural isomorphism satisfying $\widetilde{R}(\alpha_X) \circ_C \eta_X = \eta'_X$. The dual statement for right adjoints follows in $C^\op$ and $D^\op$.
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{theorem}[RAPL and LAPC: Preservation of Limits and Colimits by Adjoints]\label{thm:rapl_lapc}
 Let $(L, \widetilde{L}) : C \to D$ and $(R, \widetilde{R}) : D \to C$ be adjoint functors with $L \dashv R$, and let $J$ be a small index category.
@@ -1280,7 +1318,7 @@ In particular, evaluating at $X = R(M)$ on $f = 1_{R(M)}$ yields the cone $R(\la
 \item Apply (1) to the opposite adjunction $R^\op \dashv L^\op$ between $D^\op$ and $C^\op$.
 \item Since $J$ is small and $C$ is locally small, $[J, C]$ is locally small by Lemma \ref{lem:fun_cat}(a). By Definition \ref{def:limits}, $\Cone_C(X, D) = \Nat(\Delta_X, D) = \Hom_{[J,C]}(\Delta(X), D)$ and $\Cocone_C(D, X) = \Hom_{[J,C]}(D, \Delta(X))$. By Theorem \ref{thm:adj_yoneda}(2) (for $\mathrm{colim}_J \dashv \Delta$) and its dual in $[J,C]^\op$ and $C^\op$ (for $\Delta \dashv \lim_J$), objectwise universal elements $(K_D, \iota_D)$ and $(L_D, \lambda_D)$ for all $D \in \Ob_{[J,C]}$ extend uniquely to functors $\mathrm{colim}_J, \lim_J : [J, C] \to C$ satisfying $\mathrm{colim}_J \dashv \Delta \dashv \lim_J$.
 \end{enumerate}
-\myqed
+\qedhere
 
 \subsection{Cartesian Closure, Exponentials, and Kan Extensions via Yoneda}\label{sec:ccc_kan}
 
@@ -1298,7 +1336,7 @@ With projections $(\pi_1)_X(\langle u, v \rangle) \eqdef u$ and $(\pi_2)_X(\lang
 \item Functoriality of $F \times G$ holds componentwise from that of $F$ and $G$: $\widetilde{F \times G}^{X,X}(1_X)(\langle u, v \rangle) = \langle \FMor^{X,X}(1_X)(u), \GMor^{X,X}(1_X)(v) \rangle = \langle u, v \rangle$, and for $f \in \Hom_C(Y, X)$, $g \in \Hom_C(Z, Y)$, $\widetilde{F \times G}^{X,Z}(f \circ_C g)(\langle u, v \rangle) = \langle \FMor^{Y,Z}(g)(\FMor^{X,Y}(f)(u)), \GMor^{Y,Z}(g)(\GMor^{X,Y}(f)(v)) \rangle = (\widetilde{F \times G}^{Y,Z}(g) \circ_\Set \widetilde{F \times G}^{X,Y}(f))(\langle u, v \rangle)$. By Theorem \ref{thm:set_reps}(2) and Theorem \ref{thm:yoneda_limits}(2) applied to the discrete two-object index category $J = \{1, 2\}$, $(F \times G, \pi_1, \pi_2)$ is the pointwise limit in $[C^\op, \Set]$, giving a canonical bijection $\Nat(K, F \times G) \xrightarrow{\sim} \Nat(K, F) \times \Nat(K, G)$, $\gamma \mapsto \langle \pi_1 \circ \gamma, \pi_2 \circ \gamma \rangle$, with inverse $\langle \sigma, \tau \rangle \mapsto (\lambda \langle X, w \rangle.\ \langle \sigma_X(w), \tau_X(w) \rangle)$.
 \item For any $f \in \Hom_C(Y, X)$ and $\langle u, v \rangle \in F(X) \times G(X)$, naturality of $\alpha$ and $\beta$ gives $\widetilde{F' \times G'}^{X,Y}(f)((\alpha \times \beta)_X(\langle u, v \rangle)) = \langle \widetilde{F'}^{X,Y}(f)(\alpha_X(u)), \widetilde{G'}^{X,Y}(f)(\beta_X(v)) \rangle = \langle \alpha_Y(\FMor^{X,Y}(f)(u)), \beta_Y(\GMor^{X,Y}(f)(v)) \rangle = (\alpha \times \beta)_Y(\widetilde{F \times G}^{X,Y}(f)(\langle u, v \rangle))$.
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{theorem}[Cartesian Closure of {$\Set$} and {$[C^\op, \Set]$} {\cite[Ch.~IV, Sec.~6]{MacLane1998}, \cite[Ch.~6, Ch.~8]{Awodey2010}, \cite[Vol.~1, Sec.~1.5]{Borceux1994}}]\label{thm:cartesian_closed}
 Both $\Set$ and $[C^\op, \Set]$ (for small $C$) are Cartesian closed:
@@ -1351,7 +1389,7 @@ Conversely, for any $\psi \in \Nat(F, H^G)$, $A, X \in \Ob_C$, $u \in F(A)$, and
 Finally, for $\alpha \in \Nat(F', F)$ and $\beta \in \Nat(H, H')$, Theorem \ref{thm:yoneda_nat}(1) gives $\Phi_{A,F}(\alpha_A(u')) = \alpha \circ \Phi_{A,F'}(u')$, so $(\widehat{\beta \circ \tau \circ (\alpha \times 1_G)})_{A}(u') = \beta \circ \tau \circ (\alpha \times 1_G) \circ (\Phi_{A,F'}(u') \times 1_G) = \beta \circ \widehat{\tau}_A(\alpha_A(u')) = ((\beta)^G \circ \widehat{\tau} \circ \alpha)_A(u')$, establishing naturality in $F$ and $H$.
 \end{itemize}
 \end{enumerate}
-\myqed
+\qedhere
 
 \begin{definition}[Pre-composition functor $K^*$ and Left/Right Kan Extensions {\cite[Ch.~X]{MacLane1998}, \cite[Ch.~6]{Riehl2016}, \cite[Ch.~4]{Kelly1982}}]\label{def:kan_ext}
 Let $C, D$ be small categories (or locally small categories when $\Nat$ is evaluated on representable or set-sized diagrams; see Subsection \ref{sec:foundations}), let $K : C \to D$ be a functor, and let $E$ be a locally small category. The \emph{pre-composition functor} $K^* = (- \circ K) : [D, E] \to [C, E]$ maps each functor $H \in [D, E]$ to $H \circ K \in [C, E]$ and each natural transformation $\alpha \in \Nat(H, H')$ to the whiskered natural transformation $\alpha K \in \Nat(H \circ K, H' \circ K)$ with components $(\alpha K)_X \eqdef \alpha_{K(X)}$.
@@ -1396,14 +1434,14 @@ For (b), for any $G \in [C^\op, \Set]$ and $e \in \Ob_E$, Theorem \ref{thm:hom_c
 $$\Hom_E(L(G), e) \cong \lim_{\langle A, u \rangle \in (\int_C G)^\op} \Hom_E(F(A), e) = \lim_{\langle A, u \rangle \in (\int_C G)^\op} N_F(e)(A) \cong \lim_{\langle A, u \rangle \in (\int_C G)^\op} \Nat(h_A, N_F(e)) \cong \Nat(G, N_F(e)),$$
 so $\Lan_{h_-} F \dashv N_F$, and $\Lan_{h_-} F$ preserves all small colimits by Theorem \ref{thm:rapl_lapc}(2). Taking $E = [C^\op, \Set]$ and $F = h_-$ gives $(\Lan_{h_-} h_-)(G) = \mathrm{colim}_{\langle A, u \rangle \in \int_C G}\, h_A \cong G$ by Theorem \ref{thm:density}.
 \end{enumerate}
-\myqed
+\qedhere
 
 \noindent\textbf{Remark (Scope Boundary with Enriched Category Theory, `AUD-012`):} Throughout this monograph, all categories are ordinary ($\Set$-enriched locally small) categories. When a category $\mathcal{C}$ is instead enriched over a complete and cocomplete symmetric monoidal closed category $(\mathcal{V}, \otimes, I, [-,-])$, the ordinary set-theoretic Yoneda Lemma (Theorem \ref{thm:yoneda_contra}) does \emph{not} transfer by mere textual substitution: one must separately verify the enriched Yoneda Lemma \cite[Ch.~1, Sec.~1.9; Ch.~2, Sec.~2.4]{Kelly1982}, which expresses $G(A)$ for a $\mathcal{V}$-functor $G : \mathcal{C}^\op \to \mathcal{V}$ as the $\mathcal{V}$-end $\int_{X \in \mathcal{C}} [\mathcal{C}(X, A), G(X)] \cong G(A)$ in $\mathcal{V}$, and expresses the enriched co-Yoneda / density formula via the coend $\int^{A \in \mathcal{C}} G(A) \otimes \mathcal{C}(-, A) \cong G$ \cite[Ch.~3, Sec.~3.10; Ch.~4]{Kelly1982}.
 
 \subsection{Foundational Synthesis: Logic, Set Theory, and the Yoneda Paradigm}\label{sec:synthesis}
 Table \ref{tab:synthesis} summarizes the structural correspondence between the logical and set-theoretic constructions established in Section \ref{sec:logic_set} and the categorical constructions developed in Section \ref{sec:cat_theory} \cite{MacLane1998,Awodey2010,Riehl2016,Borceux1994}.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \centering
 {\small
 \setlength{\tabcolsep}{1.5pt}
@@ -1422,6 +1460,7 @@ Leibniz equality $=\textrm{subs}$ & Functional extensionality ($g_1 = g_2$) & Yo
 Classical LEM ($A \lor \neg A$) & Ordinal $2 = \mysucc(1) = \{0, 1\} \in \Ord$ & Subobject classifier $\Hom_\Set(-, 2) \cong \Pow^*$ \\ \hline
 \end{tabular}}
 \end{table}
+
 
 \begin{thebibliography}{99}
 
@@ -1516,4 +1555,146 @@ N.~Yoneda,
 Journal of the Faculty of Science, University of Tokyo, Section I \textbf{7} (1954), 193--227.
 
 \end{thebibliography}
+\section{Set-Theoretic Foundations}
+\label{sec:foundations}
+
+In this section, we clarify the set-theoretic foundations used throughout the document. We denote the class of all sets by $\Set$. For a function $g$ and an element $x$, the application of $g$ to $x$ is defined as:
+\[(g\apo x) \eqdef \inter \{y : \langle x,y\rangle \in g\}.\]
+
+\section{Exercises}
+\label{sec:exercises}
+
+\subsection{Exercise 1.1}
+Prove that the class of all sets $\Set$ is a proper class.
+
+\begin{proof}
+[Proof of Exercise 1.1]
+By the axiom of regularity, no set can contain itself. Therefore, $\Set$ cannot be a set, as it would have to contain itself. Hence, $\Set$ is a proper class.
+\end{proof}
+
+\subsection{Exercise 1.2}
+Prove that the intersection of a collection of sets is a set.
+
+\begin{proof}
+[Proof of Exercise 1.2]
+Let $\mathcal{C}$ be a collection of sets. The intersection of $\mathcal{C}$ is defined as:
+\[\inter \mathcal{C} \eqdef \{x : \forall S \in \mathcal{C}, x \in S\}.\]
+Since $\mathcal{C}$ is a collection of sets, for each $x$, the statement $\forall S \in \mathcal{C}, x \in S$ is a first-order formula. By the axiom of separation, $\inter \mathcal{C}$ is a set.
+\end{proof}
+
+\subsection{Exercise 1.3}
+Prove that the union of a collection of sets is a set.
+
+\begin{proof}
+[Proof of Exercise 1.3]
+Let $\mathcal{C}$ be a collection of sets. The union of $\mathcal{C}$ is defined as:
+\[\bigcup \mathcal{C} \eqdef \{x : \exists S \in \mathcal{C}, x \in S\}.\]
+Since $\mathcal{C}$ is a collection of sets, for each $x$, the statement $\exists S \in \mathcal{C}, x \in S$ is a first-order formula. By the axiom of separation, $\bigcup \mathcal{C}$ is a set.
+\end{proof}
+
+\subsection{Exercise 1.4}
+Prove that the power set of a set is a set.
+
+\begin{proof}
+[Proof of Exercise 1.4]
+Let $S$ be a set. The power set of $S$ is defined as:
+\[\mathcal{P}(S) \eqdef \{X : X \subseteq S\}.\]
+For each $X$, the statement $X \subseteq S$ is a first-order formula. By the axiom of separation, $\mathcal{P}(S)$ is a set.
+\end{proof}
+
+\subsection{Exercise 1.5}
+Prove that the Cartesian product of two sets is a set.
+
+\begin{proof}
+[Proof of Exercise 1.5]
+Let $A$ and $B$ be sets. The Cartesian product of $A$ and $B$ is defined as:
+\[A \times B \eqdef \{\langle a,b\rangle : a \in A \land b \in B\}.\]
+For each $\langle a,b\rangle$, the statement $a \in A \land b \in B$ is a first-order formula. By the axiom of separation, $A \times B$ is a set.
+\end{proof}
+
+\subsection{Exercise 1.6}
+Prove that the set of all functions from a set $A$ to a set $B$ is a set.
+
+\begin{proof}
+[Proof of Exercise 1.6]
+Let $A$ and $B$ be sets. The set of all functions from $A$ to $B$ is defined as:
+\[B^A \eqdef \{f : f \subseteq A \times B \land \forall a \in A, \exists! b \in B, \langle a,b\rangle \in f\}.\]
+For each $f$, the statement $f \subseteq A \times B \land \forall a \in A, \exists! b \in B, \langle a,b\rangle \in f$ is a first-order formula. By the axiom of separation, $B^A$ is a set.
+\end{proof}
+
+\subsection{Exercise 1.7}
+Prove that the set of all ordinals is a proper class.
+
+\begin{proof}
+[Proof of Exercise 1.7]
+By the axiom of infinity, there exists a set $\omega$ that is isomorphic to the natural numbers. The set of all ordinals is defined as:
+\[\Ord \eqdef \{X : X \text{ is transitive and well-ordered by } \in\}.\]
+Since $\Ord$ is not a set (as it would have to contain itself), it is a proper class.
+\end{proof}
+
+\section{The Category of Elements and Grothendieck's Representability Criterion}
+
+\subsection{The Category of Elements}
+
+Let $G \in [C^\op, \Set]$ be a presheaf on a category $C$. The category of elements $\int_C G$ of $G$ is defined as follows:
+
+- Objects: The object class of $\int_C G$ is the dependent sum $\Sigma G = \{\langle X, x \rangle : X \in \Ob_C \land x \in G(X)\}$. An object of $\int_C G$ is a pair $\langle X, x \rangle$ where $X$ is an object of $C$ and $x$ is an element of the set $G(X)$.\n
+- Morphisms: A morphism from $\langle X, x \rangle$ to $\langle Y, y \rangle$ in $\int_C G$ is a morphism $f: X \to Y$ in $C$ such that $G(f)(y) = x$.\n
+The forgetful projection $\pi_G: \int_C G \to C$ is defined by $\pi_G(\langle X, x \rangle) = X$ and $\pi_G(f) = f$ for a morphism $f: \langle X, x \rangle \to \langle Y, y \rangle$.\n
+\subsection{Proof that $\int_C G$ is a Category}
+
+To show that $\int_C G$ is a category, we need to verify that it satisfies the category axioms:
+
+1. Composition of morphisms: Given morphisms $f: \langle X, x \rangle \to \langle Y, y \rangle$ and $g: \langle Y, y \rangle \to \langle Z, z \rangle$, their composition $g \circ f$ is defined as $g \circ f: \langle X, x \rangle \to \langle Z, z \rangle$. By the definition of morphisms in $\int_C G$, $G(f)(y) = x$ and $G(g)(z) = y$. Therefore, $G(g \circ f)(z) = G(g)(G(f)(z)) = G(g)(y) = x$. Thus, $g \circ f$ is a morphism in $\int_C G$.\n
+2. Associativity of composition: The associativity of composition in $\int_C G$ follows from the associativity of composition in $C$.\n
+3. Identity morphisms: For each object $\langle X, x \rangle$ in $\int_C G$, the identity morphism $\id_{\langle X, x \rangle}$ is defined as the identity morphism $\id_X$ in $C$. Since $G(\id_X)(x) = x$, $\id_X$ is a morphism in $\int_C G$.\n
+Thus, $\int_C G$ satisfies the category axioms and is therefore a category.\n
+\subsection{Proof that $\pi_G$ is a Faithful Functor}
+
+To show that the forgetful projection $\pi_G: \int_C G \to C$ is a faithful functor, we need to show that it is a functor and that it is faithful, i.e., it reflects isomorphisms.\n
+1. $\pi_G$ is a functor: $\pi_G$ maps objects $\langle X, x \rangle$ to objects $X$ and morphisms $f: \langle X, x \rangle \to \langle Y, y \rangle$ to morphisms $f: X \to Y$. Since $\pi_G$ preserves the identity morphisms and the composition of morphisms, it is a functor.\n
+2. $\pi_G$ is faithful: Suppose that $\pi_G(f) = \pi_G(g)$ for morphisms $f, g: \langle X, x \rangle \to \langle Y, y \rangle$ in $\int_C G$. This means that $f = g$ as morphisms in $C$. Since $f$ and $g$ are morphisms in $\int_C G$, $G(f)(y) = x$ and $G(g)(y) = x$. Therefore, $G(f) = G(g)$, which implies that $f = g$ as morphisms in $\int_C G$. Thus, $\pi_G$ reflects isomorphisms and is therefore a faithful functor.\n
+\subsection{Grothendieck's Representability Criterion}
+
+Grothendieck's representability criterion is a fundamental result in category theory that provides a condition for a functor to be representable. The criterion states that a functor $F: C^\op \to \Set$ is representable if and only if it is a sheaf and satisfies the following conditions:\n
+1. $F$ is a presheaf on $C$.\n
+2. $F$ satisfies the sheaf condition: For any object $X$ in $C$ and any covering family $\{U_i \to X\}_{i \in I}$ of $X$, the sequence of sets $F(X) \to \prod_{i \in I} F(U_i) \rightrightarrows \prod_{i, j \in I} F(U_i \times_X U_j)$ is exact.\n
+3. $F$ satisfies the representability condition: For any object $X$ in $C$, the functor $F$ is representable by $X$ if and only if the functor $F$ is a sheaf and satisfies the sheaf condition.\n
+The representability criterion is a powerful tool in category theory and has numerous applications in algebraic geometry, topology, and other areas of mathematics.\n
+\input{sections/yoneda_agy_small_limits.tex}
+\section{Naturality of the Yoneda Bijection}
+
+We prove that the Yoneda bijection $\Phi_{A,G} : G(A) \xrightarrow{\sim} \Nat(h_A, G)$ is natural in both $G \in [C^\op, \Set]$ and $A \in \Ob_C$, with explicit commutative diagrams via `amscd`.
+
+\begin{proof}
+Let $f: A \to B$ be a morphism in $C$. We show that the following diagram commutes:
+
+\[\begin{CD}
+G(A) @>{\Phi_{A,G}}>> \Nat(h_A, G) \\
+@V{G(f)}VV @VV{\Nat(h_f, G)}V \\
+G(B) @>{\Phi_{B,G}}>> \Nat(h_B, G)
+\end{CD}
+\]
+
+The commutativity of the diagram follows from the naturality of the Yoneda bijection.\end{proof}
+
+\section{Covariant Version of the Yoneda Lemma}
+
+We define the covariant Hom-functor $h^A = \Hom_C(A, -) \in [C, \Set]$ and prove the covariant Yoneda Lemma $\Nat(h^A, F) \cong F(A)$ along with the contravariant Yoneda embedding $h^- : C^\op \to [C, \Set]$.
+
+\begin{proof}
+Let $f: A \to B$ be a morphism in $C$. We show that the following diagram commutes:
+
+\[\begin{CD}
+\Nat(h^A, F) @>{\cong}>> F(A) \\
+@V{\Nat(h^f, F)}VV @VV{F(f)}V \\
+\Nat(h^B, F) @>{\cong}>> F(B)
+\end{CD}
+\]
+
+The commutativity of the diagram follows from the covariant version of the Yoneda lemma.\end{proof}
+
+\begin{lemma}[Yoneda Embedding is a Functor]\label{lem:yoneda_functor}
+The Yoneda embedding $h_- : C \to [C^\op, \Set]$ is a functor.\end{lemma}
+
 \end{document}

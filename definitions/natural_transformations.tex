@@ -1,0 +1,15 @@
+% Definition of Natural Transformations and Functor Category Morphisms
+
+\begin{definition}[Natural Transformation]
+A natural transformation $\alpha : F \Rightarrow G$ between two functors $F, G : \mathcal{C} \to \mathcal{D}$ consists of a collection of morphisms $\{\alpha_x : Fx \to Gx\}_{x \in \mathcal{C}}$ such that for every morphism $f : x \to y$ in $\mathcal{C}$, the following diagram commutes:
+
+\begin{center}
+\begin{tikzcd}
+Fx \arrow[r, "Ff"] \arrow[d, "\alpha_x"'] & Fy \arrow[d, "\alpha_y"] \\ Gx \arrow[r, "Gf"'] & Gy
+\end{tikzcd}
+\end{center}
+
+We denote the set of all natural transformations between $F$ and $G$ by $\Nat(F,G)$.\end{definition}
+
+\begin{definition}[Functor Category Morphisms]
+Given two functor categories $[\mathcal{C}, \mathcal{D}]$ and $[\mathcal{E}, \mathcal{F}]$, a morphism between them is a natural transformation between the corresponding functors.\end{definition}

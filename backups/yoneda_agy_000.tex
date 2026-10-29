@@ -1,6 +1,6 @@
 \documentclass[10pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
-\usepackage{../LATEX/gdmath}
+\usepackage{gdmath}
 
 \begin{document}
 Some Proofs of the Category Theory\\
@@ -44,23 +44,26 @@ $\exists$I & $A(t/x)\to \exists x A$ & $\textrm{FFI}(t,x,A)$& $A \in \textrm{Fm}
 
 \begin{table}[H]
 \centering
-% Rules of predicate calculus
-%\caption{Правила вывода логики предикатов} \label{tab:rulestab}
+Rules of predicate calculus
+\caption{Rules of predicate calculus} \label{tab:rulestab}
 \begin{tabular}{|c|c|c|c|}
 \hline
 name & rule & condition & parameters \\ \hline
+MP & $A \to B, A \vdash B$ & - & $A,B \in \textrm{Fm}$\\ \hline
+\forall I & $\vdash \forall x A$ & $\forall x \in \textrm{FV}(A)$ & $A \in \textrm{Fm}$\\ \hline
+\exists E & $\exists x A \vdash A(t/x)$ & $\textrm{FFI}(t,x,A)$ & $A \in \textrm{Fm}$\\ \hline
 %название & правило & условие \\ \hline
 \hline
-MP &  \rule[-2.5ex]{0pt}{7ex} $\frac{A\to B\quad A}{B}$ & - \\ \hline %(\textrm{MP})
+MP &  \rule[-2.5ex]{0pt}{7ex} $\frac{A\to B\quad A}{B}$ & - & $A,B \in \textrm{Fm}$ \\ \hline %(\textrm{MP})
 \hline
 %\hline
 %\infer[(\forall\textrm{I})]{A\to \forall x B}{A\to B}, если $x \notin \textrm{FV}(A)$\\
 \rule[-2.5ex]{0pt}{7ex}
-$\forall$I & $\frac{A\to B}{A\to \forall x B}$ & $x \notin \textrm{FV}(A)$\\ \hline %(\forall\textrm{I})
+$\forall$I & $\frac{A\to B}{A\to \forall x B}$ & $x \notin \textrm{FV}(A)$ & $A,B \in \textrm{Fm}$ \\ \hline %(\forall\textrm{I})
 \hline
 %\hline
 \rule[-2.5ex]{0pt}{7ex}
-$\exists$E & $\frac{A\to B}{\exists x A\to B}$ & $x \notin \textrm{FV}(B)$\\ %(\textrm{$\exists$E})
+$\exists$E & $\frac{A\to B}{\exists x A\to B}$ & $x \notin \textrm{FV}(B)$ & $A,B \in \textrm{Fm}$ \\ %(\textrm{$\exists$E})
 \hline
 \end{tabular}
 \end{table}
@@ -209,7 +212,7 @@ $$\Hom_C(-,x): \Ob_C \to \Set$$
 $$\HomMor^{A,B}_C(f,x) : \Hom_C(B,x) \to \Hom_C(A,x)$$
 $$\HomMor^{A,B}_C(f,x) \eqdef (g \in\Hom_C(B,x) \mapsto (g \circ_C f))$$
 $$\HomMor^{A,B}_C(f,x) \eqdef (g \in\Hom_C(B,x) \mapsto (g \circ_C f) \in\Hom_C(A,x))$$
-$$\left(\textrm{another form is }\widetilde{\Hom_C(-,x)}^{A,B}(f) \eqdef (g \in\Hom_C(B,x) \mapsto (g \circ_C f) \in\Hom_C(A,x)\right)$$
+$$\left(\textrm{another form is }\widetilde{\Hom_C(-,x)}^{A,B}(f) \eqdef (g \in\Hom_C(B,x) \mapsto (g \circ_C f) \in\Hom_C(A,x))\right)$$
 \end{definition}
 
 \begin{lemma}
@@ -231,7 +234,7 @@ $\FMor \coloneqq \HomMor_C(-,x)$\\
 $\HomMor_C^{A,B}(f\in\Hom_{C^\op}(A,B), x) = (g \in\Hom_C(A,x) \mapsto (g \circ_C f) \in\Hom_C(B,x))$\ (this is a definition).\\
 In other words, fix the $A,B\in C$ and $f\in\Hom_{C^\op}(A,B)$.\\
 $\HomMor_C^{A,B}(f, x) = (g\mapsto (g \circ_C f))$\\
-$\HomMor_C^{A,B}(f, x) : \Hom_C(A,x) \to \Hom_C(B,x))$
+$\HomMor_C^{A,B}(f, x) : \Hom_C(A,x) \to \Hom_C(B,x)$
 \\
 $\HomMor$ is total since $f:\Hom_{C^\op}(A,B), \Rightarrow f\in\Hom_C(B,A)$ by definition of dual category. (It follows that composition is defined, so it is total.)
 \item $1_A\in\Hom_{C^\op}(A,A)$\\
@@ -258,9 +261,9 @@ $a)\ \HomMor_C(g\circ_C f, x) = (h \in\Hom_C(Z,x) \mapsto (h \circ_C (g\circ_C f
 $b)\ \HomMor_C(f, x) = \left(u \in\Hom_C(Z,x) \mapsto (u \circ_C f)\in\Hom_C(Y,x)\right)$\\
 $c)\ \HomMor_C(g, x) = \left(v \in\Hom_C(Y,x) \mapsto (v \circ_C g)\in\Hom_C\left(X,x\right)\right)$\\
 \\
-$u \stackrel{\HomMor_C(g, x)}{\mapsto\mapsto\mapsto\mapsto\mapsto} (u \circ_C g)\stackrel{\HomMor_C(g, x)}{\mapsto\mapsto\mapsto\mapsto\mapsto} ((u \circ_C g) \circ_C f))$
+$u \xmapsto{\HomMor_C(g, x)} (u \circ_C g)\xmapsto{\HomMor_C(g, x)} (u \circ_C g) \circ_C f$
 \\
-$\Hom_C(Z,x) \stackrel{\HomMor_C(g, x)}{\to\to\to\to\to} \Hom_C(Y,x)\stackrel{\HomMor_C(f, x)}{\to\to\to\to\to} \Hom_C(X,x)$
+$\Hom_C(Z,x) \stackrel{\HomMor_C(g, x)}{\to} \Hom_C(Y,x)\stackrel{\HomMor_C(f, x)}{\to} \Hom_C(X,x)$
 \\
 \end{enumerate}
 \myqed
@@ -272,7 +275,7 @@ $$h_x = \Hom_C(-, x)$$
 
 \begin{definition}
 $$\eta : \Pi(w\in C^\op).\Hom_C(w,x)\to \Hom_C(w,y)$$
-$$\eta = \lambda (w\in C^\op). \lambda g\in\Hom_C(w,x).(f\circ_C^w,x,y g)$$
+$$\eta = \lambda (w\in C^\op). \lambda g\in\Hom_C(w,x).(f\circ_C^{w,x,y} g)$$
 \end{definition}
 Now our aim is to define a natural transformation of the elements of $[C^\op,\Set]$.\\
 \begin{lemma}$\textrm{ }$\\
@@ -291,7 +294,7 @@ $\eta_w: \Hom_C(w,x)\to \Hom_C(w,y)$\\
 Substitution:\\
 $C \coloneqq C^\op$, $D \coloneqq \Set$, $F \coloneqq \Hom_C(-,x)$, $G \coloneqq \Hom_C(-,y)$, $x \coloneqq a$, $y \coloneqq b$, $f \coloneqq m$
 \begin{lemma}
-$$\forall a,b\in C^\op. \forall m\in \Hom_C\op (a,b).\eta_b \circ_\Set \Hom_C(m,x)=\Hom_C(m,y)\circ_\Set\eta_a$$
+$$\forall a,b\in C^\op. \forall m\in \Hom_C^\op (a,b).\eta_b \circ_\Set \Hom_C(m,x)=\Hom_C(m,y)\circ_\Set\eta_a$$
 \end{lemma}
 \myprf\\
 Fix $a$, $b$ and $m\in\Hom_C(b,a)$.\\
