@@ -239,3 +239,115 @@ def verify_yoneda_full_faithful(cat: Category, A: str, B: str) -> bool:
                 raise AssertionError(f"Fullness check failed: alpha^{u} != h_{u} at object {x}")
 
     return True
+
+
+def make_covariant_representable(cat: Category, A: str) -> Functor:
+    """
+    Constructs the covariant representable functor h^A: C -> Set.
+    h^A(X) = Hom_C(A, X)
+    For f: X -> Y in C,
+    h^A(f): Hom_C(A, X) -> Hom_C(A, Y) is post-composition: g |-> f o g.
+    """
+    if A not in cat.objects:
+        raise ValueError(f"Object {A} not in category {cat.name}")
+
+    obj_map: Dict[str, Tuple[Morphism, ...]] = {}
+    for x in cat.objects:
+        obj_map[x] = tuple(sorted(cat.hom(A, x), key=lambda m: m.name))
+
+    mor_map: Dict[Morphism, SetFunction] = {}
+
+    for x in cat.objects:
+        id_x = cat.identities[x]
+        hom_ax = obj_map[x]
+        mor_map[id_x] = SetFunction(
+            source_set=hom_ax,
+            target_set=hom_ax,
+            mapping={g: g for g in hom_ax},
+            name=f"h^{A}(id_{x})"
+        )
+
+    for (src, tgt), mors in cat.morphisms.items():
+        for f in mors:
+            if f == cat.identities[src]:
+                continue
+            hom_asrc = obj_map[src]
+            hom_atgt = obj_map[tgt]
+            mapping = {}
+            for g in hom_asrc:
+                # g: A -> src, f: src -> tgt => f o g: A -> tgt
+                mapping[g] = cat.compose(f, g)
+            mor_map[f] = SetFunction(
+                source_set=hom_asrc,
+                target_set=hom_atgt,
+                mapping=mapping,
+                name=f"h^{A}({f.name})"
+            )
+
+    cov_functor = Functor(
+        name=f"h^{A}",
+        source_cat=cat,
+        target_cat=None,
+        obj_map=obj_map,
+        mor_map=mor_map
+    )
+    cov_functor.validate()
+    return cov_functor
+
+
+class YonedaEmbedding:
+    """
+    The Yoneda Embedding Functor y: C -> PSh(C) = [C^op, Set].
+    y(A) = h_A (contravariant representable presheaf Hom_C(-, A))
+    y(f) = h_f (natural transformation h_A => h_B induced by f: A -> B)
+    """
+    def __init__(self, cat: Category):
+        self.cat = cat
+        self.presheaves: Dict[str, Functor] = {}
+        for obj in cat.objects:
+            self.presheaves[obj] = make_representable_presheaf(cat, obj)
+
+    def apply_obj(self, A: str) -> Functor:
+        if A not in self.presheaves:
+            self.presheaves[A] = make_representable_presheaf(self.cat, A)
+        return self.presheaves[A]
+
+    def apply_mor(self, f: Morphism) -> NaturalTransformation:
+        return make_yoneda_morphism(self.cat, f)
+
+    def verify_functoriality(self) -> bool:
+        # Check identity preservation: y(id_A) == id_{h_A}
+        for obj in self.cat.objects:
+            id_a = self.cat.identities[obj]
+            y_id = self.apply_mor(id_a)
+            h_a = self.apply_obj(obj)
+            for x in self.cat.objects:
+                comp = y_id.component(x)
+                if not comp.is_identity():
+                    raise AssertionError(f"Yoneda embedding does not preserve identity on {obj}")
+
+        # Check composition preservation: y(g o f) == y(g) o y(f)
+        for (g, f), gf in self.cat.composition_table.items():
+            y_f = self.apply_mor(f)
+            y_g = self.apply_mor(g)
+            y_gf = self.apply_mor(gf)
+            comp_nat = y_g.vertical_compose(y_f)
+            for x in self.cat.objects:
+                if comp_nat.component(x).mapping != y_gf.component(x).mapping:
+                    raise AssertionError(f"Yoneda embedding violates composition on {g} o {f} at object {x}")
+        return True
+
+    def verify_full_and_faithful(self) -> bool:
+        for a in self.cat.objects:
+            for b in self.cat.objects:
+                verify_yoneda_full_faithful(self.cat, a, b)
+        return True
+
+
+def verify_yoneda_embedding(cat: Category) -> bool:
+    """Convenience verifier for full faithfulness and functoriality of Yoneda embedding."""
+    y = YonedaEmbedding(cat)
+    y.verify_functoriality()
+    y.verify_full_and_faithful()
+    return True
+

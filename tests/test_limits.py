@@ -11,7 +11,21 @@ import unittest
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
 
 from category import Category, Morphism, Functor, SetFunction
-from limits import Cone, construct_small_limit, universal_mediating_morphism, construct_equalizer, construct_product
+from limits import (
+    Cone,
+    construct_small_limit,
+    universal_mediating_morphism,
+    construct_equalizer,
+    construct_product,
+    construct_pullback,
+    Cocone,
+    construct_small_colimit,
+    universal_mediating_colimit_morphism,
+    construct_coequalizer,
+    construct_coproduct,
+    construct_pushout,
+    verify_representable_preserves_limits,
+)
 
 
 class TestSmallLimits(unittest.TestCase):
@@ -134,6 +148,137 @@ class TestSmallLimits(unittest.TestCase):
         prod_cone = construct_product(set_a, set_b)
         self.assertEqual(len(prod_cone.apex), 4)
         self.assertEqual(set(prod_cone.apex), {(0, "x"), (0, "y"), (1, "x"), (1, "y")})
+
+    def test_pullback_construction(self):
+        # Cospan: X = {1, 2, 3} -> Z = {True, False} <- Y = {'a', 'b'}
+        # f: 1->T, 2->F, 3->T
+        # g: 'a'->T, 'b'->F
+        # Pullback consists of pairs (x, y) with f(x) == g(y):
+        # (1, 'a'), (2, 'b'), (3, 'a')
+        src_x = (1, 2, 3)
+        src_y = ("a", "b")
+        tgt_z = (True, False)
+        f = SetFunction(src_x, tgt_z, {1: True, 2: False, 3: True}, name="f")
+        g = SetFunction(src_y, tgt_z, {"a": True, "b": False}, name="g")
+
+        pb_cone = construct_pullback(f, g)
+        self.assertTrue(pb_cone.validate())
+        pb_pairs = {(elem[0], elem[1]) for elem in pb_cone.apex}
+        expected = {(1, "a"), (2, "b"), (3, "a")}
+        self.assertEqual(pb_pairs, expected)
+
+    def test_coproduct_construction(self):
+        # Coproduct of A = {1, 2} and B = {'x', 'y'}
+        set_a = (1, 2)
+        set_b = ("x", "y")
+        coprod_cocone = construct_coproduct(set_a, set_b)
+        self.assertTrue(coprod_cocone.validate())
+        self.assertEqual(len(coprod_cocone.apex), 4)
+
+    def test_coequalizer_construction(self):
+        # Parallel arrows f, g: {1, 2, 3} -> {'a', 'b', 'c'}
+        # f: 1->'a', 2->'b', 3->'b'
+        # g: 1->'b', 2->'b', 3->'c'
+        # Identifies 'a' ~ 'b' and 'b' ~ 'c', so all {'a', 'b', 'c'} collapse to one class
+        src = (1, 2, 3)
+        tgt = ("a", "b", "c")
+        f = SetFunction(src, tgt, {1: "a", 2: "b", 3: "b"}, name="f")
+        g = SetFunction(src, tgt, {1: "b", 2: "b", 3: "c"}, name="g")
+
+        coeq_cocone = construct_coequalizer(f, g)
+        self.assertTrue(coeq_cocone.validate())
+        self.assertEqual(len(coeq_cocone.apex), 1)
+
+    def test_pushout_construction(self):
+        # Span: X = {'x1', 'x2'} <- Z = {0} -> Y = {'y1', 'y2'}
+        # f: 0 |-> 'x1'
+        # g: 0 |-> 'y1'
+        # Pushout glues 'x1' and 'y1'. Resulting classes:
+        # {'x1', 'y1'}, {'x2'}, {'y2'} => 3 equivalence classes
+        src_z = (0,)
+        tgt_x = ("x1", "x2")
+        tgt_y = ("y1", "y2")
+        f = SetFunction(src_z, tgt_x, {0: "x1"}, name="f")
+        g = SetFunction(src_z, tgt_y, {0: "y1"}, name="g")
+
+        po_cocone = construct_pushout(f, g)
+        self.assertTrue(po_cocone.validate())
+        self.assertEqual(len(po_cocone.apex), 3)
+
+    def test_colimit_universal_property(self):
+        # Test universal mediating arrow nu: colim D -> S
+        set_a = (1, 2)
+        set_b = ("x", "y")
+        coprod = construct_coproduct(set_a, set_b)
+
+        # Test target set S = {'num', 'letter'}
+        s_set = ("num", "letter")
+        phi_a = SetFunction(set_a, s_set, {1: "num", 2: "num"}, name="phi_a")
+        phi_b = SetFunction(set_b, s_set, {"x": "letter", "y": "letter"}, name="phi_b")
+
+        test_cocone = Cocone(
+            apex=s_set,
+            diagram_functor=coprod.diagram,
+            legs={"A": phi_a, "B": phi_b}
+        )
+        self.assertTrue(test_cocone.validate())
+
+        nu = universal_mediating_colimit_morphism(test_cocone, coprod)
+        for a in set_a:
+            cls = coprod.legs["A"](a)
+            self.assertEqual(nu(cls), "num")
+        for b in set_b:
+            cls = coprod.legs["B"](b)
+            self.assertEqual(nu(cls), "letter")
+
+    def test_representable_preserves_limits(self):
+        # In a category C with terminal object / product / pullback:
+        # Let C have objects P, A, B, X
+        # P is product of A and B with projections pi_a: P -> A, pi_b: P -> B
+        cat = Category("CatWithProduct")
+        for obj in ["P", "A", "B", "X"]:
+            cat.add_object(obj)
+
+        pi_a = Morphism("pi_a", "P", "A")
+        pi_b = Morphism("pi_b", "P", "B")
+        cat.add_morphism(pi_a)
+        cat.add_morphism(pi_b)
+
+        # Add arrows from X: f: X -> A, g: X -> B, and pair <f, g>: X -> P
+        f = Morphism("f", "X", "A")
+        g = Morphism("g", "X", "B")
+        fg = Morphism("pair_fg", "X", "P")
+        cat.add_morphism(f)
+        cat.add_morphism(g)
+        cat.add_morphism(fg)
+
+        cat.set_composition(pi_a, fg, f)
+        cat.set_composition(pi_b, fg, g)
+        cat.validate()
+
+        # Product diagram of A and B
+        j = Category("Discrete2")
+        j.add_object("A")
+        j.add_object("B")
+
+        diag = Functor(
+            name="ProdDiag",
+            source_cat=j,
+            target_cat=cat,
+            obj_map={"A": "A", "B": "B"},
+            mor_map={
+                j.identities["A"]: cat.identities["A"],
+                j.identities["B"]: cat.identities["B"],
+            }
+        )
+        diag.validate()
+
+        lim_apex = "P"
+        lim_legs = {"A": pi_a, "B": pi_b}
+
+        # Verify that Hom_C(X, -) preserves this limit
+        self.assertTrue(verify_representable_preserves_limits(cat, "X", diag, lim_apex, lim_legs))
+
 
 
 if __name__ == '__main__':

@@ -12,11 +12,14 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..",
 from category import Category, Morphism, Functor, SetFunction, NaturalTransformation
 from yoneda import (
     make_representable_presheaf,
+    make_covariant_representable,
     make_yoneda_morphism,
     yoneda_evaluation,
     yoneda_reconstruction,
     verify_yoneda_isomorphism,
-    verify_yoneda_full_faithful
+    verify_yoneda_full_faithful,
+    YonedaEmbedding,
+    verify_yoneda_embedding,
 )
 
 
@@ -100,6 +103,28 @@ class TestYoneda(unittest.TestCase):
             c1 = composite_nat.component(x).mapping
             c2 = hgf.component(x).mapping
             self.assertEqual(c1, c2)
+
+    def test_covariant_representable_functor(self):
+        # h^A = Hom(A, -): C -> Set
+        h_sup_a = make_covariant_representable(self.c, "A")
+        self.assertTrue(h_sup_a.validate())
+
+        # h^A(A) = {id_A}, h^A(B) = {f}, h^A(C_obj) = {gf}
+        self.assertEqual(set(h_sup_a.apply_obj("A")), {self.c.identities["A"]})
+        self.assertEqual(set(h_sup_a.apply_obj("B")), {self.f})
+        self.assertEqual(set(h_sup_a.apply_obj("C_obj")), {self.gf})
+
+        # Morphism mapping: for g: B -> C_obj, h^A(g) maps f to g o f = gf
+        map_g = h_sup_a.apply_mor(self.g)
+        self.assertEqual(map_g(self.f), self.gf)
+
+    def test_yoneda_embedding_mechanization(self):
+        # Mechanize y: C -> PSh(C)
+        embedding = YonedaEmbedding(self.c)
+        self.assertTrue(embedding.verify_functoriality())
+        self.assertTrue(embedding.verify_full_and_faithful())
+        self.assertTrue(verify_yoneda_embedding(self.c))
+
 
 
 if __name__ == '__main__':

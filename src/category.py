@@ -309,3 +309,73 @@ class NaturalTransformation:
             target_functor=self.target_functor,
             components=new_comps
         )
+
+
+def identity_functor(cat: Category) -> Functor:
+    """Constructs the identity functor Id_C: C -> C."""
+    obj_map = {obj: obj for obj in cat.objects}
+    mor_map = {}
+    for (src, tgt), mors in cat.morphisms.items():
+        for m in mors:
+            mor_map[m] = m
+    id_f = Functor(
+        name=f"Id_{cat.name}",
+        source_cat=cat,
+        target_cat=cat,
+        obj_map=obj_map,
+        mor_map=mor_map
+    )
+    id_f.validate()
+    return id_f
+
+
+def compose_functors(G: Functor, F: Functor) -> Functor:
+    """
+    Constructs the composite functor (G o F): source(F) -> target(G).
+    Requires F.target_cat == G.source_cat.
+    """
+    if F.target_cat is None:
+        raise ValueError("Cannot compose with Set-valued functor F whose target_cat is None")
+    if F.target_cat.name != G.source_cat.name:
+        raise ValueError(f"Category mismatch: {F.target_cat.name} != {G.source_cat.name}")
+
+    obj_map = {obj: G.apply_obj(F.apply_obj(obj)) for obj in F.source_cat.objects}
+    mor_map = {}
+    for (src, tgt), mors in F.source_cat.morphisms.items():
+        for m in mors:
+            mor_map[m] = G.apply_mor(F.apply_mor(m))
+
+    comp_f = Functor(
+        name=f"({G.name} o {F.name})",
+        source_cat=F.source_cat,
+        target_cat=G.target_cat,
+        obj_map=obj_map,
+        mor_map=mor_map
+    )
+    comp_f.validate()
+    return comp_f
+
+
+def identity_natural_transformation(F: Functor) -> NaturalTransformation:
+    """Constructs the identity natural transformation id_F: F => F."""
+    components = {}
+    for obj in F.source_cat.objects:
+        f_obj = F.apply_obj(obj)
+        if F.target_cat is not None:
+            components[obj] = F.target_cat.identities[f_obj]
+        else:
+            components[obj] = SetFunction(
+                source_set=f_obj,
+                target_set=f_obj,
+                mapping={x: x for x in f_obj},
+                name=f"id_{F.name}({obj})"
+            )
+    nat = NaturalTransformation(
+        name=f"id_{F.name}",
+        source_functor=F,
+        target_functor=F,
+        components=components
+    )
+    nat.validate()
+    return nat
+
