@@ -1,15 +1,44 @@
-% Definition of Natural Transformations and Functor Category Morphisms
+% Definition of Natural Transformations, Functor Categories, and Composition Laws
 
 \begin{definition}[Natural Transformation]
-A natural transformation $\alpha : F \Rightarrow G$ between two functors $F, G : \mathcal{C} \to \mathcal{D}$ consists of a collection of morphisms $\{\alpha_x : Fx \to Gx\}_{x \in \mathcal{C}}$ such that for every morphism $f : x \to y$ in $\mathcal{C}$, the following diagram commutes:
+Let $\mathcal{C}$ and $\mathcal{D}$ be categories, and let $F, G : \mathcal{C} \to \mathcal{D}$ be parallel functors. A \emph{natural transformation} $\alpha : F \Rightarrow G$ consists of a family of morphisms in $\mathcal{D}$,
+\[
+\alpha = \{\alpha_X \in \Hom_{\mathcal{D}}(F(X), G(X))\}_{X \in \Ob(\mathcal{C})},
+\]
+such that for every morphism $f \in \Hom_{\mathcal{C}}(X, Y)$, the naturality square commutes in $\mathcal{D}$:
+\[
+G(f) \circ_{\mathcal{D}} \alpha_X = \alpha_Y \circ_{\mathcal{D}} F(f).
+\]
+We denote the collection of all natural transformations from $F$ to $G$ by $\Nat(F, G)$. When $\mathcal{C}$ is small (or when $\mathcal{C}$ is locally small and $F, G$ are presheaves with representable source), $\Nat(F, G)$ is a genuine set in $\Set$.
+\end{definition}
 
-\begin{center}
-\begin{tikzcd}
-Fx \arrow[r, "Ff"] \arrow[d, "\alpha_x"'] & Fy \arrow[d, "\alpha_y"] \\ Gx \arrow[r, "Gf"'] & Gy
-\end{tikzcd}
-\end{center}
+\begin{definition}[The Functor Category]
+Let $\mathcal{C}$ and $\mathcal{D}$ be categories with $\mathcal{C}$ small. The \emph{functor category} $[\mathcal{C}, \mathcal{D}]$ (also denoted $\mathcal{D}^{\mathcal{C}}$) is defined by:
+\begin{enumerate}
+    \item \textbf{Objects}: $\Ob([\mathcal{C}, \mathcal{D}])$ is the collection of all functors $F : \mathcal{C} \to \mathcal{D}$.
+    \item \textbf{Morphisms}: For any two functors $F, G \in \Ob([\mathcal{C}, \mathcal{D}])$, the hom-set is $\Hom_{[\mathcal{C}, \mathcal{D}]}(F, G) \eqdef \Nat(F, G)$.
+    \item \textbf{Identities}: For each functor $F$, the identity morphism is the identity natural transformation $1_F : F \Rightarrow F$, defined componentwise by $(1_F)_X \eqdef \mathrm{id}_{F(X)}$ for all $X \in \Ob(\mathcal{C})$.
+    \item \textbf{Composition}: Given $F, G, H \in \Ob([\mathcal{C}, \mathcal{D}])$ and natural transformations $\alpha \in \Nat(F, G)$ and $\beta \in \Nat(G, H)$, their composite is the \emph{vertical composition} $\beta \circ \alpha : F \Rightarrow H$, defined componentwise by
+    \[
+    (\beta \circ \alpha)_X \eqdef \beta_X \circ_{\mathcal{D}} \alpha_X.
+    \]
+\end{enumerate}
+A morphism between two functor categories $[\mathcal{C}, \mathcal{D}]$ and $[\mathcal{E}, \mathcal{F}]$ is a functor $\Phi : [\mathcal{C}, \mathcal{D}] \to [\mathcal{E}, \mathcal{F}]$, whereas natural transformations are the internal morphisms within a single functor category.
+\end{definition}
 
-We denote the set of all natural transformations between $F$ and $G$ by $\Nat(F,G)$.\end{definition}
-
-\begin{definition}[Functor Category Morphisms]
-Given two functor categories $[\mathcal{C}, \mathcal{D}]$ and $[\mathcal{E}, \mathcal{F}]$, a morphism between them is a natural transformation between the corresponding functors.\end{definition}
+\begin{definition}[Horizontal Composition and Whiskerings]
+Let $F, F' : \mathcal{C} \to \mathcal{D}$ and $G, G' : \mathcal{D} \to \mathcal{E}$ be functors, and let $\alpha : F \Rightarrow F'$ and $\beta : G \Rightarrow G'$ be natural transformations. The \emph{horizontal composition} $\beta * \alpha : G \circ F \Rightarrow G' \circ F'$ is defined componentwise for each $X \in \Ob(\mathcal{C})$ by
+\[
+(\beta * \alpha)_X \eqdef \beta_{F'(X)} \circ_{\mathcal{E}} G(\alpha_X) = G'(\alpha_X) \circ_{\mathcal{E}} \beta_{F(X)}.
+\]
+The two special cases are the \emph{whiskerings}:
+\begin{enumerate}
+    \item Pre-whiskering: $(G * \alpha)_X \eqdef G(\alpha_X)$ for a functor $G : \mathcal{D} \to \mathcal{E}$.
+    \item Post-whiskering: $(\beta * F)_X \eqdef \beta_{F(X)}$ for a functor $F : \mathcal{C} \to \mathcal{D}$.
+\end{enumerate}
+Vertical and horizontal composition satisfy the \emph{interchange law}:
+\[
+(\beta' \circ \beta) * (\alpha' \circ \alpha) = (\beta' * \alpha') \circ (\beta * \alpha),
+\]
+whenever the compositions are defined, establishing that categories, functors, and natural transformations form a strict $2$-category $\mathbf{Cat}$.
+\end{definition}

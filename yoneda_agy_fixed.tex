@@ -1,1 +1,29 @@
-The issues mentioned in the ticket have been addressed. Definition 2.3 was not found in the file.
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+
+\newcommand{\Set}{\mathbf{Set}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\Ob}{\mathrm{Ob}}
+\newcommand{\op}{\mathrm{op}}
+
+\begin{document}
+
+\begin{definition}[Functors, Presheaves, and NBG Size Conventions]
+Let $\mathcal{C}$ and $\mathcal{D}$ be locally small categories in von Neumann--Bernays--G\"odel ($\mathrm{NBG}$) class-set theory.
+A \emph{covariant functor} $F : \mathcal{C} \to \mathcal{D}$ assigns:
+\begin{enumerate}
+    \item To each object $X \in \Ob(\mathcal{C})$, an object $F(X) \in \Ob(\mathcal{D})$.
+    \item To each morphism $f \in \Hom_{\mathcal{C}}(X, Y)$, a morphism $F(f) \in \Hom_{\mathcal{D}}(F(X), F(Y))$,
+\end{enumerate}
+satisfying $F(\mathrm{id}_X) = \mathrm{id}_{F(X)}$ for all $X \in \Ob(\mathcal{C})$, and $F(g \circ_{\mathcal{C}} f) = F(g) \circ_{\mathcal{D}} F(f)$ for all composable pairs.
+
+A \emph{presheaf} on $\mathcal{C}$ is a contravariant functor $P : \mathcal{C}^\op \to \Set$.
+When $\mathcal{C}$ is locally small but has a proper class of objects, presheaves $P$ are class functions, and the presheaf category $[\mathcal{C}^\op, \Set]$ is treated as a metacategory whose objects are class-sized, while each individual hom-set $\Hom_{\mathcal{C}}(X, Y)$ remains a small set in $\Set$.
+\end{definition}
+
+\end{document}

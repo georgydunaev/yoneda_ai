@@ -26,21 +26,27 @@ This monograph provides a self-contained, formally rigorous development of the Y
 For $f \in \Pow(\Sigma R)$, the compact condition $\Fun(f) \land \dom(R) \subseteq \dom(f)$ is equivalent to $\Rel(f) \land \Fun(f) \land \dom(f) = \dom(R) \land \forall x \in \dom(R).\ f(x) \in R(x)$.
 \end{theorem}
 \begin{proof}
-[Proof content will be added here]
+Let $W \eqdef \dom(R)$. If $f \in \Pi R$, then $f \subseteq \Sigma R$. Since every element of $\Sigma R$ is a pair $\langle x, y \rangle$ with $x \in W$ and $y \in R(x)$, we immediately have $\Rel(f)$ and $\dom(f) \subseteq W$. Combined with the hypothesis $W \subseteq \dom(f)$, this yields $\dom(f) = W$. For each $x \in W$, $\Fun(f)$ and $x \in \dom(f)$ yield $\langle x, f(x) \rangle \in f \subseteq \Sigma R$, so $f(x) \in R(x)$.
+
+Conversely, if $\Rel(f) \land \Fun(f) \land \dom(f) = W \land \forall x \in W.\ f(x) \in R(x)$, then every pair $p \in f$ has the form $\langle x, f(x) \rangle$ with $x \in W$ and $f(x) \in R(x)$. Thus $p \in \Sigma R$, which implies $f \subseteq \Sigma R$ and therefore $f \in \Pow(\Sigma R)$ with $\Fun(f)$ and $W \subseteq \dom(f)$.
 \end{proof}
 %% SET-HOOD OF ΣR AND ΠR %%
 \begin{theorem}
 $\Sigma R \in \Set$ and $\Pi R \in \Set$ whenever $\dom(R) \in \Set$ and $\forall x \in \dom(R).\ R(x) \in \Set$.
 \end{theorem}
 \begin{proof}
-[Proof content will be added here]
+Let $W \eqdef \dom(R) \in \Set$ and assume $R(x) \in \Set$ for all $x \in W$. By the Axiom Schema of Replacement, the family $\{R(x) : x \in W\}$ is a set, and by the Axiom of Union, $U \eqdef \bigcup \{R(x) : x \in W\}$ is a set. The Cartesian product $W \times U$ is a set, and since $\Sigma R = \{\langle x, y \rangle \in W \times U : y \in R(x)\} \subseteq W \times U$, Separation implies $\Sigma R \in \Set$.
+
+Applying the Power Set Axiom yields $\Pow(\Sigma R) \in \Set$. A second application of Separation yields $\Pi R = \{f \in \Pow(\Sigma R) : \Fun(f) \land W \subseteq \dom(f)\} \in \Set$.
 \end{proof}
 %% β/η-LAWS %%
 \begin{theorem}
 For set-theoretic $\lambda$-abstraction, $\beta$- and $\eta$-conversion hold.
 \end{theorem}
 \begin{proof}
-[Proof content will be added here]
+For a family of terms $t(x)$ defined for $x \in W$, set-theoretic $\lambda$-abstraction is $\lambda x \in W.\ t(x) \eqdef \{\langle x, t(x) \rangle : x \in W\}$. For any $a \in W$, evaluating $(\lambda x \in W.\ t(x))(a)$ yields the unique $y$ such that $\langle a, y \rangle \in \lambda x \in W.\ t(x)$, which is precisely $t(a)$ ($\beta$-conversion).
+
+Conversely, if $f \in \Pi(x \in W).\ R(x)$, then $f = \{\langle x, f(x) \rangle : x \in W\} = \lambda x \in W.\ f(x)$ ($\eta$-conversion).
 \end{proof}\label{sec:logic_set}
 
 \subsection{Foundations and Size Conventions}\label{sec:foundations}

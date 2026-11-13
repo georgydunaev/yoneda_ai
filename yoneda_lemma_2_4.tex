@@ -1,19 +1,107 @@
 \documentclass{article}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{amsthm}
 
-\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+
+\newcommand{\Set}{\mathbf{Set}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\Nat}{\mathrm{Nat}}
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\Ob}{\mathrm{Ob}}
+\newcommand{\id}{\mathrm{id}}
 
 \begin{document}
 
-\begin{lemma}[Yoneda Embedding Properties]
-The Yoneda embedding $h_- : C \to [C^\op, \Set]$ is full, faithful, and injective on morphisms.
+\section*{The Yoneda Embedding: Fullness, Faithfulness, and Essential Injectivity}
+
+Let $C$ be a locally small category. For any object $A \in \Ob(C)$, the contravariant representable functor (presheaf) $h_A : C^\op \to \Set$ is defined by:
+\[
+h_A(X) \eqdef \Hom_C(X, A), \quad h_A(f)(g) \eqdef g \circ f \quad \text{for } f \in \Hom_C(Y, X), \; g \in \Hom_C(X, A).
+\]
+
+\begin{theorem}[Contravariant Yoneda Lemma]
+For any object $A \in \Ob(C)$ and any presheaf $F \in [C^\op, \Set]$, the evaluation map
+\[
+\Phi_{A, F} : \Nat(h_A, F) \longrightarrow F(A), \quad \alpha \longmapsto \alpha_A(\id_A),
+\]
+is a bijection, with two-sided inverse
+\[
+\Psi_{A, F} : F(A) \longrightarrow \Nat(h_A, F), \quad u \longmapsto \alpha^u,
+\]
+where the natural transformation $\alpha^u : h_A \Rightarrow F$ has components
+\[
+\alpha^u_X(g) \eqdef F(g)(u) \quad \text{for all } X \in \Ob(C) \text{ and } g \in \Hom_C(X, A).
+\]
+Furthermore, this bijection is natural in both $A$ and $F$.
+\end{theorem}
+
+\begin{definition}[Yoneda Embedding Functor]
+The \emph{Yoneda embedding} is the functor $h_- : C \to [C^\op, \Set]$ defined by:
+\begin{enumerate}
+    \item On objects: $A \longmapsto h_A$.
+    \item On morphisms: for $f \in \Hom_C(A, B)$, $h_f : h_A \Rightarrow h_B$ is the natural transformation whose component at $X \in \Ob(C)$ is given by post-composition:
+    \[
+    (h_f)_X(g) \eqdef f \circ g \quad \text{for all } g \in \Hom_C(X, A).
+    \]
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}[Full and Faithful Embedding]
+The Yoneda embedding $h_- : C \to [C^\op, \Set]$ satisfies:
+\begin{enumerate}
+    \item $h_-$ is a faithful functor: for any $A, B \in \Ob(C)$, the component map $(h_-)_{A, B} : \Hom_C(A, B) \to \Nat(h_A, h_B)$ sending $f \mapsto h_f$ is injective.
+    \item $h_-$ is a full functor: $(h_-)_{A, B}$ is surjective.
+    \item $h_-$ is injective on objects up to isomorphism: $h_A \cong h_B$ in $[C^\op, \Set]$ if and only if $A \cong B$ in $C$.
+\end{enumerate}
 \end{lemma}
 
 \begin{proof}
-1. **Fullness**: For any objects $A, B \in C$, the Yoneda embedding $h_-$ induces a bijection $\Hom_C(A, B) \cong \Nat(h_A, h_B)$. This shows that $h_-$ is full, meaning that for any two objects $A$ and $B$, every morphism in $\Hom_C(A, B)$ corresponds to a natural transformation between $h_A$ and $h_B$.\\
-2. **Faithfulness**: The bijection $\Hom_C(A, B) \cong \Nat(h_A, h_B)$ is natural in $A$ and $B$. This implies that $h_-$ is faithful, meaning that distinct morphisms in $C$ correspond to distinct natural transformations between the corresponding functors.\\
-3. **Injectivity on Morphisms**: The Yoneda embedding $h_-$ is injective on morphisms because the bijection $\Hom_C(A, B) \cong \Nat(h_A, h_B)$ is injective. This means that no two distinct morphisms in $C$ are mapped to the same natural transformation between the corresponding functors.\\
+Let $A, B \in \Ob(C)$. In the Yoneda Lemma, take $F \eqdef h_B$. Then $F(A) = h_B(A) = \Hom_C(A, B)$.
+For any morphism $f \in \Hom_C(A, B)$, the inverse map $\Psi_{A, h_B}(f) \in \Nat(h_A, h_B)$ has components:
+\[
+(\Psi_{A, h_B}(f))_X(g) = h_B(g)(f) = f \circ g = (h_f)_X(g).
+\]
+Therefore, the map $(h_-)_{A, B} : \Hom_C(A, B) \to \Nat(h_A, h_B)$ sending $f \mapsto h_f$ is identical to the Yoneda bijection $\Psi_{A, h_B}$.
+
+\medskip
+\noindent\textbf{1. Faithfulness (Injectivity on Hom-sets):}
+Suppose $f, f' \in \Hom_C(A, B)$ satisfy $h_f = h_{f'}$. Then their components at object $A$ coincide:
+\[
+(h_f)_A = (h_{f'})_A.
+\]
+Evaluating at the identity morphism $\id_A \in \Hom_C(A, A)$:
+\[
+f = f \circ \id_A = (h_f)_A(\id_A) = (h_{f'})_A(\id_A) = f' \circ \id_A = f'.
+\]
+Hence $(h_-)_{A, B}$ is injective, so $h_-$ is faithful.
+
+\medskip
+\noindent\textbf{2. Fullness (Surjectivity on Hom-sets):}
+Let $\alpha \in \Nat(h_A, h_B)$ be an arbitrary natural transformation. Define $f \eqdef \Phi_{A, h_B}(\alpha) = \alpha_A(\id_A) \in \Hom_C(A, B)$.
+Since $\Psi_{A, h_B}$ is the two-sided inverse of $\Phi_{A, h_B}$, we have
+\[
+h_f = \Psi_{A, h_B}(f) = \Psi_{A, h_B}(\Phi_{A, h_B}(\alpha)) = \alpha.
+\]
+Thus every natural transformation $\alpha : h_A \Rightarrow h_B$ is of the form $h_f$ for a unique $f \in \Hom_C(A, B)$, showing that $h_-$ is full.
+
+\medskip
+\noindent\textbf{3. Injectivity on Objects up to Isomorphism:}
+If $A \cong B$ in $C$, functoriality of $h_-$ immediately implies $h_A \cong h_B$ in $[C^\op, \Set]$.
+Conversely, suppose $\alpha : h_A \xrightarrow{\sim} h_B$ is an isomorphism in $[C^\op, \Set]$ with inverse $\beta : h_B \xrightarrow{\sim} h_A$.
+By fullness and faithfulness, there exist unique morphisms $f \in \Hom_C(A, B)$ and $g \in \Hom_C(B, A)$ such that $h_f = \alpha$ and $h_g = \beta$.
+Then
+\[
+h_{g \circ f} = h_g \circ h_f = \beta \circ \alpha = \id_{h_A} = h_{\id_A}.
+\]
+By faithfulness of $h_-$, $g \circ f = \id_A$. Similarly,
+\[
+h_{f \circ g} = h_f \circ h_g = \alpha \circ \beta = \id_{h_B} = h_{\id_B},
+\]
+which implies $f \circ g = \id_B$. Therefore, $f : A \xrightarrow{\sim} B$ is an isomorphism in $C$.
 \end{proof}
 
 \end{document}

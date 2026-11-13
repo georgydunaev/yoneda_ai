@@ -1,11 +1,65 @@
-\section{Small Limits in \Set}
+\section{Small Limits in Set and Presheaf Categories}
 
-We construct small limits in $\Set$ explicitly as subsets of dependent products $\Pi(j \in \Ob_J).\ D(j)$ from Section 1.4.
+Let $J$ be a small index category and let $D : J \to \Set$ be a diagram functor.
 
-\begin{definition}
-A small limit in $\Set$ is a subset of a dependent product $\Pi(j \in \Ob_J).\ D(j)$ that satisfies the universal property of a limit.
+\begin{definition}[Cones over a Diagram]
+A \emph{cone} $(S, (\psi_j)_{j \in \Ob(J)})$ over $D$ consists of a set $S \in \Set$ and a family of morphisms $\psi_j : S \to D(j)$ in $\Set$ such that for every morphism $u \in \Hom_J(j, k)$, the triangle commutes:
+\[
+D(u) \circ \psi_j = \psi_k.
+\]
+A morphism between two cones $(S, (\psi_j))$ and $(S', (\psi'_j))$ is a map $m : S \to S'$ such that $\psi'_j \circ m = \psi_j$ for all $j \in \Ob(J)$.
 \end{definition}
 
+\begin{definition}[Explicit Limit Construction in Set]
+The \emph{small limit} of $D : J \to \Set$, denoted $\lim_J D$, is constructed as the compatible subset of the dependent product $\Pi_{j \in \Ob(J)} D(j)$:
+\[
+\lim_J D \eqdef \left\{ x \in \prod_{j \in \Ob(J)} D(j) \;\middle|\; \forall j, k \in \Ob(J),\; \forall u \in \Hom_J(j, k),\; D(u)(x(j)) = x(k) \right\},
+\]
+equipped with the projection maps $\pi_j : \lim_J D \to D(j)$ defined by $\pi_j(x) \eqdef x(j)$.
+\end{definition}
+
+\begin{theorem}[Universal Property of Limits in Set]
+The pair $(\lim_J D, (\pi_j)_{j \in \Ob(J)})$ is a terminal cone over $D$:
+\begin{enumerate}
+    \item $(\lim_J D, (\pi_j)_{j \in \Ob(J)})$ is a cone: for any $u \in \Hom_J(j, k)$ and $x \in \lim_J D$,
+    \[
+    (D(u) \circ \pi_j)(x) = D(u)(x(j)) = x(k) = \pi_k(x).
+    \]
+    \item Universal factorisation: For any cone $(S, (\psi_j)_{j \in \Ob(J)})$ over $D$, there exists a unique function $\mu : S \to \lim_J D$ such that $\pi_j \circ \mu = \psi_j$ for all $j \in \Ob(J)$.
+\end{enumerate}
+\end{theorem}
 \begin{proof}
-We prove that limits in $[C^\op, \Set]$ are computed pointwise, and that the Yoneda embedding $h_- : C \to [C^\op, \Set]$ both preserves and reflects all limits.
+Existence: For each $s \in S$, define $\mu(s) \in \prod_{j \in \Ob(J)} D(j)$ by $\mu(s)(j) \eqdef \psi_j(s)$. For any $u \in \Hom_J(j, k)$, we have $D(u)(\mu(s)(j)) = D(u)(\psi_j(s)) = \psi_k(s) = \mu(s)(k)$ by the cone condition on $(S, \psi)$. Hence $\mu(s) \in \lim_J D$, and $(\pi_j \circ \mu)(s) = \mu(s)(j) = \psi_j(s)$ for all $j$.
+
+Uniqueness: If $\mu' : S \to \lim_J D$ satisfies $\pi_j \circ \mu' = \psi_j$ for all $j$, then for each $s \in S$ and each $j \in \Ob(J)$, $\mu'(s)(j) = \pi_j(\mu'(s)) = \psi_j(s) = \mu(s)(j)$. By functional extensionality on dependent products, $\mu'(s) = \mu(s)$ for all $s \in S$, so $\mu' = \mu$.
+\end{proof}
+
+\begin{theorem}[Pointwise Limits in Presheaf Categories]
+Let $C$ be a locally small category and let $\mathcal{D} : J \to [C^\op, \Set]$ be a diagram of presheaves. Then the limit $\lim_J \mathcal{D}$ exists in $[C^\op, \Set]$ and is computed pointwise on objects:
+\[
+(\lim_J \mathcal{D})(X) \cong \lim_{j \in J} (\mathcal{D}(j)(X)), \quad \text{for each } X \in \Ob(C).
+\]
+\end{theorem}
+\begin{proof}
+For each $X \in \Ob(C)$, evaluate the diagram at $X$ to obtain $D_X : J \to \Set$ with $D_X(j) = \mathcal{D}(j)(X)$. Form the limit $L(X) \eqdef \lim_J D_X$ in $\Set$ with universal projections $\pi_j^X : L(X) \to \mathcal{D}(j)(X)$. For any morphism $f \in \Hom_C(Y, X)$ and any $x \in L(X)$, the assignment $j \mapsto \mathcal{D}(j)(f)(x(j))$ defines a cone over $D_Y$. By the universal property of $L(Y)$, this induces a unique map $L(f) : L(X) \to L(Y)$. Verifying functoriality shows $L \in [C^\op, \Set]$, and the cones $(\pi_j : L \Rightarrow \mathcal{D}(j))_{j \in J}$ form the universal limit cone in $[C^\op, \Set]$.
+\end{proof}
+
+\begin{theorem}[Yoneda Embedding Preserves and Reflects Limits]
+Let $C$ be a locally small category and $D : J \to C$ a diagram admitting a limit $L = \lim_J D$ in $C$. Then:
+\begin{enumerate}
+    \item The Yoneda embedding $h_- : C \to [C^\op, \Set]$ preserves limits:
+    \[
+    h_{\lim_J D} \cong \lim_J (h_- \circ D) \quad \text{in } [C^\op, \Set].
+    \]
+    \item The Yoneda embedding reflects limits: if $L \in \Ob(C)$ and $h_L \cong \lim_J (h_- \circ D)$, then $L$ is a limit of $D$ in $C$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+Part 1 (Preservation): By pointwise calculation, for any $X \in \Ob(C)$,
+\[
+(\lim_J (h_- \circ D))(X) \cong \lim_{j \in J} \Hom_C(X, D(j)).
+\]
+By the universal property of the limit $L$ in $C$, a morphism $X \to L$ is uniquely equivalent to a compatible family of morphisms $(X \to D(j))_{j \in J}$, which is precisely the limit of $\Hom_C(X, D(-))$ in $\Set$. Thus $h_L(X) = \Hom_C(X, L) \cong \lim_J (h_{D(j)}(X))$ naturally in $X$.
+
+Part 2 (Reflection): Since $h_- : C \to [C^\op, \Set]$ is fully faithful by the Yoneda Lemma, the induced functor on cones is an isomorphism of categories of cones, so any limiting cone in $[C^\op, \Set]$ reflects to a limiting cone in $C$.
 \end{proof}
